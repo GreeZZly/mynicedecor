@@ -1,0 +1,82 @@
+.large {
+float: left;
+background: url(example/indicato.gif) no-repeat 50% 40%;
+position: relative;
+width: 590px;
+	height: 280px;
+}
+.large img {
+	width: 590px;
+	height: 280px;
+	position:absolute;
+	top:0;
+	left:0;
+}
+#thumbnail {
+background: #fff;
+display: inline-block;
+position: relative;
+float: left;
+
+}
+#thumbnail div:not(.arrows) {
+width: 250px;
+height: 60px;
+padding: 5px;
+cursor: pointer;
+position: relative;
+}
+.tmb_text{
+	color:#1f1f1f;
+	font-size: 16px;
+	display: table-cell;
+	width: 250px;
+	height: 60px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#yellow {
+	background-color: #FFDD1F;
+}
+#green {
+	background-color: #FEB100;
+}
+#tomato {
+	background-color: #FF781F;
+}
+#red {
+	background-color: #FF531F;
+}
+.yellow_ar {
+	border-color: transparent #FFDD1F transparent transparent;
+}
+.green_ar {
+	border-color: transparent #FEB100 transparent transparent;
+}
+.tomato_ar {
+	border-color: transparent #FF781F transparent transparent;
+}
+.red_ar {
+	border-color: transparent #FF531F transparent transparent;
+}
+
+.hidden {
+	visibility: hidden;
+	display: none;
+}
+
+.arrows {
+
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 20px 20px 20px 20px;
+    /*border-color: transparent red transparent transparent;*/
+    float: left;
+    position: absolute;
+    top:5px;
+    left:-40px;
+
+ 
+}

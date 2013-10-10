@@ -48,4 +48,10 @@ class Nice extends CI_Model {
         $query = $this->db->get_where('products',array('id'=>$id));
         return $query->result_array();
       }
+
+    public function interest_products()
+    {
+        $query = $this->db->get('products',3);
+        return $query->result_array();
+    }
 }

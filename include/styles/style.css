@@ -351,6 +351,7 @@ html, body {
 	margin: 5px auto;
 	text-align: center;
 	color: white;
+	cursor: pointer;
 }
 
 #content_title {
@@ -402,4 +403,111 @@ html, body {
 #cart {
 	width:98%;
 	
+}
+
+#view_product {
+	width: 580px;
+}
+
+#prod_info_wrapper {
+	margin: 20px;
+}
+#prod_name {
+	font-size: 20px;
+	font-weight: bold;
+	color: #663333;
+	margin-bottom: 10px;
+}
+#prod_img {
+	display: inline-block;
+}
+#prod_img img{
+	width: 250px;
+}
+
+#prod_info {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#prod_underline {
+	height: 20px;
+	background-color: #FF6600;
+}
+
+#prod_review {
+	background-color: #FF8409;
+	display: inline-block;
+	margin-left: 250px;
+	color: white;
+	line-height: 20px;
+	padding:0 10px;
+}
+
+#producer_review {
+	border:3px solid #FFC8A3;
+	margin:10px 0;
+	padding: 8px;
+}
+#prod_info table {
+	margin: 20px 0;
+}
+#prod_info table td{
+	padding-right: 10px;
+}
+
+.font16 {
+	font-size: 16px;
+}
+
+#prod_price {
+	font-size: 20px;
+	color: #FF8409;
+}
+
+.font16color {
+	font-size: 16px;
+	color: #FF8409;
+}
+
+#admin_header {
+	height: 100px;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 100px;
+	border-bottom: 1px solid #ccc;
+	background-color: #F7F7F7;
+}
+
+#admin_bar {
+	width: 200px;
+	background-color: #F7F7F7;
+	padding: 5px 0;
+}
+.admin_bar_menu_title {
+	background-color: black;
+	color: white;
+	margin: 5px 10px;
+	font-size: 14px;
+	text-align: center;
+	font-weight: bold;
+	height: 30px;
+	line-height: 30px;
+}
+.admin_bar_menu_items_wrap {
+	border:1px solid #ccc;
+	margin: 5px 10px;
+	border-bottom: none;
+	
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.admin_bar_menu_items_wrap div{
+	border-bottom: 1px solid #ccc;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 5px;
+	cursor: pointer;
 }

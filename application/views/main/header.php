@@ -31,7 +31,7 @@
 			    <button type="submit" id="search_btn">Найти</button> 
 			</form>
 		</div>
-		<div id="basket"><a href="/index.php/main/view_cart">Вы купили(88)</a></div>
+		<div id="basket"><a href="/index.php/main/view_cart">Вы купили (<span id="cart_total_items"><?=$count?></span>)</a></div>
 	</div>
 
 </div>

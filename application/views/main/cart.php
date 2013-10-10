@@ -10,7 +10,7 @@
   <th style="text-align:right">Общая сумма</th>
 </tr>
 
-<?php $i = 1; ?>
+<?php $i = 1; $count = 0;?>
 
 <?php foreach($this->cart->contents() as $items): ?>
 
@@ -18,7 +18,7 @@
 	<?php echo form_hidden('update_id', $i);?>
 
 	<tr>
-	  <td><?php echo form_input(array('name' => 'qty_'.$i, 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td>
+	  <td><?php echo form_input(array('name' => 'qty_'.$i, 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); $count = $count + $items['qty'];?></td>
 	  <td>
 		<?php echo $items['name']; ?>
 
@@ -52,7 +52,7 @@
 </table>
 
 <p><?php echo form_submit('update_cart', 'Обновить карзину'); ?></p>
-<p><a href="/index.php/main/destroy_cart">Очистить карзину</p>
+<p><a href="/index.php/main/destroy_cart">Очистить карзину</a></p>
 
 </div>
 </div>

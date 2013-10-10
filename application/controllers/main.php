@@ -2,6 +2,7 @@
 
 class Main extends CI_Controller
 {
+	private $count;
 	function __construct()
 	{
 		parent:: __construct();
@@ -9,20 +10,21 @@ class Main extends CI_Controller
 		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->library('cart');
+		$this->count = $this->cart->total_items();
 	}
-
 	private function common($url, $data=array()) {
 		$data['rev_records'] = $this->nice->reviews();
 		$data['prod_records'] = $this->nice->products();
-		$this->load->view('main/htmlheader');
+		if (!isset($data['count'])) $data['count'] = $this->count;
+		$this->load->view('main/htmlheader', $data);
 		$this->load->view('main/header');
 		$this->load->view('main/menu');
 		$this->load->view('main/banner');
 		$this->load->view('main/leftbar');
 		$this->load->view('main/rightbar');
-		$this->load->view('main/'.$url, $data);
+		$this->load->view('main/'.$url);
 		$this->load->view('main/banner');
-		$this->load->view('main/content', $data);
+		$this->load->view('main/content');
 		$this->load->view('main/banner');
 		$this->load->view('main/minimap');
 		$this->load->view('main/footer');
@@ -128,15 +130,36 @@ class Main extends CI_Controller
 	public function insert_to_cart()
 	{
 		$id = $this->input->post('product_id');
-		$t = $this->nice->getProductById($id);
-                $product =$t[0];
-        $data = array(
-			
-			'id' => $product['id'],
-        	'qty' =>1,
-        	'price' => $product['price'],
-        	'name' => $product['name']
-			
+        $has = $this->cart->contents();
+        $bool = false;
+        foreach ($has as $key => $value) {
+        	if ($value['id'] == $id) {
+        		$bool = true;
+        		$qty = $value['qty'];
+        		$rowid = $value['rowid'];
+        		break;
+        	}
+        }
+        if (!$bool) {
+			$t = $this->nice->getProductById($id);
+	                $product =$t[0];
+	        $data = array(
+				
+				'id' => $product['id'],
+	        	'qty' =>1,
+	        	'price' => $product['price'], 
+	        	'name' => $product['name']
+				
+				);
+			$this->cart->insert($data);
+        }
+        else {
+        	$this->cart->update(array('rowid'=>$rowid, 'qty' => (int)$qty+1));
+        }
+
+		$this->output->set_content_type('apllication/json')
+					 ->set_output($this->cart->total_items());
+	}
 			// 'id' => $product['id'],
 			// 'qty' => 1,
 			// 'price' => $product['price'],
@@ -150,16 +173,11 @@ class Main extends CI_Controller
         	// 'qty' =>1,
         	// 'price' => 35.25,
         	// 'name' => 'nameo'
-			);
 		// array_push($data, $ins);
-		$this->cart->insert($data);
 		// echo "<pre>";
 		// print_r($data);
 		// echo "</pre>";
-		redirect('/main/view_cart', 'refresh');
-
-
-	}
+		//redirect('/main/view_cart', 'refresh');
 	public function destroy_cart()
 	{
 		$this->cart->destroy();
@@ -171,5 +189,14 @@ class Main extends CI_Controller
 		echo "<pre>";
 		print_r($this->nice->getProductById(1));
 		echo "</pre>";
+	}
+
+	public function viewProduct()
+	{	
+		$data['int_prod'] = $this->nice->interest_products();
+		$this->load->view('main/htmlheader');
+		$this->load->view('main/view_product', $data);
+		$this->load->view('main/htmlfooter');
+		
 	}
 }

@@ -1,4 +1,4 @@
-<div id="news">
+
 	<div id="leftbar">
 		<span>Наши книги:</span>
 		<div class="books"><img src="/include/images/books/book1.png">

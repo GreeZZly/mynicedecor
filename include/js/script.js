@@ -13,4 +13,6 @@ $(function(){
 			}
 		});
 	});
+	var prod_height = $('#view_product').height() - 10;
+	$('#another_interesting_prods').css('height',prod_height);
 });

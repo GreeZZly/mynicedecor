@@ -19,9 +19,14 @@ html, body {
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }*/
 
+a {
+	text-decoration: none;
+	color:black;
+}
 #wrapper {
 	/*height: 100%;*/
 	background-color: white;
+	overflow: hidden;
 }
 #header_menu {
 	float:right;
@@ -181,11 +186,11 @@ html, body {
 .ctg_item:hover {
 	background-color: #EB5E00;
 }
-#menu{
+/*#menu{
 	margin:0 auto;
 	height: 280px;
 
-}
+}*/
 
 .banner {
 	background-image: url('/include/images/banner_bg.png');
@@ -257,7 +262,7 @@ html, body {
 	width: 590px;
 	margin-left: 195px; 
 	display: table;
-	min-height: 935px;
+	/*min-height: 935px;*/
 }
 .reviewer {
 	width: 176px;
@@ -406,7 +411,8 @@ html, body {
 }
 
 #view_product {
-	width: 580px;
+	width: 620px;
+	float: left;
 }
 
 #prod_info_wrapper {
@@ -431,17 +437,22 @@ html, body {
 }
 
 #prod_underline {
-	height: 20px;
+	height: 26px;
 	background-color: #FF6600;
 }
 
 #prod_review {
 	background-color: #FF8409;
 	display: inline-block;
-	margin-left: 250px;
+	/*margin-left: 250px;*/
 	color: white;
 	line-height: 20px;
 	padding:0 10px;
+	margin-top: 3px;
+	float: right;
+	margin-right: 10px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 #producer_review {
@@ -510,4 +521,24 @@ html, body {
 	line-height: 30px;
 	padding-left: 5px;
 	cursor: pointer;
+}
+
+#another_interesting_prods {
+	float: right;
+	overflow: auto;
+	width: 210px;
+	/*margin-bottom: 0px;*/
+	border-left:1px solid #FFC8A3;
+}
+
+#another_interesting_prods .product_wrapper {
+	/*float: left;*/
+	margin: 10px auto;
+	width: 147px;
+
+}
+
+#cart_total_items{
+	font-weight: bold;
+	/*color: white;*/
 }

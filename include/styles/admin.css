@@ -1,0 +1,106 @@
+html, body {
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 13px;
+	min-width: 1024px;
+	max-width: 1024px;
+	margin: 0 auto;
+	background-color: #ccc;
+
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+#admin_header {
+	height: 100px;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 100px;
+	border-bottom: 1px solid #ccc;
+	background-color: #F7F7F7;
+	border-radius: 5px;
+	margin: 7px;
+	box-shadow: inset 0px 0px 6px rgba(0,0,0,0.4) ;
+	position: relative;
+}
+
+#admin_bar {
+	width: 200px;
+	background-color: #F7F7F7;
+	padding: 5px 0;
+	border-radius: 5px;
+	margin: 7px;
+	display: inline-block;
+	vertical-align: top;
+	box-shadow: inset 0px 0px 6px rgba(0,0,0,0.4) ;
+
+}
+.admin_bar_menu_title {
+	background-color: black;
+	color: white;
+	margin: 5px 10px;
+	font-size: 14px;
+	text-align: center;
+	font-weight: bold;
+	height: 30px;
+	line-height: 30px;
+}
+.admin_bar_menu_items_wrap {
+	border:1px solid #ccc;
+	margin: 5px 10px;
+	border-bottom: none;
+	
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.admin_bar_menu_items_wrap div{
+	border-bottom: 1px solid #ccc;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+.admin_bar_menu_items_wrap div:hover {
+	background-color: #C2C2C2;
+}
+
+.admin_bar_menu_items_wrap div:active {
+	background-color: #C2C2C2;
+	box-shadow: inset 0px 0px 12px rgba(0,0,0,0.4) ;
+	padding-left: 7px;
+
+}
+
+#admin_content {
+	width: 794px;
+	min-height: 357px;
+	background-color: white;
+	display: inline-block;
+	border-radius: 5px;
+	margin: 7px;
+	box-shadow: inset 0px 0px 6px rgba(0,0,0,0.4) ;
+
+}
+
+#our_logo {
+	position: absolute;
+	font-size: 13px;
+	right: 5px;
+	top: 35px;
+	font-weight: normal;
+	text-shadow:2px 2px 2px #000;
+
+}
+
+#our_logo  a {
+	text-decoration: none;
+	color: black;
+}
+#add_prod_title {
+	margin: 10px;
+	font-size: 20px;
+	font-weight: bold;
+}

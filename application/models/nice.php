@@ -36,7 +36,7 @@ class Nice extends CI_Model {
 
     public function get_smth($query)
         {
-            $this->db->select('name, price, description, img, type');
+            $this->db->select('id, name, price, description, img, type');
             $this->db->like('name',$query);
             $this->db->or_like('description',$query);
             $this->db->or_like('type',$query);
@@ -53,5 +53,11 @@ class Nice extends CI_Model {
     {
         $query = $this->db->get('products',3);
         return $query->result_array();
+    }
+
+    public function product_categories(){
+        $this->db->select('categories');
+        $query = $this->db->get('products');
+        return $query->row_array();
     }
 }

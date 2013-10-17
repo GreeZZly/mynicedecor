@@ -19,10 +19,12 @@ class Main extends CI_Controller
 		$this->load->view('main/htmlheader', $data);
 		$this->load->view('main/header');
 		$this->load->view('main/menu');
+		$this->load->view('main/'.$url);
 		$this->load->view('main/banner');
+		$this->load->view('main/news_begin');
 		$this->load->view('main/leftbar');
 		$this->load->view('main/rightbar');
-		$this->load->view('main/'.$url);
+		$this->load->view('main/news_content');
 		$this->load->view('main/banner');
 		$this->load->view('main/content');
 		$this->load->view('main/banner');
@@ -32,67 +34,10 @@ class Main extends CI_Controller
 	}
 	public function index()
 	{
-		$this->common('news_content');
+		$this->common('gallery');
 
 	}
-	public function reg() 
-	{
-		$this->load->view('main/reg');
-	}
-	public function save_user()
-	{
-		if ($_POST['password'] != $_POST['repassword']) 
-		{
-        	exit('Пароль не совпадает!');
-    	}
-	    if (isset($_POST['login'])) 
-	    { 
-	        $data['login'] = $_POST['login']; 
-	        if ($data['login'] == '') 
-	            { 
-	                unset($data['login']);
-	            } 
-	    } 
-	    if (isset($_POST['password'])) 
-	        { 
-	            $data['password']=$_POST['password']; 
-	            if ($data['password'] =='') 
-	                { 
-	                    unset($data['password']);
-	                } 
-	        }
- 		if (empty($data['login']) or empty($data['password']))
-	    {
-	    exit ("Вы ввели не всю информацию, вернитесь назад и заполните все поля!");
-	    }
-
-		
-	    $data['login'] = stripslashes($data['login']);
-	    $data['login'] = htmlspecialchars($data['login']);
-	 	$data['password'] = stripslashes($data['password']);
-	    $data['password'] = htmlspecialchars($data['password']);
-	    $data['login'] = trim($data['login']);
-	    $data['password'] = trim($data['password']);
-	    $data['password'] = sha1($data['password']);
-		
-
-		$query = $this->nice->check_user($data);
-
-
-		if (!empty($query[0]['id'])) {
-			exit ("Извините, введённый вами логин уже зарегистрирован. Введите другой логин.");
-		}
-
-		$ins_user = $this->nice->save_user($data);
-
-		  if ($ins_user=='TRUE')
-			    {
-			    echo "Вы успешно зарегистрированы! Теперь вы можете зайти на сайт. <a href='/'>Главная страница</a>";
-			    }
-	      else {
-			    echo "Ошибка! Вы не зарегистрированы.";
-			    }
-	}
+	
 
 	public function search() {
 		$query =  $this->input->post('query');
@@ -160,24 +105,7 @@ class Main extends CI_Controller
 		$this->output->set_content_type('apllication/json')
 					 ->set_output($this->cart->total_items());
 	}
-			// 'id' => $product['id'],
-			// 'qty' => 1,
-			// 'price' => $product['price'],
-			// 'name' => $product['name']
-			// 'options' => array(
-			// 		'categories' => $product['categories'],
-			// 		'type' => $product['type'],
-			// 		'country' => $product['country'],
-			// 		'colour' => $product['colour'])
-        	// 'id' => '123',
-        	// 'qty' =>1,
-        	// 'price' => 35.25,
-        	// 'name' => 'nameo'
-		// array_push($data, $ins);
-		// echo "<pre>";
-		// print_r($data);
-		// echo "</pre>";
-		//redirect('/main/view_cart', 'refresh');
+
 	public function destroy_cart()
 	{
 		$this->cart->destroy();
@@ -194,9 +122,15 @@ class Main extends CI_Controller
 	public function viewProduct()
 	{	
 		$data['int_prod'] = $this->nice->interest_products();
-		$this->load->view('main/htmlheader');
-		$this->load->view('main/view_product', $data);
-		$this->load->view('main/htmlfooter');
+		if (!isset($data['count'])) $data['count'] = $this->count;
+		$this->common('view_product', $data);
+		// $this->load->view('main/htmlheader', $data);
+		// $this->load->view('main/header');
+		// $this->load->view('main/menu');
+		// $this->load->view('main/leftbar');
+		// $this->load->view('main/view_product');
+		
+		// $this->load->view('main/htmlfooter');
 		
 	}
 }

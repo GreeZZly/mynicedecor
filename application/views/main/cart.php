@@ -55,4 +55,5 @@
 <p><a href="/index.php/main/destroy_cart">Очистить карзину</a></p>
 
 </div>
-</div>
+<!-- </div> -->
+

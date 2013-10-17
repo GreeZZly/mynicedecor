@@ -51,7 +51,6 @@ var getTextFrom = function(struct, key, def, round, sign) {
     return option;
 }
 var getUserList = function(overfunction, overurl, send, async){
-    var registered = $('#currJSON').data().reg;
     var defalutfunction = function(data, wtc){
             data = data || $('#currJSON').data().reg
             var resp = sales_parser({
@@ -63,13 +62,10 @@ var getUserList = function(overfunction, overurl, send, async){
                     html += '<li id="performer_' + k + '">' + resp[k] + '</li>';
             }
             $('#clients_categories li#all_clients').after(html);
-            if (wtc=='success') $('#currJSON').data('reg', data);
         }
     async = (typeof(async)!='undefined') ? async : true;
-    if (!overurl && registered){
-        (overfunction || defalutfunction)()
-    } else $.ajax({
-        url: '/index.php/' + (overurl || 'crm/getRegistered'),
+    $.ajax({
+        url: '/index.php/' + (overurl || 'admin/getRegistered'),
         type: 'POST',
         dataType: 'json',
         data: send,
@@ -849,7 +845,7 @@ var block_with_order = function(arr, inactive){
 }
 var block_with_tree = function(arr, add, prefix){
     var tree = Array();
-    var url = 'crm/getTreeNodes'
+    var url = 'admin/getTreeNodes'
     if (prefix=='segments') {
         url = 'crm/getSectorNodes'
     }
@@ -1088,7 +1084,14 @@ var st_lmenu = function(){
     for (var key in data) generatedButtons += '<div class="settings_menu_item" id="st_'+key+'">'+data[key]+'</div>'
     return '<div id="settings_menu">'+generatedButtons+'</div><div class="settings_common_rb"></div>'
 }
+var st_main = function(arr){
+    $('#admin_content').html('<div class="v_h_a"></div><div class="clients"></div>')
+}
+var st_reviews = function(arr){
+    $('#admin_content').html('<div class="v_h_a"></div><div class="clients"></div>')
+}
 var st_products = function(arr){
+    $('#admin_content').html('<div class="v_h_a"></div><div class="clients"></div>')
     $('.v_h_a').html('<div class="settings_products_block">\
     <div id="buttons_to_categories">\
             <div class="contentTitle">'+lang.categories+'</div>\
@@ -1101,7 +1104,7 @@ var st_products = function(arr){
             <div class="products_delete_button">'+lang.delete+'</div>\
     </div>\
     </div>')
-    return '<div id="settings_products">\
+    $('.clients').html('<div id="settings_products">\
                 <div class="settings_products_block" id="tree_edit_block">\
                     <div class="settings_products_tree">\
                     '+block_with_tree()+'</div>\
@@ -1111,7 +1114,7 @@ var st_products = function(arr){
                         <table><tbody>'+products_dum_row_head + products_dum_row+'</tbody></table>\
                     </div>\
                 </div>\
-            </div>'
+            </div>')
 }
 var st_segments = function(arr){
     $('.v_h_a').html('<div class="settings_products_block">\
@@ -1130,6 +1133,7 @@ var st_segments = function(arr){
             </div>'
 }
 var st_users = function(arr){
+    $('#admin_content').html('<div class="v_h_a"></div><div class="clients"></div>')
     $('.v_h_a').html('<div class="settings_users_block">\
     <div id="buttons_to_users">\
             <div class="users_add_button">'+lang.add+'</div>\
@@ -1139,7 +1143,7 @@ var st_users = function(arr){
     var generatedHead = '';
     for (var key in localization.usertable) generatedHead += '<th class="'+key+'">'+localization.usertable[key]+'</th>'
     getUsersForTable();
-    return '<table id="users"><tr class="usertable_head">'+generatedHead+'</tr></table>'
+    $('.clients').html('<table id="users"><tr class="usertable_head">'+generatedHead+'</tr></table>')
 }
 var waitForAppend = function(element, html, wtl){
     var checkExist = setInterval(function() {
@@ -1170,9 +1174,7 @@ var waitForWrite = function(element, html){
     }, 100);
 }
 var getUsersForTable = function(overfunction, overurl, send){
-    var users = $('#goodcrm_logo .caption').data().users;
     var defalutfunction = function(data, wtc){
-            data = data || $('#goodcrm_logo .caption').data().users
             var len = data.length;
             var html = '';
             for (var i=0; i<len; i++){
@@ -1183,12 +1185,9 @@ var getUsersForTable = function(overfunction, overurl, send){
                 html += '</tr>';
             }
             waitForAppend('table#users', html)
-            if (wtc=='success') $('#goodcrm_logo .caption').data('users', data);
         }
-    if (!overurl && users){
-        (overfunction || defalutfunction)()
-    } else $.ajax({
-        url: '/index.php/' + (overurl || 'crm/getUsersForTable'),
+    $.ajax({
+        url: '/index.php/' + (overurl || 'admin/getUsersForTable'),
         type: 'POST',
         dataType: 'json',
         data: send,
@@ -1708,13 +1707,15 @@ var collectRowData = function(row){
     row.find('td').each(function(){
         data[$(this).attr('class').split(' ')[0]] = $.trim($(this).text());
     })
-    var id = $('.active_product_category').attr('id').split('_')[2];
-    data.category_id = id; 
-    var same_dir = (data.category_id == data.id_cat)|| data.id_cat=='';
-    delete(data.available); delete(data.id_cat)
+    try{
+        var id = $('.active_product_category').attr('id').split('_')[2];
+        data.category_id = id; 
+        var same_dir = (data.category_id == data.id_cat)|| data.id_cat=='';
+        delete(data.available); delete(data.id_cat)
+    } catch(e){}
     if (data.product && data.cost && data.storage && id && same_dir){
         $.ajax({
-            url: '/index.php/crm/addOrUpdProduct',
+            url: '/index.php/admin/addOrUpdProduct',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -1753,7 +1754,7 @@ var saveNode = function(cur, upload){
     if (upload){
         var send = cur.data().upl_info;
         $.ajax({
-            url: '/index.php/'+(($('#reload').data().sub=='segments') ? 'crm/addOrUpdSegment' : 'crm/addOrUpdCategory'),
+            url: '/index.php/admin/addOrUpdCategory',
             type: 'POST',
             dataType: 'json',
             data: {node: send},
@@ -1989,8 +1990,7 @@ var fill_edit_table = function(id, table, process, target, inv) {
                 arr.process = process.type_sale;
             } catch(e){
                 arr.process = 0;
-            }
-                
+            }                
         }
         if (temp[key]) {
             arr.list = cloneArray(temp[key]);
@@ -2152,21 +2152,21 @@ var display_report_table = function(data) {
 }
 var display_settings = function(chapter) {
     /*if ($(window).width()<1025) */slideCategories(210, 15, -1, true);
-    $('div.clients').html('').append(st_lmenu());
-    $('div.n_d_t').html(n_d_t(lang.settings, false))
-    show_in_head('record');
-    $('div.v_h_a').html('')//.hide();
-    if(chapter=='users') $('div.v_h_a').html(n_d_t(''))//.hide();
-    $('.settings_common_rb').html(window['st_' + chapter])
-    $(window).trigger('resize');
-    if ($('[id^="buttons_to_"]').length) reAlignButtons(chapter);
+    //$('div.clients').html('').append(st_lmenu());
+    //$('div.n_d_t').html(n_d_t(lang.settings, false))
+    //show_in_head('record');
+    //$('div.v_h_a').html('')//.hide();
+    //if(chapter=='users') $('div.v_h_a').html(n_d_t(''))//.hide();
+    window['st_' + chapter]()
+    //$(window).trigger('resize');
+    //if ($('[id^="buttons_to_"]').length) reAlignButtons(chapter);
     $('#date').html(date_string());
-    replace_status_num();
-    clock(); //вызываем функцию времени
-    window.setInterval(clock, 1000);
+    //replace_status_num();
+    //clock(); //вызываем функцию времени
+    //window.setInterval(clock, 1000);
     $('.tree').treeview();
     $('span#category_tree_1').addClass('active_product_category')
-    $('.settings_menu_item#st_' + chapter).addClass('settings_menu_item_selected');
+    //$('.settings_menu_item#st_' + chapter).addClass('settings_menu_item_selected');
 }
 var reAlignButtons = function(trigger){
     if(trigger=='products'){

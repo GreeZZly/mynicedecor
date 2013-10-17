@@ -9,88 +9,15 @@ $(function() {
     var lang = localization.common_frases;
     $('div.v_h_a').show();
     $('#modules').data('hidden', 'true')
-    //поиск по названию компании
-        $(document).on('input','#find_in_clients',function(e){
-            var whos = 'all';
-            var as = ['clients', 'all'];
-            try{
-                var as = location.href.split('#')[1].split('/')
-            }
-            catch(e){}
-            if (as[0]=='clients') whos = as[1]
-            load_table(whos, $(this).val());
-        });
-    //переход по к настройкам аккаунта
-        $('#userpic_name').on(click, function(e){
-            changeHashLoc('settings/account')
-        })
+
+    $(document).on(click, '[id^="st_"]:not(#admin_bar)', function(e){
+        changeHashLoc($(this).attr('id').split('_')[1])
+    })
     //переход на следующее поле по нажатию кнопки таб
         $(document).on(keyEvents, '.editIdSel *', function(e){
             if (e.keyCode==9){
                 $(this).parent('.editIdSel').next('.editIdSel').find('input:not(.hidden) select textarea').focus()
             }
-        })
-    //вкл/выкл поля указания причины неудачи продажи по переключению радиобокса
-        $(document).on(click,'.editIdSel#failure input' ,function(e){
-            if ($(this).val()=='1') $('#failure_cause select').prop('disabled', false);
-            else if ($(this).val()=='0') {
-                $('#failure_cause select').prop('disabled', true).find('option[value="0"]').prop('selected', true);
-            }
-        })
-    //включение автозаполнеия в поле компания для аеню планов
-        $(document).on('focusin', '.editIdSel#company input', function(e){
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: '/index.php/crm/clientsList',
-                success: function(data) {
-                    $('.editIdSel#company input').autocomplete({
-                        source: data,
-                        //minLength : 2,
-                        select: companySelected,
-                        change : companySelected
-                    });
-                }
-            })
-        })
-        var companySelected = function(event, ui){
-            if (ui.item==null){
-                $(this).val('');
-                $(".editIdSel#id_customer input").val();
-                $(".editcompanyId, #company_id").html('');
-                $(this).focus();
-                $('.save_button').hide()
-            }
-            else{
-                var id_c = $(".editIdSel#id_customer input");
-                $(this).val(ui.item.label);
-                $('.save_button').show()
-                $(".editcompanyId, #company_id").html(ui.item.value);
-                id_c.attr('old_company', id_c.val())
-                id_c.val(ui.item.value);
-                if (id_c.attr('old_company')!=id_c.val()){
-                    id_c.attr('old_company', id_c.val())
-                    $(".editIdSel#id_contact").replaceWith(architector({id:'id_contact', caption: lang.contact}));
-                    $(".editIdSel#sale_name").replaceWith(architector({id:'sale_name', caption: lang.sale_name}));
-                }
-            }
-            event.preventDefault();
-        }
-    //подгрузка продаж и контактов компании
-        $(document).on('change', '.editIdSel#id_customer input', function(e){
-            console.log('fuck')
-        })
-
-        $(document).on('change', '.editIdSel#sale_name select', function(e){
-            console.log($(this).val());
-            getUserList(replacePhase,'crm/getLastPhase', {id_sale:$(this).val()})
-        })
-    //отображение окна заполнения плана в сетке
-        $(document).on(click, '.allcurrent', function(e){
-            var target = undefined;
-            if ($(this).find('[class^="inhere_"]').length) target = $(e.target).closest("td")
-            else target = $(this);
-            showPlanPopup(target,e)
         })
     //сохранение добавленных и редактированных записей
         $(document).on(click, '.save_button', function(e) {
@@ -206,265 +133,6 @@ $(function() {
                 }, 1);
             }
         })
-    //события добавления и редактирования заказов
-        $(document).on(click, '#order_tables', function(e) {
-            sP(e)
-        })
-        $(document).on(click, '[id^="category_tree_"]', function(e) {
-            e.preventDefault();
-            var id = $(this).attr('id').split('_')[2];
-            var name = $(this).html();
-            $('[id^="category_tree_"]').removeClass('active_product_category');
-            $(this).addClass('active_product_category');
-            $.ajax({
-                url: '/index.php/crm/getFolderProducts',
-                type: 'post',
-                data: {
-                    'folder_id': id
-                },
-                success: function(data) {
-                    if (0 in data){
-                        for (var i in data) {
-                            data[i]['available'] = diff(data[i]['storage'], data[i]['stored'])
-                            data[i]['id_cat'] = data[i]['category_id']
-                        }
-                        if ($('#products_available').size() > 0) {
-                            $('#products_available #table2').html('')
-                            $('#products_available #table2').html(av_order(data, 'av_order', 'av_order_head'))
-                            $('#products_available .ordertable_header').html(name)
-                        } else if ($('.settings_products_webinar').size() > 0) {
-                            $('.settings_products_webinar table').html('').html(av_order(data, 'av_order', 'av_order_head', true)+products_dum_row)
-                        }
-                    } else {
-                        if ($('#products_available').size() > 0) {
-                            $('#products_available #table2').html(products_dum_row_head+products_dum_row)
-                            $('#products_available .ordertable_header').html(name)
-                        } else if ($('.settings_products_webinar').size() > 0) {
-                            $('.settings_products_webinar table').html('').html(products_dum_row_head+products_dum_row)
-                        }
-                    }
-                },
-                dataType: 'json'
-            });
-            return false;
-        })
-        $(document).on(click, '.product_add_button', function(e) {
-            delete add;
-            var add = Array();
-            var curr = Array();
-            var total = 0;
-            $('#current_order .order_table tr:not(.cu_order_head)').each(function() {
-                var id = $(this).find('td.id').html()
-                if ($.inArray(id, curr) == -1) {
-                    add.push({
-                        'id': id,
-                        'id_cat': $(this).find('td.id_cat').html(),
-                        'product': $(this).find('td.product').html(),
-                        'cost': $(this).find('td.cost').html(),
-                        'quantity': $(this).find('td.quantity').html(),
-                        'discount': $(this).find('td.discount').html(),
-                        'total_sum': $(this).find('td.total_sum').html()
-                    })
-                    total += parseInt($(this).find('td.total_sum').html())
-                    curr.push($(this).find('td.id').html());
-                }
-            })
-            $('.product_selected').each(function() {
-                var id = $(this).find('td.id').html()
-                if ($.inArray(id, curr) == -1) {
-                    add.push({
-                        'id': id,
-                        'id_cat': $(this).find('td.id_cat').html(),
-                        'product': $(this).find('td.product').html(),
-                        'cost': $(this).find('td.cost').html(),
-                        'quantity': 1,
-                        'discount': 0,
-                        'total_sum': $(this).find('td.cost').html()
-                    })
-                    total += parseInt($(this).find('td.cost').html())
-                }
-            })
-            console.log(total)
-            $('#current_order .order_table').html('').html(av_order(add, 'cu_order', 'cu_order_head'))
-            $('#editUnit #price_o input').val(total);
-            $('#editUnit #description_o .editJSON').html(JSON.stringify(add));
-            $('#current_total_price .total').html(total)
-        })
-        $(document).on('input', '.order_table tr:not(.cu_order_head) td[contenteditable]', function(e) {
-            if (!$(this).html()) $(this).html(0)
-            var id = $(this).attr('class');
-            var papa = $(this).parents('tr')
-            console.log(papa)
-            var p = papa.find('td.cost')
-            console.log(p)
-            var q = papa.find('td.quantity')
-            var d = papa.find('td.discount')
-            var s = papa.find('td.total_sum')
-            var total = 0;
-            if (id == 'total_sum') {
-                d.html((parseInt(p.html()) * parseInt(q.html()) - parseInt(s.html())) / parseInt(q.html()))
-                //d.html(parseInt(p.html())*parseInt(q.html()) - parseInt(s.html()))
-
-            } else s.html((parseInt(p.html()) - parseInt(d.html())) * parseInt(q.html()))
-            $('#current_order .order_table tr:not(.cu_order_head)').each(function() {
-                total += parseInt($(this).find('td.total_sum').html())
-            })
-            $('#current_total_price .total').html(total)
-        })
-        $(document).on(click, '.order_table tr:not(.cu_order_head) td', function() {
-            var acceptable = ['discount', 'quantity', 'total_sum'];
-            var id = $(this).attr('id')
-            if ($.inArray(id, acceptable) > -1) {
-                $(this).attr('contenteditable', true);
-            }
-        })
-        $(document).on(click, '#products_available .order_table tr', function(e) {
-            $('#products_available .order_table tr').removeClass('product_selected')
-            $(this).addClass('product_selected')
-        })
-        $(document).on(click, '.order_add_button:not(.disabled)', function(e) {
-            $('.save_button').trigger('click');
-            fill_edit_table(0, 'order', '')
-            $('#table_name').html('order');
-            $('#editUnit').append('<div id="proc_action" class="hidden">edit</div>')
-            $('#editUnit').scrollTop(0).fadeIn();
-            $('#order_tables').append(lorder + rorder).removeClass('hidden').fadeIn()
-            sP(e)
-            var number = $('#last_order_number').html() || 0;
-            $('#current_order .ordertable_header').html('Заказ №' + (number + 1))
-            $('.tree').treeview();
-        })
-    //события создания и отправки быстрых сообщений и их загрузки
-        $(document).on('keydown keyup keypressed', '#fast_message_field', function(e) {
-            if (e.ctrlKey) {
-                if (e.ctrlKey && e.keyCode == 13) $('.fast_message_button.' + $(this).attr('class')).trigger('click')
-            }
-        })
-        window.setTimeout(function() {
-            lpstart();
-        }, 2000) //
-        $(document).on(click, '.fast_message_button', function() {
-            var aids = [];
-            var i = 0;
-            var text = '';
-            if ($(this).parents('#popup_fast_message').size() != 0) {
-                $('#popup_fast_message .ava-small.border').each(function() {
-                    aids[i] = $(this).find('.reseiver_id').html();
-                    i++;
-                });
-                text = $('#popup_fast_message').find('textarea').val();
-            } else if ($(this).parents('#fast_received').size() != 0) {
-                $('#fast_received .ava-small.border').each(function() {
-                    aids[i] = $(this).find('.id_author').html();
-                    i++;
-                });
-                if (aids.length < 1) aids = [$('.id_author:first').html()];
-                text = $('#fast_received').find('textarea').val();
-            }
-            $('.ava-small.border').removeClass('border');
-            if (aids && text) {
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    url: '/index.php/crm/insrt_msg',
-                    data: {
-                        'id': aids.join('/'),
-                        'msg': text
-                    },
-                    success: function(data) {
-                        $('#popup_fast_message').addClass('hidden');
-                        //$('#fast_received').addClass('hidden');
-                        $('#id_author').html('')
-                        $('#popup_fast_message, #fast_received').find('textarea').val('')
-                    },
-                    error: function(data) {
-                        //$('#popup_fast_message').find('textarea').val(text + ' Sending error');
-                        alert('sending еггор')
-                    }
-                })
-            }
-        })
-        $(document).on(click, '[class^="icon-x"]', function(e) {
-            if ($(this).parents('#fast_received').size() != 0) $('#fast_received').addClass('hidden')
-            if ($(this).parents('#popup_fast_message').size() != 0) $('#popup_fast_message').addClass('hidden')
-            if ($(this).parents('#lookup_popup').size() != 0) $('#lookup_popup').addClass('hidden')
-            sP(e)
-        })
-        $(document).on(click, '#chat', function(e) {
-            var left = $(this).offset().left;
-            if ($('#popup_fast_message').size() == 0) {
-                $.ajax({
-                    url: '/index.php/crm/getUsersFor',
-                    dataType: 'json',
-                    type: 'POST',
-                    success: function(data) {
-                        html = fast_message_popup(data)
-                        $('body').append(html);
-                        var pw = $('#popup_fast_message').width();
-                        $('#popup_fast_message').css({
-                            'left': left - pw + 4
-                        })
-                        $('#popup_fast_message').find('textarea').val('')
-                        $('#popup_fast_message').removeClass('hidden')
-                    }
-                })
-            } else if ($('#popup_fast_message').hasClass('hidden')) {
-                $('#popup_fast_message').removeClass('hidden');
-                $('#popup_fast_message').find('textarea').val('')
-            } else {
-                $('#popup_fast_message').addClass('hidden');
-            }
-        })
-        $(document).on(click, '.ava-small', function() {
-            ($(this).hasClass('border')) ? $(this).removeClass('border') : $(this).addClass('border');
-        });
-    //добавление полей прогнозов и платежей
-        $(document).on(click, '.fields_add_button:not(.disabled)', function(e) {
-            if ($(this).attr("id") == 'add_pr') var id = 'prognosis';
-            else var id = 'payment';
-            var mom = $(this).parent('.editIdSelInactive');
-            try {
-                var num = parseInt(mom.prev('[id^="' + id + '_"]').attr('id').split('_')[2]) + 1
-            } catch (e) {
-                var num = 0;
-            }
-            html = block_with_two_fields({
-                id: id,
-                num: num
-            })
-            mom.before(html)
-            expandDateBlocks();
-            sP(e)
-        })
-    //добавление этапов
-        $(document).on(click, '#editUnit .phase_add_button:not(.disabled)', function(e){
-            var num = 0;
-            var papa = $(this).parents('#editUnit').find('.editIdSel#type_sale select').val()
-            try {
-                num = parseInt($(this).parents('#editUnit').find('.editIdSel[id^="phase_"]:last').attr('id').split('_')[1])+1;
-            } catch(e){}
-            var field = accsesory_phase_block([{phase: num, date: date_string(true)}], papa)
-            $(this).parent('.editIdSelInactive').before(field)
-        })
-        $(document).on(click, '#popupEditUnit .phase_add_button:not(.disabled)', function(e){
-            var el = $('.editIdSel[id^="phase_"]')
-            if (el.length){
-                var next = parseInt(el.attr('id').split('_')[1])+1;
-                var phases = phase_by_type[$(this).attr('process')];
-                if(next in phases && el){
-                    el.attr('id', el.attr('id').split('_')[0]+'_'+next)
-                    el.find('textarea').text(phases[next])
-                    el.find('.editId').text(date_string(true))
-                }
-            } else if($('.editIdSel#sale_name select').val()!=0){
-                var field = accsesory_phase_block([{phase: 0, date: date_string(true)}], 0)
-                $('.editIdSel#sale_name').after(field)
-            } else{
-                console.log('wrong')
-            }
-        })
-    //загрузка списка зарегистрированных пользователей
-        if (!$('#currJSON').data().reg) getUserList()
     //кнопки редактирования, удаления и добавления (только для клиентов, для таблиц дальше)
         $(document).on(click, '.wrapper_user#record_add', function(e) {
             var miserable = $('#reload').data().current;
@@ -609,57 +277,6 @@ $(function() {
                 })
             }
             sP(e);
-        })
-    //переправка события кнопки редактирования в сером меню на кнопку соотв. таблицы
-        $(document).on(click, '.edit_button', function(e) {
-            var row = $('.cont .active');
-            if (row.size() != 0) {
-                action_button = action_button || row.parents('table').prev().attr('id').split('_')[0];
-                $("#" + action_button + "_record_edit").click();
-            } else if ($('#reload').data().current == 'company'){
-                $(".wrapper_user#record_edit").click();
-            } else if ($('#reload').data().current == 'plan'){
-                fill_edit_table($('#popupEditUnit').data().id, 'plan_popup', undefined, '#popupEditUnit')
-                $('#popupEditUnit').append("<div class='hidden' id='proc_action'>edit</div>").prepend('<div class="icon-handle-next-left"></div>')
-            } else if ($('#buttons_to_users').length){
-                $('.users_edit_button').click()
-            }
-            sP(e);
-        })
-    //изменение серого меню в случае изменения типа лица (физ., юр.)
-        $(document).on('change', '.editIdSel#type select', function(e) {
-            //console.log($(this))
-            loc = localization[$(this).find('option:selected').val()]
-            html = editUnitHead(lang.customer);
-            type = block_with_select({
-                'caption': lang.entity,
-                'id': 'type',
-                'text': $(this).find('option:selected').val()
-            })
-            for (var key in loc) {
-                val = (key == 'date_registration') ? date_string(true) : '';
-                arr = {
-                    'caption': loc[key],
-                    'text': val,
-                    'id': key
-                }
-                if (key == 'type') {
-                    html += type;
-                } else if (key == 'date_registration') {
-                    html += architector(arr, 'disabled')
-                } else {
-                    html += architector(arr);
-                }
-            }
-            if (html) {
-                html += '<div id="table_name" class="hidden">customer</div>';
-                html += '<div id="proc_action" class="hidden">add</div>';
-                html += editUnitHead('Клиент');
-                $('#editUnit').scrollTop(0).html(html);
-            }
-            $('#table_name').html('customer');
-            //console.error('That"s me firing')
-            sP(e)
         })
     //предотвращение скрытия при нажатии в пределах кастомного селекта (jqueryUI)
         $(document).on(click, '.ui-autocomplete *', function(e) {
@@ -809,108 +426,7 @@ $(function() {
             if (id == 'clients') id = 'all'
             changeHashLoc('clients/'+id);
         })
-    //отобрадение информации о компании в сером меню при нажатии на общей инф о компании
-        $(document).on(click, ".cont table tr:not(.header)", function(event) {
-            trig = $(this).hasClass('active');
-            $('.cont .active').removeClass('active');
-            tab = $(this).parents('table').attr('class').split('_')[1];
-            if (!trig) {
-                $(this).addClass('active');
-                $('[id$="_record_edit"],[id$="_record_delete"]').hide();
-                $("#" + tab + "_record_edit,#" + tab + "_record_delete").show();
-                var loc = localization[tab]
-                name = localization.tables[tab]
-                var html = viewUnitHead(name);
-                row_global = [];
-                action_button = tab;
-                $(this).parents('table').find('.header th').each(function() {
-                    row_global[$(this).attr('class')] = $(this).html();
-                })
-                var row_id = $(this).find('td.id').html();
-
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        'value': row_id,
-                        'field': 'id',
-                        'table': (tab == 'plan') ? 'plans' : tab
-                    },
-                    url: '/index.php/crm/record',
-                    success: function(data) {
-                        var temp = {};
-                        if (tab == 'sale') {
-                            temp = data['sales'] || {};
-                        } else temp = data[0]
-                        for (var key in loc) {
-                            var text = '';
-                            var arr = {
-                                id      : key,
-                                caption : loc[key],
-                                text    : getTextFrom(temp, key, lang.nodata)
-                            }
-                            if (key == 'add_pr') arr.list = data.prognosis;
-                            if (key == 'add_pa') arr.list = data.payment;
-                            if (key == 'phase') {arr.list = data.phase; arr.process = temp.type_sale}
-                            html += architector(arr, 'disabled');
-                        }
-                        html += '<div class="hidden" id="currentEdit" myid = "' + temp.id + '">' + tab + '</div>'
-                        if (html) {
-                            html += viewUnitHead(name);
-                            $('#editUnit').html(html).scrollTop(0).fadeIn();
-                        }
-                    }
-                })
-            } else {
-                $("#" + tab + "_record_edit,#" + tab + "_record_delete").hide();
-                $('#editUnit, #order_tables').fadeOut();
-            }
-            sP(event);
-        })
-    //отображение полной информации о записи в таблице(продажи, планы, контакты)
-        $(document).on(click, ".cont#info", function(event) {
-            $('.cont .active').removeClass('active');
-            var tp = company_info_global['type'] || 'legal'
-            loc = localization[tp];
-            var name = 'Клиент'
-            html = viewUnitHead(name);
-            var row_id = $('#company_id').html();
-            html += '<div class="hidden" id="currentEdit" myid = "' + company_info_global.id + '">customer</div>'
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    'value': row_id,
-                    'field': 'id',
-                    'table': 'customer'
-                },
-                url: '/index.php/crm/record',
-                success: function(data) {
-                    var temp = data[0]
-                    for (var key in loc) {
-                        arr = {};
-                        arr.id = key;
-                        arr.caption = loc[key];
-                        arr.text = getTextFrom(temp, key);                        
-                        html += architector(arr, 'disabled');
-                    }
-                    html += '<div class="hidden" id="currentEdit" myid = "' + temp.id + '">' + 'customer' + '</div>'
-                    if (html) {
-                        html += viewUnitHead(name);
-                        $('#editUnit').html(html);
-                        $('#editUnit').scrollTop(0).fadeIn();
-                    }
-                }
-            })
-            sP(event);
-        })
-    //выделение элементов левого меню по клику и переход
-        $(document).on(click, "[id$='_categories'] ul li", function() {
-            $('.active').removeClass('active');
-            $(this).addClass('active');
-        }).on(click, '#logout', function(e) { //клик по кнопке выход
-            changeHashLoc('auth/logout', false)
-        })
+    
     //важная функция для запрета скрытия всплывающих меню, окон редактирования и прочего
         $(document).on(click, function(event) {
             if (!$("#editUnit").is(':hidden')) {
@@ -936,24 +452,6 @@ $(function() {
         $(document).on(click, '#ui-datepicker-div *, #ui-timepicker-div *, .ui-corner-all', function(e) {
             sP(e);
         })
-    //изменение настроек для вып.окна с выбором даты
-        $.datepicker.setDefaults($.extend($.datepicker.regional[lang.translation]));
-        $(document).on('focus', '[id^="datepicker_"]', function() {
-            $(this).datepicker({
-                // changeMonth: true,
-                changeYear: true,
-                dateFormat: 'dd-mm-yy',
-                minDate: '-5y',
-                maxDate: '+5y',
-                hideIfNoPrevNext:true,
-            });
-        })
-        $(document).on('focus', '[id^="timepicker_"]', function() {
-            $(this).timepicker({
-                showPeriodLabels: false,
-                showCloseButton: false
-            });
-        })
     //переход по вариантам страницы планы (недельное планирование, суточное)
         $('#plan_categories ul li').on(click, function() {
             changeHashLoc('plans/' + $(this).attr('id'));
@@ -973,128 +471,11 @@ $(function() {
                 element = $('#' + id).parent('.wrapper_stars').next('input').val(num + '')
             }
         })
-    //отображение планов за период день/неделя
-        $('#calendar_show').on(click, function() {        
-            if (!$('#calendar_datepicker_hidden_input').length) $(this).append('<input type="text" class="hidden" id="calendar_datepicker_hidden_input">')
-            $('#calendar_datepicker_hidden_input').datepicker({
-                    // changeMonth: true,
-                    // changeYear: true,
-                    dateFormat: 'dd-mm-yy',
-                    minDate: '-5y',
-                    maxDate: '+5y',
-                    showOn: 'both',
-                    hideIfNoPrevNext: true,
-                    showButtonPanel: true,
-                    showOptions: { direction: "up" },
-                    showWeek: true,
-                    //defaultDate: $('#reload').data().calendar_date || +0,
-                    onSelect: function(dateText, inst) {
-                        var period = $('#reload').data('sub');
-                        var lastPeace = '';
-                        switch (period){
-                            case 'day' : 
-                                if (dateText!=date_string(true)) lastPeace = '/'+dateText;
-                                break;
-                            case 'week' :
-                                var week = $.datepicker.iso8601Week(new Date(makeKosherDate(dateText)));
-                                if (week != $.datepicker.iso8601Week(new Date())) lastPeace = '/'+week+'/'+dateText.split('-')[2];
-                                break;
-                            default:                             
-                                break;
-                        }
-                        changeHashLoc('plans/'+period+lastPeace);
-                    }
-                });       
-            if ($('#ui-datepicker-div').is(':hidden')) $(this).find('button').click()
-        })
-    //переход на главную страницу системы
-        $('#goodcrm_logo').on(click, function(e) {
-            e.preventDefault();
-            changeHashLoc('', false);
-        });
-    //сворачивание/разворачивание пунктов категорий в левом меню
-        $('.menu_cell:not(#crm)').on(click, function(e) {
-            $('#' + $(this).attr('id') + '_categories').slideToggle();
-            var cl = $(this).find("[class^='icon-']").attr('class');
-            var new_class = (cl == 'icon-handle-down') ? 'icon-handle-up' : 'icon-handle-down';
-            $(this).find('.' + cl).attr('class', new_class);
-        })
-    //сворачивание/разворачивание полоски модулей системы
-        $('#arrow').on(click, function(e) {
-            var topslide = $('#modules');
-            if (topslide.data('hidden')) {
-                topslide.slideDown('fast');
-                topslide.data('hidden', false);
-                $(this).find('div').attr('class', 'icon-tab-arrow-up');
-            } else {
-                topslide.slideUp('fast');
-                topslide.data('hidden', true);
-                $(this).find('div').attr('class', 'icon-tab-arrow-down');
-            }
-        });
-    //поиск компаниий по названию/типу для открытия быстрой продажи !unfinished
-        $('#big_plus').on(click, function(e) {
-            if ($('#lookup_popup').size() == 0) {
-                $('body').append(lookup_pop);
-            }
-            basic_search('empty_string', 'legal', 'show_all');
-            $('#lookup_popup').css({
-                'left': $(this).offset().left
-            }).toggleClass('hidden');
-        })
-        $(document).on('click tap keyup', '#start_search, #keyword', function() {
-            var trig = $('.trig.active_state')
-            var keyword = $.trim($('#keyword').val());
-            var mode = (trig.size() == 2) ? 'both' : (trig.size() == 0) ? 'none' : (trig.attr('id').split('s_')[1]);
-            basic_search(keyword, mode);
-        })
     //обновление страницы, просто перезагрука
         $('#reload').on(click, function(e) {
             //location.href = location.href.split('#')[0] + '#clients/all';
             location.reload();
         });
-    //выделение дня в календаре
-        $('.calendar_day').on(click, function() { 
-            $('.calendar_day').removeClass('active');
-            $(this).addClass('active');
-        });
-    //отображение меню пользователя по клику на настройки
-        $('#settings').on(click, function(e) {
-            e.preventDefault();
-            var x = $(this).offset().left - 100;
-            var y = $(this).offset().top + $(this).height();
-            var spec = "div.settings_popup";
-            if ($(spec).size() == 0)
-                $('body').append(user_popup);
-            $(spec).css({
-                'position': 'absolute',
-                'top': y,
-                'left': x,
-                'width': '100px'
-            }).slideToggle();
-        })
-    //раскрыть/свернуть все пункты категорий    
-        $('#crm').on(click, function() { //отработка нажатия
-            var ic = $(this).find("[class $= '-end']").attr('class');
-            (ic == 'icon-handle-down-end') ? expand() : collapse(); //эти функции в конце
-        });
-    //выдвигающееся меню категорий  
-        $("div#categories .opener").on(click, function() {
-            var trig = $('#checker').html()
-            if (trig == 'true') { //если меню свернуто, то
-                slideCategories(15, 210, 1, false);
-            } else if (trig == 'false') { //если меню развернуто, то
-                slideCategories(210, 15, -1, true);
-            }
-        });
-    //кнопка отображения настроек
-        $(document).on(click, '#user_cab', function(e) {
-            changeHashLoc('settings/users');
-        })
-    //переход по настройкам
-        $(document).on(click, '.settings_menu_item:not(.settings_menu_item_selected)', function(e) {
-            changeHashLoc('settings/' + $(this).attr('id').split('_')[1])
-        })
     //кастомная метка строки в таблице
         $(document).on(click, "[class^='icon-box-']:not(#all)", function(e) {
             e.preventDefault();
@@ -1143,50 +524,6 @@ $(function() {
                 $('.wrapper_user#record_edit, .wrapper_user#record_delete').hide();
             }
         });
-    //егоровская функция отметки строк в открытых/закрытых продажах
-        $(document).on(click, '.table_row', function() {
-            var td = $(this).next().find('.movable, [class^="nohistory_"]');
-            if (td.hasClass('hidden')) {
-                td.removeClass('hidden');
-            } else {
-                td.addClass('hidden');
-            }
-            $('.table_row td').removeClass('active');
-            $(this).find('td').addClass('active');
-        });
-    //выделение кнопок в таблице
-        $(document).on(click, '.choice', function() {
-            $('.choice').removeClass('active_choice');
-            $(this).slideToggle().addClass('active_choice');
-        });
-        $(document).on(click, '.movable tr', function() {
-            $('.movable tr').removeClass('active_hidden');
-            $(this).addClass('active_hidden');
-        });
-            $(document).on(click, '.trig', function(e) {
-            $(this).toggleClass('active_state')
-        })
-    //переход по серым кнопкам сверху (отображение всей таблицы продаж, планов, и т.п.)
-        $(document).on(click, '.CButs', function() {
-            $('.active_st').removeClass('active_st');
-            $(this).addClass('active_st')
-            display_all_rows(localization.view_tab[$(this).attr('id').split('_')[1]]);
-        })
-    //отображение информации о компании
-        $(document).on(click, '.company .caption:not(.head)', function(e) {
-            var id = $(this).parents('.sizable').find('td.id .caption').html();
-            var realname = $(this).parents('.sizable').find('td.realname .caption').html();
-            changeHashLoc('company/' + $.trim(realname) + '/' + id)
-        });
-    //перестроение сетки планов в зависимости от промежутка отображаемого времени
-        $(document).on(click, '[id^="time_"]:not(.inactive_time)', function() {
-            num = parseInt($(this).attr('id').split('_')[1])
-            period = $('#curr_period').html();
-            $('.inactive_time').removeClass('inactive_time');
-            $(this).addClass('inactive_time');
-            $('#curr_timesegment').html(period);
-            show_plans_hash(period, num)
-        })
     //переключение кастомной метки Да/Нет
         $(document).on(click, '.integration_toggle', function(){
             var no = $(this).find('.integration_toggle_no');
@@ -1202,12 +539,46 @@ $(function() {
                 no.addClass('integration_toggle_active');
             }        
         });
-    /*$(document).on(click, '.settings_products_webinar table tr',function(){
-        $('.settings_products_webinar table tr').removeClass('settings_webinar_selected');
-        $(this).addClass('settings_webinar_selected');
-
-    });*/
     //добавление/удаление/редактирование категорий
+
+        $(document).on(click, '[id^="category_tree_"]', function(e) {
+            e.preventDefault();
+            var id = $(this).attr('id').split('_')[2];
+            var name = $(this).html();
+            $('[id^="category_tree_"]').removeClass('active_product_category');
+            $(this).addClass('active_product_category');
+            $.ajax({
+                url: '/index.php/admin/getFolderProducts',
+                type: 'post',
+                data: {
+                    'folder_id': id
+                },
+                success: function(data) {
+                    if (0 in data){
+                        for (var i in data) {
+                            data[i]['available'] = diff(data[i]['storage'], data[i]['stored'])
+                            data[i]['id_cat'] = data[i]['category_id']
+                        }
+                        if ($('#products_available').size() > 0) {
+                            $('#products_available #table2').html('')
+                            $('#products_available #table2').html(av_order(data, 'av_order', 'av_order_head'))
+                            $('#products_available .ordertable_header').html(name)
+                        } else if ($('.settings_products_webinar').size() > 0) {
+                            $('.settings_products_webinar table').html('').html(av_order(data, 'av_order', 'av_order_head', true)+products_dum_row)
+                        }
+                    } else {
+                        if ($('#products_available').size() > 0) {
+                            $('#products_available #table2').html(products_dum_row_head+products_dum_row)
+                            $('#products_available .ordertable_header').html(name)
+                        } else if ($('.settings_products_webinar').size() > 0) {
+                            $('.settings_products_webinar table').html('').html(products_dum_row_head+products_dum_row)
+                        }
+                    }
+                },
+                dataType: 'json'
+            });
+            return false;
+        })
         $(document).on(click, '.categories_add_button',function(e){
             var ab = $('.active_product_category');
             if (ab.length){
@@ -1525,7 +896,7 @@ $(function() {
         })
     //переходы по ссылкам ajax и навигация по истории
         var app = $.sammy(function() {
-            var current_user = false;
+            /*var current_user = false;
             function checkLoggedIn(callback) {
                 if (!current_user) {
                     $.getJSON('/index.php/crm/isLoggedIn', function(json) {
@@ -1541,111 +912,19 @@ $(function() {
                     callback();
                 }
             };
-            this.around(checkLoggedIn);
-            this.get('/', function(context) {
-                load_table('all')
+            this.around(checkLoggedIn);*/
+            this.get('/admin#:func', function(context) {
+                console.log(this.params.func)
+                display_settings(this.params.func)
                 setCurPart('company')
-            });
-            this.get('/#clients/:whos', function(context) {
-                load_table(this.params.whos);
-                setCurPart('company')
-                $('.f_el').hide();
-            })
-            this.get('/#reports/table', function(context) {
-                display_report_table()
-                setCurPart('report')
-                $('.f_el').hide();
-            })
-            this.get('/#reports/funnel', function(context) {
-                display_report_voron()
-                setCurPart('report')
-                $('.f_el').hide();
-            })
-            this.get('/#sales/:stage', function(context) {
-                display_sales(this.params.stage)
-                setCurPart('sale')
-                $('.f_el').hide();
-            })
-            this.get('/#settings/:chapter', function(context) {
-                display_settings(this.params.chapter)
-                setCurPart('setting', this.params.chapter)
-                $('.f_el').hide();
-            });
-            this.get('/#plans/:period', function(context) {
-                show_plans_hash(this.params.period, 15);
-                setCurPart('plan', this.params.period)
-            });
-            this.get('/#plans/day/:date', function(context) {
-                show_plans_hash('day', 15, $('#reload').data().sub == 'plan' ? false : true, this.params.date);
-                setCurPart('plan', 'day', this.params.date)
-            });
-            this.get('/#plans/week/:week/:year', function(context) {
-                show_plans_hash('week', 15, $('#reload').data().sub == 'plan' ? false : true, this.params.week, this.params.year);
-                setCurPart('plan', 'week', this.params.week, this.params.year)
-            });
-            this.get('/#company/:company/:id', function(context) {
-                show_company_info(this.params.company, this.params.id);
-                setCurPart('company')
-                $('.f_el').hide();
-            });
+            });          
         });
         $(function() {
             app.run();
         });
     //костыля для css, размещение элементов на положенном им месте
         $(window).resize(function() {
-            var h = $(window).height();
-            var w = $(window).width();
-            var t = $('.clients').offset().top;
-            var tw = $('.clients').width();
-            var ew = $('#editUnit').width();
-            var top = $('.topmenu').height();
-            var cat = $('#categories').width() + 7;
-            var tree = $('#tree_edit_block').width();
-            var foo = top + $('#footer').height() + $('.v_h_a').height() + $('.n_d_t').height();
-            var clh = 100 * (1 - foo / h);
-            var curh = 100 * (1 - top / h);
-            var curw = 100 * ((w - cat) / w);
-            var curf = 100 * ((w + 7 - cat) / w);
-            var curo = tw - ew;
-            var pb = $('#categories').height();
-            var trgt = $('#categories .opener div')
-            var ob = trgt.height();
-            var fnl = (pb - ob) / 2;
-            var smw = $('#settings_menu').width();
-            trgt.css({
-                'margin-top': fnl + 'px'
-            })
-            $('#categories').css({
-                'height': curh + '%'
-            });
-            $('.clients').css({
-                'height': clh + '%',
-                'width': curw + '%'
-            });
-            tw = $('.clients').width();
-            $('#editUnit').css({
-                'height': clh + '%'
-                //'top': t + 'px'            
-            });
-            $('#order_tables').css({
-                'width': curo + 'px',
-                'height': clh + '%'
-            })
-            $('#footer,.v_h_a,.n_d_t').css({
-                'width': curw + '%'
-            });
-            $('#footer').css({
-                'width': curf + '%'
-            });
-            $('.settings_common_rb').css({
-                'width': tw - smw -22 + 'px'
-            })
-            $('#settings_product_block_id').css({
-                'width' : tw - smw - tree - 22 + 'px',
-                'height' : clh + '%'
-            })
-            $('[algn^="th_"]:not([algn="th_1"])').each(function(){$(this).css('width', $('.th_'+$(this).attr('algn').split('_')[1]).width())})
+            
         });
         $(window).trigger('resize');
         $('#editUnit, .clients').on('resize', function() {

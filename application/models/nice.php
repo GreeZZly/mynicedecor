@@ -11,8 +11,8 @@ class Nice extends CI_Model {
 
     public function reviews()
     {
-    	$query = $this->db->get('reviews');
-    	return $query->result_array();
+    	//$query = $this->db->get('reviews');
+    	return array();//$query->result_array();
     }
 
     public function products()

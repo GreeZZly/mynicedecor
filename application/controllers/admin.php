@@ -10,7 +10,7 @@ class Admin extends CI_Controller
 	}
 	public function common($url)
 	{
-		$data['ctg_array'] = $this->nice->product_categories();
+		// $data['ctg_array'] = $this->nice->product_categories();
 		$this->load->view('admin/htmlheader');
 		$this->load->view('admin/header');
 		$this->load->view('admin/bar');

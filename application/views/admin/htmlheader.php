@@ -9,6 +9,10 @@ rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/include/js/jquery.min.js"></script>
 <script type="text/javascript" src="/include/js/script.js"></script>
 <script type="text/javascript" src="/include/js/gallery.js"></script>
+<script type = "text/javascript" src ="/include/js/html_fragments.js"></script>
+	<script type = "text/javascript" src ="/include/js/sammy.js"></script>
+	<script type = "text/javascript" src ="/include/js/functions_crm.js"></script>
+	<script type = "text/javascript" src ="/include/js/actions_crm.js"></script>
 <title>My nice decor! | Школа экстрасенсорного дизайна</title>
 </head>
 

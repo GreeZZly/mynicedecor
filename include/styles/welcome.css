@@ -1,0 +1,161 @@
+body, html{
+	font-family: 'Arial';
+	overflow-x: hidden;
+} 
+body{
+	width: 100%;
+	height: 100%;
+	line-height: 100%;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+#overlay{
+	background-color: #000;
+	height: 100%;
+	left: 0;
+	opacity: 0.50;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 50;
+}
+.hidden{
+	display: none;
+	visibility: hidden;
+}
+/*#login_form{
+	position: absolute;
+	top: 50%;
+	left:50%;
+	margin:-170px 0 0 -200px;
+	background-color: #FFF;
+	width: 400px;
+	height: 340px;
+	z-index: 100;
+	border-radius: 8px;
+	clear: right;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+}*/
+#register_form{
+	position: absolute;
+	top: 50%;
+	left:50%;
+	margin:-350px 0 0 -200px;
+	width: 400px;
+	height: 700px;
+	background-color: #FFF;
+	z-index: 100;
+	border-radius: 8px;
+	clear: right;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+}
+#activation_form{
+	position: absolute;
+	top: 50%;
+	left:50%;
+	margin:-150px 0 0 -200px;
+	background-color: #FFF;
+	width: 400px;
+	height: 300px;
+	z-index: 100;
+	border-radius: 8px;
+	clear: right;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+}
+#email_form{
+	position: absolute;
+	top: 50%;
+	left:50%;
+	margin:-160px 0 0 -200px;
+	background-color: #FFF;
+	width: 400px;
+	height: 320px;
+	z-index: 100;
+	border-radius: 8px;
+	clear: right;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+}
+/*[id$='_form']{
+	position: relative;
+	vertical-align: middle;
+	margin: 15px auto;
+	display: block;
+}*/
+.block{
+	width: 100%;
+	position: relative;
+	float: left;
+	display: block;
+	height: 60px;
+	}
+	.block input[type='text'],input[type='password']{
+		width: 352px;
+		height: 25px;
+		border: 2px inset #EEE;		
+		margin-left: 22px;
+		padding: 
+	}
+	.block div.caption{
+		margin-left: 22px;
+	}
+	.block span.warning{
+		font-size: 10px;
+		color: red;
+		margin-right: 22px;
+		float: right;
+	}
+.block.foot{
+	position: relative;
+	height: 25px;
+			}
+			input[type='checkbox']{
+				float:left;
+				margin-left: 22px;
+			}
+			input[type='submit']{
+				position: relative;
+				float: right;
+				display: inline-block;
+				margin-right: 22px;
+			}
+.block.logoplace{
+	/*height: 140px;	*/
+}
+.logo{
+	/*margin-left: 7px;*/
+	/*display: inline-block;*/
+	/*width: 400px;*/
+	/*height: 140px;*/
+	/*vertical-align: text-top;*/
+	/*background-image: url("/include/images/logo_text.png");*/
+	/*background-repeat: no-repeat;*/
+}
+
+.logo img {
+	display: block;
+	margin: 10px auto;
+}
+.caption.small{
+	font-size: 12px;
+	margin: 0 22px;
+}
+.login-links{
+	position: relative;
+	display: block;
+	float: left;
+	margin: 1em auto 0;
+	text-align: left;
+	font-size: 0.85em;
+}
+.login-links li{
+	list-style-image: none;
+	list-style-type: none;
+	margin-bottom: 0.5em;
+}
+.errors{
+	color: red;
+	margin-left: 22px;
+	font-size: 12px;
+}

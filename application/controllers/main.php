@@ -133,4 +133,10 @@ class Main extends CI_Controller
 		// $this->load->view('main/htmlfooter');
 		
 	}
+
+	public function register() 
+	{	$this->load->view('main/htmlheader');
+		 $this->load->view('auth/register');
+		$this->load->view('main/htmlfooter');
+	}
 }

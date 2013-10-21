@@ -3,7 +3,7 @@
 <div id='register_form' class='hidd4en'>
 	<form method='post' action=''>
 		<div class='block logoplace'>
-			<div class='logo'></div>
+			<div class='logo'><img src="/include/images/logo_text.png"></div>
 		</div>
 		<div class="errors">
 			<noscript><div class="err">Яваскрипт должен быть включён, чтобы зарегистрироваться.</div></noscript>

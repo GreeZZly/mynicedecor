@@ -50,9 +50,9 @@ class Auth extends CI_Controller {
 			//check to see if we are creating the user
 			//redirect them back to the admin page
                         $additional_data['email']=$email;
-                        $additional_data['captured']='1';
+                        $additional_data['type']='individual';
                         $this->load->model('cocaine');
-                        $this->cocaine->edit_record_from('', 'customer', $additional_data);
+                        $this->cocaine->edit_record_from('', 'customer', $additional_data,1);
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
 			redirect("auth", 'refresh');
 		}

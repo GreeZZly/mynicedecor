@@ -31,9 +31,9 @@ $config['collections']['login_attempts'] = 'login_attempts';
 | -------------------------------------------------------------------------
 | Database table names.
 */
-$config['tables']['users']           = 'user';
-$config['tables']['groups']          = 'groups';
-$config['tables']['users_groups']    = 'users_groups';
+$config['tables']['users']           = 'user_is';
+$config['tables']['groups']          = 'groups_is';
+$config['tables']['users_groups']    = 'users_groups_is';
 $config['tables']['login_attempts']  = 'login_attempts';
 
 /*

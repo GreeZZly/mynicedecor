@@ -54,7 +54,7 @@ class Auth extends CI_Controller {
                         $this->load->model('cocaine');
                         $this->cocaine->edit_record_from('', 'customer', $additional_data,1);
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			redirect("", 'refresh');
 		}
 		else
 		{

@@ -290,7 +290,7 @@ Left join user u on c.responsibility=u.id WHERE c.label = '1' AND c.id_registred
        // }
        // return $sql;
     }
-    function edit_record_from($id, $table, $array){
+    function edit_record_from($id, $table, $array,$capture=0){
         //$id = (isset($id))?$id:(!empty($array["id"])?$array["id"]:null;
         // print_r($id);
         // print_r($table);
@@ -326,7 +326,8 @@ Left join user u on c.responsibility=u.id WHERE c.label = '1' AND c.id_registred
                 $passport  = $this->into_arraY($key_passport, $array);    
                 $customer['id_work_place']      = $this->returnInsertedId('id_work_place'   ,'work_place'       , $work_place       , $customer);
                 $customer['id_passport']        = $this->returnInsertedId('id_passport'     ,'passport'         , $passport         , $customer);
-            }  
+            }
+            $customer['captured']=$capture;
             if(!empty($id)){
                
                 $this->db2->where('id', $id)->where('id_registred_company',$this->id_registred_company)->set($customer)->update($table);

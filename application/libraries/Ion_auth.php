@@ -345,10 +345,14 @@ class Ion_auth
 				'email'      => $email,
 				'activation' => $activation_code,
 			);
+			echo "1";
+			sleep(6);
 			if(!$this->config->item('use_ci_email', 'ion_auth'))
 			{
 				$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
 				$this->set_message('activation_email_successful');
+				echo "2";
+				sleep(6);
 					return $data;
 			}
 			else
@@ -365,6 +369,8 @@ class Ion_auth
 				{
 					$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
 					$this->set_message('activation_email_successful');
+					echo "3";
+					sleep(6);
 					return $id;
 				}
 			}

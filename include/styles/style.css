@@ -38,25 +38,36 @@ a {
 .header_menu_item {
 	display: inline-block;
 	margin: 0 2px;
+	color: white;
+	float: right;
+	margin-top: 10px;
+	font-size: 16px;
 }
 #logo {
 	clear: right;
 	/*width: 300px;
 	/*float: left;*/
-	display: inline-block;
+/*	display: inline-block;
 	position: absolute;
 	top:0;
 	left: 0;
+*/	background-image: url(/include/images/nice_logo.png);
+	width: 485px;
+	height: 190px;
+	display: inline-block;
 }
-#logo div {
+
+/*#logo div {
 	display: inline-block;
 	vertical-align: top;
-}
+}*/
 
 #header {
 	background-color: #FF6600;
 	position: relative;
 	height: 190px;
+	color:white;
+	font-size: 16px;
 }
 
 
@@ -84,41 +95,90 @@ a {
 	float: right;
 
 }
-
+#header_right {
+	display: inline-block;
+	vertical-align: top;
+}
 
 #header_contacts {
 	display: inline-block;
 	vertical-align: top;
 }
-[class*="_icon"] {
+[class*="icon_"] {
 	display: inline-block;
 	width: 14px;
 	height: 14px;
 	line-height: 14px;
 	vertical-align: text-top;
-	background-image: url("/include/images/icons.png");
+	background-image: url("/include/images/nice_icons.png");
 	background-position: 14px 14px;
 	background-repeat: no-repeat;
 }
 
-.fb_icon {
-	width: 24px;
-	height: 24px;
-	background-position: -2px -2px;		
+#soc_icons {
+	width: 185px;
+
+	margin:0 auto;
+}
+[class*="icon_header"] {
+	float: left;
+	margin: 6px;
+}
+.icon_header_vk {
+	width: 48px;
+	height: 48px;
+	background-position: 0px 0px;
+}
+.icon_header_tweet {
+	width: 48px;
+	height: 48px;
+	background-position: -64px 0px;
+}
+.icon_header_fb {
+	width: 48px;
+	height: 48px;
+	background-position: -128px 0px;
+}
+.icon_header_odn {
+	width: 48px;
+	height: 48px;
+	background-position: 0px -61px;
+}
+.icon_header_lj {
+	width: 48px;
+	height: 48px;
+	background-position: -64px -61px;
+}
+.icon_header_yt {
+	width: 48px;
+	height: 48px;
+	background-position: -128px -61px;
+}
+.icon_skype_header {
+	width: 25px;
+	height: 25px;
+	background-position: 0px -120px;		
 }
 
-.vk_icon {
-	width: 24px;
-	height: 24px;
-	background-position: -35px -2px;			
+
+#header_center {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 22px;
+	
+}
+#phone_header {
+	display: inline-block;
+	vertical-align: middle;
+	margin-top:4px;
+	/*line-height: 30px;*/
+
 }
 
-#header_phone {
-	font-size: 18px;
-	font-weight: bold;
-	color: red;
+#connect_block {
+	width: 153px;
+	margin: 8px auto 0 auto;
 }
-
 #header_email {
 	font-size: 16px;
 }
@@ -132,7 +192,10 @@ a {
 	color:#FF6701;
 }
 
-
+#basket_href {
+	margin-top: 90px;
+	text-align: center;
+}
 #shop_menu_title {
 	display: inline-block;
 	color: white;
@@ -143,25 +206,37 @@ a {
 #search {
 	/*clear: both;*/
 	/*margin:10px 0; */
-	background-color:#FF6701;
-	padding:3px 0;
+	/*background-color:#FF6701;*/
+/*	padding:3px 0;
 	height: 180px;
-	width: 482px;
+	width: 482px;*/
 
 }
 
 #search_str {
 	display: inline-block;
-	margin-top: 136px;
-	/*margin-left: 22px;*/float:right;
-	/*z-index: 100px;*/
+	margin-top: 125px;
+	float:right;
+	margin-right: 3px;
+	
 }
 
 #basket {
-	float: right;
-	line-height: 25px;
+	/*float: right;*/
+	/*line-height: 25px;*/
+	background-image: url(/include/images/nice_icons.png);
+	background-position: 0px -156px;
+	background-repeat:no-repeat;
+	width: 227px;
+	height: 141px;
+	margin-top:4px;
+	display: inline-block; 
 	
 
+}
+
+#header_right_top {
+	margin-top: 1px;
 }
 
 #header_content {
@@ -178,6 +253,10 @@ a {
 #search_btn {
 	border: 1px solid #FFC3A5;
 	background-color: #FFA771;
+}
+
+#header_right_top .header_menu_item {
+	margin: 10px 20px;
 }
 
 #categories {

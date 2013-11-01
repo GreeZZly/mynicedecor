@@ -7,9 +7,7 @@
 	</div> -->
 	<!-- <div id="header_content"> -->
 		<div id="logo">
-			<a href="/"><img src="/include/images/nice_logo.png"></a>
-		</div>
-	<!-- </div> -->
+			<!-- <a href="/"><img src="/include/images/nice_logo.png"></a> -->
 	<div id="search">
 	<div class="header_menu_item">ilove@mynicedecor.com</div>
 		<div id="search_str">
@@ -18,7 +16,34 @@
 			    <button type="submit" id="search_btn">Найти</button> 
 			</form>
 		</div>
-		<!-- <div id="basket"><a href="/index.php/main/view_cart">Вы купили (<span id="cart_total_items"><?=$count?></span>)</a></div> -->
 	</div>
+		</div>
+		<div id="header_center">
+			<div id="connect_block">
+				<div class="icon_skype_header"></div>
+				<div id="phone_header"><b>+7(8352)210-801</b></div>
+			</div>
+			<div id="basket">
+				<div id="basket_href">
+					<a href="/index.php/main/view_cart">Вы купили (<span id="cart_total_items"><?=$count?></span>)</a>
+				</div>
+			</div>
+		</div>
+		<div id="header_right">
+			<div id="header_right_top">
+				<div class="header_menu_item" id="registr">Зарегистрируйтесь :-)</div>
+				<div class="header_menu_item" id="login">Вход</div>
+			</div>
+			<div id="soc_icons">
+				<div class="icon_header_vk"></div>
+				<div class="icon_header_tweet"></div>
+				<div class="icon_header_fb"></div>
+				<div class="icon_header_odn"></div>
+				<div class="icon_header_lj"></div>
+				<div class="icon_header_yt"></div>
+			</div>
+			<div></div>
+		</div>
+	<!-- </div> -->
 
 </div>

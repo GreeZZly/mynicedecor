@@ -5,5 +5,4 @@
 				print('<div class="reviewer"><div class="rev_photo"><img src="'.$value['photo'].'"></div><div class="rev_name">'.$value['name'].'</div><div class="rev_text">'.$value['review'].'</div></div>');
 			}
 		?>
-	</div>
 </div>

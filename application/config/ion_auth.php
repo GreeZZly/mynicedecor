@@ -128,6 +128,8 @@ $config['email_templates'] = 'auth/email/';
  | Default: activate.tpl.php
  */
 $config['email_activate'] = 'activate';
+$config['id_company'] = 2; // enter company id here (id_registred_company)
+
 
 /*
  | -------------------------------------------------------------------------

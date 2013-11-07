@@ -1,5 +1,3 @@
-
-
 <div class = 'loginform'>
 	<form method='post' action='welcome/ajax'>
 		<input type="text" name="name" class='field'>

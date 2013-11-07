@@ -11,4 +11,5 @@
 				<div id="tomato"  href="/include/images/big/image03.jpg"><div class="arrows tomato_ar hidden"></div><span class="tmb_text">Просто очень красивый дизайн</span></div>
 				<div id="red" href="/include/images/big/image04.jpg"><div class="arrows red_ar hidden"></div><span class="tmb_text">Теплые стены согреют дом</span></div>
 			</div>
-		</div>
+</div>
+</div>

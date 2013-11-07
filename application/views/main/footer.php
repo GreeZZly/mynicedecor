@@ -1,14 +1,26 @@
 <div id="footer">
-	<div id="footer_menu">
-		<div class="footer_menu_item"><a href="/">Как заказать?</a></div>
-		<div class="footer_menu_item"><a href="/">Оплата</a></div>
-		<div class="footer_menu_item"><a href="/">Доставка</a></div>
-		<div class="footer_menu_item"><a href="/">Помощь</a></div>
-		<div class="footer_menu_item"><a href="/">Вход</a></div>
-		<div class="footer_menu_item"><a href="/">Регистрация</a></div>
+	<div class="footer_block">
+	<div id="develop" >
+		
+		</div>
 	</div>
-	<div id="footer_icon_wrap">
-		<div class="fb_icon"></div>
-		<div class="vk_icon"></div>
+	<div id="footer_logo" class="footer_block">
+		<div id="copyright" >
+		Copyright © 2013 mynicedecor.com
+		</div>
+	</div>
+	<div class="footer_block">
+		<div id="footer_socials">
+			<div id="footer_contact">тел.: +7(8352)210-801</div>
+
+			<div id="footer_icon_wrap">
+				<div class="icon_footer_vk"></div>
+				<div class="icon_footer_jj"></div>
+				<div class="icon_footer_fb"></div>
+				<div class="icon_footer_odn"></div>
+				<div class="icon_footer_tweet"></div>
+				<div class="icon_footer_yt"></div>
+			</div>
+		</div>
 	</div>
 </div>

@@ -32,7 +32,7 @@
 		<div id="header_right">
 			<div id="header_right_top">
 				<div class="header_menu_item" id="registr">Зарегистрируйтесь :-)</div>
-				<div class="header_menu_item" id="login">Вход</div>
+				<a href="/auth/login"><div class="header_menu_item" id="log_in">Вход</div></a>
 			</div>
 			<div id="soc_icons">
 				<div class="icon_header_vk"></div>
@@ -42,7 +42,7 @@
 				<div class="icon_header_lj"></div>
 				<div class="icon_header_yt"></div>
 			</div>
-			<div></div>
+			<div id="welcome_msg">Добро пожаловать, <span>username!</span></div>
 		</div>
 	<!-- </div> -->
 

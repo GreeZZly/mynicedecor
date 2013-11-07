@@ -1,5 +1,5 @@
 <div id="content">
-	<div id="content_title">Всем нравится:</div>
+	<div class="block_title">Всем нравится:</div>
 	<div id="products_area">
 		<?
 			foreach ($prod_records as $key => $value) {

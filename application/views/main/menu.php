@@ -1,4 +1,4 @@
-	<!-- <div id="menu"> -->
+	<div id="menu">
 		<div id="categories">
 			<div class="ctg_item">Обои</div>
 			<div class="ctg_item">Ткани</div>

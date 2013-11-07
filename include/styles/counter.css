@@ -1,0 +1,42 @@
+.counter{
+    width: 420px;
+    position: relative;
+    /*float: left;*/
+    height: 70px;
+    margin: 20px auto;
+
+    }
+    .counter_element{
+        background-image: url(/include/images/nice_icons.png);
+        position: relative;
+        background-position: -168px -315px;
+        float: left;
+        width: 57px;
+        height: 70px;
+        overflow: hidden;
+        margin: 0 5px;
+        }
+        .counter_element span{
+            position: absolute;
+            font-size: 60px;
+            padding-left: 12px;
+            left: 0;
+            width: 57px;
+            height: 70px;
+            overflow: hidden;
+        }
+        .counter_element .visible{
+            top: 0;
+        }
+        .counter_element .invisible{
+            top: -70px;
+            display: none;
+        }
+
+#counter_field {
+    background-color: #F58634;
+    width: 400px;
+    padding: 2px 20px;
+    margin:40px auto 0; 
+
+}

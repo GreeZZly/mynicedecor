@@ -7,7 +7,7 @@ width: 590px;
 }
 .large img {
 	width: 590px;
-	height: 280px;
+	height: 316px;
 	position:absolute;
 	top:0;
 	left:0;
@@ -21,7 +21,7 @@ float: left;
 }
 #thumbnail div:not(.arrows) {
 width: 250px;
-height: 60px;
+height: 69px;
 padding: 5px;
 cursor: pointer;
 position: relative;
@@ -31,7 +31,7 @@ position: relative;
 	font-size: 16px;
 	display: table-cell;
 	width: 250px;
-	height: 60px;
+	height: 69px;
 	vertical-align: middle;
 	text-align: center;
 }

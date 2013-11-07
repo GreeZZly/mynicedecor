@@ -21,13 +21,13 @@ class Main extends CI_Controller
 		$this->load->view('main/menu');
 		$this->load->view('main/'.$url);
 		$this->load->view('main/banner');
-		$this->load->view('main/news_begin');
+		// $this->load->view('main/news_begin');
+		$this->load->view('main/reviews');
 		$this->load->view('main/leftbar');
-		$this->load->view('main/rightbar');
-		$this->load->view('main/news_content');
-		$this->load->view('main/banner');
+		$this->load->view('main/soc_likes');
+		$this->load->view('main/social_plugins');
 		$this->load->view('main/content');
-		$this->load->view('main/banner');
+		$this->load->view('main/counter');
 		$this->load->view('main/minimap');
 		$this->load->view('main/footer');
 		$this->load->view('main/htmlfooter');

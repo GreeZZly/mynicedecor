@@ -42,7 +42,8 @@ class Auth extends CI_Controller {
 				'phone'  => $this->mb_ucfirst($this->input->post('phone')),
 				'name'  => $this->mb_ucfirst($this->input->post('name')),                            
 				'surname'=> $this->mb_ucfirst($this->input->post('surname')),
-				'second_name'=> $this->mb_ucfirst($this->input->post('second_name'))
+				'second_name'=> $this->mb_ucfirst($this->input->post('second_name')),
+                                'id_registred_company'=>$this->config->item('id_company')
 			);
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($login, $password, $email, $additional_data))

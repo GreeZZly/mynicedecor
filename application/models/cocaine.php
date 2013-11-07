@@ -318,7 +318,7 @@ Left join user u on c.responsibility=u.id WHERE c.label = '1' AND c.id_registred
             $customer['id_contact_info']    = $this->returnInsertedId('id_contact_info' ,'contact_info'     , $contact_info     , $customer);
             $customer['id_address']         = $this->returnInsertedId('id_address'      ,'address'          , $address          , $customer);    
             $customer['id_bank_details']    = $this->returnInsertedId('id_bank_details' ,'banking_details'  , $bank             , $customer);
-            $customer['id_registred_company'] = $this->id_registred_company;
+            $customer['id_registred_company'] = $array['id_registred_company'];
             if($array["type"]=="individual"){
                 $keys_work_place = array('company', 'position', 'role','work_mode', 'reception_day');  
                 $work_place  = $this->into_arraY($keys_work_place, $array);               

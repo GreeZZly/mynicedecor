@@ -31,7 +31,7 @@
 		</div>
 		<div id="header_right">
 			<div id="header_right_top">
-				<div class="header_menu_item" id="registr">Зарегистрируйтесь :-)</div>
+				<a href="/auth/registr"><div class="header_menu_item" id="registr">Зарегистрируйтесь :-)</div></a>
 				<a href="/auth/login"><div class="header_menu_item" id="log_in">Вход</div></a>
 			</div>
 			<div id="soc_icons">

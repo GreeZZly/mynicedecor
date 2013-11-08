@@ -1,0 +1,101 @@
+body, html {
+	background-color: #F9F9F9;
+	font-family: Helvetica;
+	color: #424242;
+}
+#login_form {
+	width: 350px;
+	margin: 200px auto;
+	padding: 0;
+	/*margin: 0;*/
+}
+
+#login_form .field {
+	border:2px solid #FF9F6B;
+	border-radius: 5px;
+	width: 350px;
+	height: 25px;
+
+}
+
+#login_form #logo {
+	width: 248px;
+	margin: 20px auto;
+}
+
+#login_form #logo img {
+	display: inline-block;
+	vertical-align: top;
+}
+#login_form .block {
+	margin: 10px 0;
+}
+
+#login_form .caption {
+	margin: 5px 0;
+}
+
+#login_form #checkbox input {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+#login_form #checkbox {
+	display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    width: 165px;
+
+}
+#login_form #rem {
+	display: inline-block;
+	margin-left: 20px;
+}
+#login_form #submit_wrap {
+	width: 175px;
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+}
+#login_form #submit_wrap #send {
+	color: white;
+	font-weight: bold;
+	width: 175px;
+	height: 40px;
+	border:none;
+	background-color: #5F5F5F;
+	border-radius: 5px;
+	cursor: pointer;
+
+}
+
+#login_form #submit_wrap #send:hover {
+	background-color: #424242;
+}
+
+#login_form .links {
+	display: inline-block;
+	margin: 20px 15px;
+
+}
+
+#login_form .links a{
+	color: #ff6600;
+	text-decoration: none;
+	}
+
+#login_form .err {
+	width: 310px;
+	height: 50px;
+	line-height: 50px;
+	background-color:#FFE8AA;
+	border-radius: 5px;
+	padding:0 20px; 
+}
+
+#login_form #submit_line {
+	background-color: #F1F1F1;
+}

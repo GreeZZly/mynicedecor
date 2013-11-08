@@ -6,7 +6,7 @@
 	<div id="login_form">
 		<form method='post' action='/auth/login/'>
 			<div id="head">
-				<div id="logo"><img src="/include/images/logo_crm.png"></div>
+				<div id="logo"><img src="/include/images/logo_img.png"><img src="/include/images/logo_text.png"></div>
                             
                                     <?php 
                                     if($message)        
@@ -26,22 +26,22 @@
 						<!--<input class="field" type="password" name="password">-->
 					
 				</div>
-				<div id="checkbox">
-					<input type="checkbox" name="remember" value='1' id="savecheck"><label for="savecheck"><div id="rem">запомнить</div></label>
+				<div id="submit_line">
+					<div id="submit_wrap"><input type="submit" id="send" value="Войти"></div>
+					<label for="savecheck">
+					<div id="checkbox">
+						<input type="checkbox" name="remember" value='1' id="savecheck"><div id="rem">Запомнить</div>
+					</div>
+					</label>
 				</div>
 <!-- 				<div id="send"><span id="ololo">Войти</span>
 
 				</div> -->
-				<div id="submit_wrap"><input type="submit" id="send" value="Войти"></div>
 				<div class="links"><a href="/auth/forgot_password">Забыли пароль?</a></div>
 				<div class="links"><a href="/auth/registr">Зарегистрироваться</a></div>
 			</div>
 		</form>
-		<div id="foot">
-			<div id="str1">Хотите <br>увеличить продажи?</div>
-			<div id="str2">Мощнейшая технология для продаж сложных и дорогих проектов, разработанная на основе качественных...</div>
-			<a href="http://goodpractice.ru/buy/pauk-sales.php"><div id="detail_button">Подробнее</div></a>
-		</div>
+		
 	</div>	
 </body>
 </html>

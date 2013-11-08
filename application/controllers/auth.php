@@ -31,7 +31,6 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('login','login', 'required|xss_clean');
 		$this->form_validation->set_rules('password','password', 'required|min_length[' .$this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'password_confirm', 'required');
-               
                 if ($this->form_validation->run() == true)
 		{
 			$login    =  $this->input->post('login');
@@ -39,10 +38,10 @@ class Auth extends CI_Controller {
 			$password = $this->input->post('password');
                         
 			$additional_data = array(
-				'phone'  => $this->mb_ucfirst($this->input->post('phone')),
-				'name'  => $this->mb_ucfirst($this->input->post('name')),                            
-				'surname'=> $this->mb_ucfirst($this->input->post('surname')),
-				'second_name'=> $this->mb_ucfirst($this->input->post('second_name'))
+				'phone'  => $this->input->post('phone'),
+				'name'  => $this->input->post('name'),                           
+				'surname'=> $this->input->post('surname'),
+				'second_name'=> $this->input->post('second_name')
 			);
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($login, $password, $email, $additional_data))

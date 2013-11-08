@@ -760,7 +760,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $additional_data = array(), $groups = array())
+	public function register($username, $password, $email, $company, $additional_data = array(), $groups = array())
 	{
 		$this->trigger_events('pre_register');
 
@@ -794,6 +794,7 @@ class Ion_auth_model extends CI_Model
 		$ip_address = $this->_prepare_ip($this->input->ip_address());
 		$salt       = $this->store_salt ? $this->salt() : FALSE;
 		$password   = $this->hash_password($password, $salt);
+		$id_registred_company = $this->config->item('id_company');
 
 		// Users table.
 		$data = array(
@@ -802,7 +803,8 @@ class Ion_auth_model extends CI_Model
 		    'email'      => $email,
 		    'created_on' => time(),
 		    'last_login' => time(),
-		    'active'     => ($manual_activation === false ? 1 : 0)
+		    'active'     => ($manual_activation === false ? 1 : 0),
+		    'id_registred_company' => $id_registred_company
 		);
 
 		if ($this->store_salt)
@@ -837,6 +839,8 @@ class Ion_auth_model extends CI_Model
 		}
 
 		$this->trigger_events('post_register');
+
+		print_r($additional_data);
 
 		return (isset($id)) ? $id : FALSE;
 	}

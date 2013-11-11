@@ -2,6 +2,7 @@
 
 
 class Nice extends CI_Model {
+    private $id_registred_company = 2;
 	    function __construct()
     {
         // Call the Model constructor
@@ -17,10 +18,28 @@ class Nice extends CI_Model {
 
     public function products()
     {
-        $query = $this->db->get('products');
+        $query = $this->db->query("SELECT p.id, p.product as name, p.cost as price, p.currency, pi.path as img, c.name as type FROM products p join product_images pi on p.id = pi.id_product join category c on p.category_id = c.id and c.id_registred_company='$this->id_registred_company' LIMIT 6");
         return $query->result_array();
     }
-
+    function getPictureByProduct($id_product)
+    {
+        return $this->db->query("select pi.* from product_images pi
+                                 join products p on p.id=pi.id_product
+                                 join category c on p.category_id = c.id
+                                 where id_product='$id_product' and c.id_registred_company='$this->id_registred_company'")->result_array();
+        
+    }
+ function getProduct($id){
+        $prpty = $this->db->query("SELECT p.* FROM products p
+                                    join category c on c.id = p.category_id
+                                   WHERE p.id ='$id' and c.id_registred_company='$this->id_registred_company'")->row_array(); 
+        $prpty['properties'] = $this->db->query("select pp.*, pc.id id_property_child,pc.name property_child, prp.name property_parent,prp.id id_property_parent  from product_properties pp  
+                                                  join property_child pc on pp.id_property = pc.id
+                                                  join property_parent prp on prp.id = pc.id_property_name
+                                                  where pp.id_product = '$id' and pc.id_registred_company='$this->id_registred_company'")->result_array();
+        $prpty['images'] = $this->getPictureByProduct($id);
+       return $prpty;
+    }
     public function check_user($data)
     {   
         $this->db->select('id');

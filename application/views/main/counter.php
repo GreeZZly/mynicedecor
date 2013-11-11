@@ -1,5 +1,5 @@
 <div id="counter_wrap">
-	<div id="counter_title">Что-то счетчик считает:</div>
+	<div id="counter_title">Вместе с нами уже:</div>
 	<div id="counter_field">
 	<div class="counter">
     <div class="counter_element" id="counter_el_0">

@@ -291,6 +291,8 @@ a {
 	border-right:2px solid #FD8E45;
 	border-bottom:2px solid #FD8E45;
 	padding: 6px 8px;
+		width: 138px;
+	height: 18px;
 }
 
 .banner {

@@ -16,9 +16,13 @@ class Nice extends CI_Model {
     	return array();//$query->result_array();
     }
 
-    public function products()
+    public function products($cid='all')
     {
-        $query = $this->db->query("SELECT p.id, p.product as name, p.cost as price, p.currency, pi.path as img, c.name as type FROM products p join product_images pi on p.id = pi.id_product join category c on p.category_id = c.id and c.id_registred_company='$this->id_registred_company' LIMIT 6");
+        $add = '';
+        if ($cid!='all'){
+          $add = "and c.id = '$cid' ";
+        }
+        $query = $this->db->query("SELECT p.id, p.product as name, p.cost as price, p.currency, pi.path as img, c.name as type FROM products p join product_images pi on p.id = pi.id_product join category c on p.category_id = c.id and c.id_registred_company='$this->id_registred_company' ".$add." LIMIT 6");
         return $query->result_array();
     }
     function getPictureByProduct($id_product)
@@ -111,6 +115,10 @@ class Nice extends CI_Model {
      //Функция для получения продуктов из категории по id папки
     function getProductByIdCategory($categoryId){
         return $this->db->query("select * from products where category_id='$categoryId'")->result_array();
+    }
+
+    function getCategory() {
+      return $this->db->query("select id, name from category where id_registred_company='$this->id_registred_company' and cat_level=3")->result_array();
     }
     
 }

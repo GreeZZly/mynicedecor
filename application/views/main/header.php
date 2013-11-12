@@ -8,6 +8,7 @@
 	<!-- <div id="header_content"> -->
 		<div id="logo">
 			<!-- <a href="/"><img src="/include/images/nice_logo.png"></a> -->
+			<div id="logo_home" onclick="return location.href = '/'"></div>
 	<div id="search">
 	<div class="header_menu_item">ilove@mynicedecor.com</div>
 		<div id="search_str">
@@ -16,7 +17,9 @@
 			    <button type="submit" id="search_btn">Найти</button> 
 			</form>
 		</div>
+
 	</div>
+
 		</div>
 		<div id="header_center">
 			<div id="connect_block">

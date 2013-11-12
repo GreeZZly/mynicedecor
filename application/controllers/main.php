@@ -13,6 +13,7 @@ class Main extends CI_Controller
 		$this->count = $this->cart->total_items();
 	}
 	private function common($url, $data=array()) {
+		$data['category'] = $this->nice->getCategory();
 		$data['rev_records'] = $this->nice->reviews();
 		$data['prod_records'] = $this->nice->products();
 		if (!isset($data['count'])) $data['count'] = $this->count;
@@ -139,4 +140,30 @@ class Main extends CI_Controller
 		 $this->load->view('auth/register');
 		$this->load->view('main/htmlfooter');
 	}
+
+	public function allpages($url, $data=array()){
+		$data['category'] = $this->nice->getCategory();
+		$data['rev_records'] = $this->nice->reviews();
+		$data['prod_records'] = $this->nice->products();
+		if (!isset($data['count'])) $data['count'] = $this->count;
+		$this->load->view('main/htmlheader', $data);
+		$this->load->view('main/header');
+		$this->load->view('main/menu');
+		$this->load->view('main/gallery');
+		$this->load->view('main/banner');
+		$this->load->view('main/'.$url);
+
+		$this->load->view('main/minimap');
+		$this->load->view('main/footer');
+		$this->load->view('main/htmlfooter');
+	}
+
+	public function products($cat_id){
+		$data['prodByCategory'] = $this->nice->products($cat_id);
+		$this->allpages('products_view', $data);
+	}
+
+	
+	
 }
+

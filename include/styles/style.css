@@ -775,3 +775,28 @@ a {
 #products_area {
 	height:230px;
 }
+
+#products_view {
+	display: block;
+	margin: 10px;
+	min-height: 200px;
+
+}
+
+#logo_home {
+	width: 460px;
+	height: 80px;
+	position: absolute;
+	top:68px;
+	left:20px;
+	cursor: pointer;
+}
+
+#prodByCategory {
+	overflow:hidden;
+	min-height: 220px;
+}
+
+#prod_select_field {
+	margin: 20px 30px;
+}

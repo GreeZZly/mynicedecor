@@ -800,3 +800,8 @@ a {
 #prod_select_field {
 	margin: 20px 30px;
 }
+
+.property_parent {
+	display: inline-block;
+	margin: 10px;
+}

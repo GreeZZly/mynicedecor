@@ -1,10 +1,13 @@
 <div id="products_view">
 	<div id="prod_select_field">
-		<select>
-			<?foreach ($prodByCategory as $key => $value) {
-				print ('<option>'.$value['name'].'</option>');
-			}?>	
-		</select>
+		
+		<?
+			foreach ($propParent as $key => $value) {
+				print ('<div class="property_parent"><div class="property_parent_title">'.$value['name'].'</div><select id="pp_'.$value['id'].'">');
+				foreach ($propChild as $k => $v) {if ($v['id_property_name'] == $value['id']) print ('<option value="'.$v['id'].'">'.$v['name'].'</option>');}
+				print('</select></div>');
+			}
+		?>
 		
 	</div>
 	<div id="prodByCategory">

@@ -120,5 +120,15 @@ class Nice extends CI_Model {
     function getCategory() {
       return $this->db->query("select id, name from category where id_registred_company='$this->id_registred_company' and cat_level=3")->result_array();
     }
-    
+
+    function  getPropertyParent() {
+      return $this->db->query("select name, id from property_parent where id_registred_company='$this->id_registred_company'")->result_array();
+    }
+
+    function getPropertyChild() {
+      return $this->db->query("select pc.name, pc.id, pc.id_property_name from property_child pc 
+                                where pc.id_registred_company='$this->id_registred_company'")->result_array();
+    }
+    //ВЫТАСКИВАЕМ ПРОДУКТ ПО СеЛЕКТУ
+    // select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'
 }

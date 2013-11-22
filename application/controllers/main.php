@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Main extends CI_Controller
 {
@@ -38,7 +38,10 @@ class Main extends CI_Controller
 		$this->common('gallery');
 
 	}
-	
+	public function get_json(){
+		$variable = $this->input->post('variable');
+		echo json_encode(array('got' => $variable));
+	}
 
 	public function search() {
 		$query =  $this->input->post('query');
@@ -125,14 +128,7 @@ class Main extends CI_Controller
 		$data['int_prod'] = $this->nice->interest_products();
 		if (!isset($data['count'])) $data['count'] = $this->count;
 		$this->common('view_product', $data);
-		// $this->load->view('main/htmlheader', $data);
-		// $this->load->view('main/header');
-		// $this->load->view('main/menu');
-		// $this->load->view('main/leftbar');
-		// $this->load->view('main/view_product');
-		
-		// $this->load->view('main/htmlfooter');
-		
+
 	}
 
 	public function register() 
@@ -160,6 +156,8 @@ class Main extends CI_Controller
 
 	public function products($cat_id){
 		$data['prodByCategory'] = $this->nice->products($cat_id);
+		$data['propParent'] =$this->nice->getPropertyParent();
+		$data['propChild'] = $this->nice->getPropertyChild();
 		$this->allpages('products_view', $data);
 	}
 

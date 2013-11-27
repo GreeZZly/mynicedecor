@@ -130,5 +130,11 @@ class Nice extends CI_Model {
                                 where pc.id_registred_company='$this->id_registred_company'")->result_array();
     }
     //ВЫТАСКИВАЕМ ПРОДУКТ ПО СеЛЕКТУ
+    function getProductBySelect() {
+      return $this->db->query("select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'")->result_array();
+    }
+    function getProdBySelect($id){
+      return $this->db->query("select p.id, p.product, p.cost, pi.path, c.name as type from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product join category c on c.id = p.category_id where pp.id_property='$id'")->result_array();
+    }
     // select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'
 }

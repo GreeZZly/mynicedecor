@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Main extends CI_Controller
 {
@@ -158,7 +158,14 @@ class Main extends CI_Controller
 		$data['prodByCategory'] = $this->nice->products($cat_id);
 		$data['propParent'] =$this->nice->getPropertyParent();
 		$data['propChild'] = $this->nice->getPropertyChild();
+
 		$this->allpages('products_view', $data);
+	}
+
+	public function getProdBySelect() {
+		$id = $this->input->post('id');
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->nice->getProdBySelect($id)));
+
 	}
 
 	

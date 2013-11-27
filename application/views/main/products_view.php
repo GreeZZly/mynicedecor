@@ -3,7 +3,7 @@
 		
 		<?
 			foreach ($propParent as $key => $value) {
-				print ('<div class="property_parent"><div class="property_parent_title">'.$value['name'].'</div><select id="pp_'.$value['id'].'">');
+				print ('<div class="property_parent"><div class="property_parent_title">'.$value['name'].'</div><select id="pp_'.$value['id'].'"><option selected>Выберите свойство</option>');
 				foreach ($propChild as $k => $v) {if ($v['id_property_name'] == $value['id']) print ('<option value="'.$v['id'].'">'.$v['name'].'</option>');}
 				print('</select></div>');
 			}

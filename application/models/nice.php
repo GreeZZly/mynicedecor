@@ -133,8 +133,22 @@ class Nice extends CI_Model {
     function getProductBySelect() {
       return $this->db->query("select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'")->result_array();
     }
-    function getProdBySelect($id){
-      return $this->db->query("select p.id, p.product, p.cost, pi.path, c.name as type from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product join category c on c.id = p.category_id where pp.id_property='$id'")->result_array();
+
+    function getProdBySelect($id_array, $categoryId=null){
+      $joins = array();
+      $wheres = array();
+      foreach ($id_array as $key => $value) {
+        if ($value>0){
+          array_push($joins, 'join product_properties pp'.$key.' on p.id = pp'.$key.'.id_product');
+          array_push($wheres, 'pp'.$key.'.id_property ='.$value);
+        }
+      }
+      return $this->db->query("select p.id, p.product, p.cost, pi.path, c.name as type 
+        from products p ".implode(' ', $joins)."
+        join product_images pi on pi.id_product=p.id 
+        join category c on c.id = p.category_id 
+        where c.id_registred_company='$this->id_registred_company' and p.category_id = '$categoryId' ".((sizeof($wheres)>0)?'and ':'').implode(' and ', $wheres)."")->result_array();
     }
+
     // select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'
 }

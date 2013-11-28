@@ -18,14 +18,28 @@ $(function(){
 	
 	
 	// Выборка продуктов по селекту
+	// var select_count = $('[id^="pp_"]').length;
+	var arr = [];
+
+	$('[id^="pp_"]').each(function(){
+		arr.push($(this).val());
+	})
+	console.log(arr);
+
 	$(document).on('change', '[id^="pp_"]', function(){
 		var option_id = $(this).val();
-		if(option_id > 0) {
+		var cat_id = $('.ctg_item[current=1]').attr('cat_id');
+		var arr = [];
+		$('[id^="pp_"]').each(function(){
+		arr.push($(this).val());
+		})
+		console.log(arr);
+		
 		$.ajax({
 			type:'POST',
 			dataType:'json',
 			url: '/index.php/main/getProdBySelect',
-			data:{id : option_id},
+			data:{id_array : arr, category_id: cat_id},
 			success: function(datum){
 				var n = datum.length;
 					var text = ''
@@ -38,7 +52,7 @@ $(function(){
 					$("#prodByCategory").html(text);
 			}
 		});
-		}
+		
 
 	});
 		// $("#prodByCategory").text(option_id);

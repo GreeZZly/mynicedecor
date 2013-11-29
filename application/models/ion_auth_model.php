@@ -2083,9 +2083,24 @@ class Ion_auth_model extends CI_Model
 
         return $query->row();
     }
+        public function get_user_info_is($id,$id_registred_company){
+        $query = $this->db1->query("select user_is.".$this->identity_column.", user_is.id, user.name, user_is.surname, user_is.image_path, user_is.login, user_is.email, user_is.id_registred_company, rc.address as  registred_company, rc.name as company_name
+                                   from user_is
+                                   join registred_company rc on rc.id = user_is.id_registred_company
+                                   where user_is.id = '$id' and user_is.id_registred_company = '$id_registred_company'
+                                    limit 1");
+           
+
+        //$this->session->set_userdata(array('info' => json_encode($query->row())));
+
+        return $query->row();
+    }
     //возвращает объект пользовтеля
     function getUser($id){
         return $this->db1->query("select *  from user where id='$id' ")->row();
+    }
+    function getUserIs($id){
+        return $this->db1->query("select *  from user_is where id='$id' ")->row();
     }
     //edit users roles
     function setUsersRoles($id,$column,$value){

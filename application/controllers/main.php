@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Main extends CI_Controller
 {
@@ -10,9 +10,27 @@ class Main extends CI_Controller
 		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->library('cart');
+		$this->load->library('ion_auth');
+		$this->load->library('session');
 		$this->count = $this->cart->total_items();
+		$id_registred_company = 2;
+
 	}
 	private function common($url, $data=array()) {
+		if ( $this->ion_auth->logged_in() ) 
+			{
+				$log_on = 1;
+			}
+		else {
+			$log_on = 0;
+		}
+		//$user_id = $this->ion_auth->get_user_info_is();
+		$user_id = 7;
+
+		//$data['user'] = $this->ion_auth_model->getUserIs($user_id);
+		$data['name'] = $this->session->userdata('name');
+		$data['log_on'] = $log_on;
+
 		$data['category'] = $this->nice->getCategory();
 		$data['rev_records'] = $this->nice->reviews();
 		$data['prod_records'] = $this->nice->products();
@@ -49,7 +67,7 @@ class Main extends CI_Controller
 		$query = mysql_real_escape_string($query);
 		$query = htmlspecialchars($query);
 		$data = array("query" => $query);
-		$data['prod_records'] = $this->nice->products();
+		// $data['prod_records'] = $this->nice->get_smth($query);
 		$this->common('search_result', $data);
 		// print_r($data['prod_records']);
 		// $row = $data['prod_records']->row_array();
@@ -60,7 +78,7 @@ class Main extends CI_Controller
 	public function view_cart() 
 	{
 
-		$this->common('cart');
+		$this->allpages('cart');
 	}
 
 	public function update_cart()
@@ -96,8 +114,8 @@ class Main extends CI_Controller
 				
 				'id' => $product['id'],
 	        	'qty' =>1,
-	        	'price' => $product['price'], 
-	        	'name' => $product['name']
+	        	'price' => $product['cost'], 
+	        	'name' => $product['product']
 				
 				);
 			$this->cart->insert($data);
@@ -123,13 +141,6 @@ class Main extends CI_Controller
 		echo "</pre>";
 	}
 
-	public function viewProduct()
-	{	
-		$data['int_prod'] = $this->nice->interest_products();
-		if (!isset($data['count'])) $data['count'] = $this->count;
-		$this->common('view_product', $data);
-
-	}
 
 	public function register() 
 	{	$this->load->view('main/htmlheader');
@@ -138,17 +149,31 @@ class Main extends CI_Controller
 	}
 
 	public function allpages($url, $data=array()){
+		if ( $this->ion_auth->logged_in() ) 
+			{
+				$log_on = 1;
+			}
+		else {
+			$log_on = 0;
+		}
+		//$user_id = $this->ion_auth->get_user_info_is();
+		$user_id = 7;
+
+		//$data['user'] = $this->ion_auth_model->getUserIs($user_id);
+		$data['name'] = $this->session->userdata('name');
+		$data['log_on'] = $log_on;
 		$data['category'] = $this->nice->getCategory();
-		$data['cat_id'] = $data['cat_id'] or 0;
+		if (empty($data['cat_id'])) $data['cat_id'] = 0;
+		// $data['cat_id'] = $data['cat_id'] or 0;
 		$data['rev_records'] = $this->nice->reviews();
 		$data['prod_records'] = $this->nice->products();
 		if (!isset($data['count'])) $data['count'] = $this->count;
 		$this->load->view('main/htmlheader', $data);
 		$this->load->view('main/header');
 		$this->load->view('main/menu');
-		$this->load->view('main/gallery');
-		$this->load->view('main/banner');
+		// $this->load->view('main/gallery');
 		$this->load->view('main/'.$url);
+		$this->load->view('main/banner');
 
 		$this->load->view('main/minimap');
 		$this->load->view('main/footer');
@@ -171,6 +196,21 @@ class Main extends CI_Controller
 
 	}
 
+	public function viewProduct($id_product = -8)
+	{	
+		if ($id_product == -8) redirect('/', 'refresh');
+		$data['int_prod'] = $this->nice->interest_products();
+		$temp = $this->nice->getProductData($id_product);
+		$data['prod_data'] = $temp['productData'];
+		$data['prod_prop'] = $temp['productProperties'];
+		$cat_id = $data['prod_data'][0]['cid'];
+		$data['prodByCategory'] = $this->nice->products($cat_id);
+		// $this->output->set_content_type('application/json')->set_output(json_encode($this->nice->getProdBySelect($id_array, $cid)));		
+		if (!isset($data['count'])) $data['count'] = $this->count;
+
+		$this->allpages('view_product', $data);
+
+	}
 	
 	
 }

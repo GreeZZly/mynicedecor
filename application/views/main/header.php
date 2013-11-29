@@ -35,7 +35,8 @@
 		<div id="header_right">
 			<div id="header_right_top">
 				<a href="/auth/registr"><div class="header_menu_item" id="registr">Зарегистрируйтесь :-)</div></a>
-				<a href="/auth/login"><div class="header_menu_item" id="log_in">Вход</div></a>
+				<?if($log_on == 0) { print('<a href="/auth/login"><div class="header_menu_item" id="log_in">Вход</div></a>');} else {print('<a href="/auth/logout"><div class="header_menu_item" id="log_in">Выход</div></a>');}?>
+				<!-- <a href="/auth/login"><div class="header_menu_item" id="log_in"></div></a> -->
 			</div>
 			<div id="soc_icons">
 				<div class="icon_header_vk"></div>
@@ -45,7 +46,7 @@
 				<div class="icon_header_lj"></div>
 				<div class="icon_header_yt"></div>
 			</div>
-			<div id="welcome_msg">Добро пожаловать, <span>username!</span></div>
+			<div id="welcome_msg">Добро пожаловать<?if($log_on == 0) {print('<span>!</span>');} else {print('<span>, <b>'.$name.'</b>!</span>');}?></div>
 		</div>
 	<!-- </div> -->
 

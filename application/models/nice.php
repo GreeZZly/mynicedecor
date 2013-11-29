@@ -58,13 +58,19 @@ class Nice extends CI_Model {
     }
 
     public function get_smth($query)
-        {
-            $this->db->select('id, name, price, description, img, type');
-            $this->db->like('name',$query);
-            $this->db->or_like('description',$query);
-            $this->db->or_like('type',$query);
-            $db_query = $this->db->get('products')->result_array();
-            return $db_query;
+        {   
+            return $this->db->query("select p.id, p.product, p.description, p.cost, pi.path as img, c.name as type from products p
+                                      join category c on p.category_id = c.id
+                                      join product_images pi on pi.id_product = p.id
+                                      where p.product like '$query' or p.description like '$query' or c.name like '$query'")->result_array();
+
+            // $this->db->select('id, product, price, description, img, type');
+            // $this->db->like('name',$query);
+            // $this->db->or_like('description',$query);
+            // $this->db->or_like('type',$query);
+            // $db_query = $this->db->get('products')->result_array();
+
+            // return $db_query;
       }
       public function getProductById($id)
       {
@@ -149,6 +155,23 @@ class Nice extends CI_Model {
         join category c on c.id = p.category_id 
         where c.id_registred_company='$this->id_registred_company' and p.category_id = '$categoryId' ".((sizeof($wheres)>0)?'and ':'').implode(' and ', $wheres)."")->result_array();
     }
+
+    public function getProductData($id_product)
+    {
+      $data = array();
+      $data['productData'] = $this->db->query("select p.product, p.id, c.name as type, pi.path as img, p.cost, p.description,c.id as cid from products p
+                                                join category c on p.category_id = c.id
+                                                join product_images pi on pi.id_product = p.id  where p.id = '$id_product'")->result_array();
+
+      $data['productProperties'] =  $this->db->query("select pp.name as property, pc.name as value from property_parent pp
+                                      join property_child pc on pc.id_property_name = pp.id
+                                      join product_properties prodp on pc.id = prodp.id_property
+                                      join products p on p.id = prodp.id_product
+                                      where p.id = '$id_product'")->result_array();
+      // $data['cat'] = $this->db->query("select id from category where name = ''");
+    return $data;
+    }
+
 
     // select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'
 }

@@ -17,7 +17,7 @@ class Auth extends CI_Controller {
         function registr(){
                 if ($this->ion_auth->logged_in())
 		{
-			redirect('/crm/', 'refresh');
+			redirect('/', 'refresh');
 		}
                
                 
@@ -209,7 +209,7 @@ class Auth extends CI_Controller {
 
 		//redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('/auth/', 'refresh');
+		redirect('/', 'refresh');
 	}
 
 	//change password

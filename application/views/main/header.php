@@ -46,7 +46,7 @@
 				<div class="icon_header_lj"></div>
 				<div class="icon_header_yt"></div>
 			</div>
-			<div id="welcome_msg">Добро пожаловать<?if($log_on == 0) {print('<span>!</span>');} else {print('<span>, <b>'.$name.'</b>!</span>');}?></div>
+			<div id="welcome_msg">Добро пожаловать<?if($log_on == 0) {print('<span>!</span>');} else {print('<span>, <b>'.$username->name.'</b>!</span>');}?></div>
 		</div>
 	<!-- </div> -->
 

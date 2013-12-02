@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Main extends CI_Controller
 {
@@ -25,10 +25,12 @@ class Main extends CI_Controller
 			$log_on = 0;
 		}
 		//$user_id = $this->ion_auth->get_user_info_is();
-		$user_id = 7;
+		// $user_id = 7;
 
 		//$data['user'] = $this->ion_auth_model->getUserIs($user_id);
-		$data['name'] = $this->session->userdata('name');
+		$user_id = $this->session->userdata('user_id');
+		$data['username'] = $this->ion_auth_model->getUserIs($user_id);
+		
 		$data['log_on'] = $log_on;
 
 		$data['category'] = $this->nice->getCategory();

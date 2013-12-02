@@ -2099,8 +2099,8 @@ class Ion_auth_model extends CI_Model
     function getUser($id){
         return $this->db1->query("select *  from user where id='$id' ")->row();
     }
-    function getUserIs($id){
-        return $this->db1->query("select *  from user_is where id='$id' ")->row();
+    function getUserIs($user_id){
+        return $this->db1->query("select *  from user_is where id='$user_id' ")->row();
     }
     //edit users roles
     function setUsersRoles($id,$column,$value){

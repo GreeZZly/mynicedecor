@@ -22,7 +22,7 @@ class Nice extends CI_Model {
         if ($cid!='all'){
           $add = "and c.id = '$cid' ";
         }
-        $query = $this->db->query("SELECT p.id, p.product as name, p.cost as price, p.currency, pi.path as img, c.name as type FROM products p join product_images pi on p.id = pi.id_product join category c on p.category_id = c.id and c.id_registred_company='$this->id_registred_company' ".$add." LIMIT 6");
+        $query = $this->db->query("SELECT p.id, p.product as name, p.cost as price, p.currency, pi.path as img, c.name as type FROM products p join product_images pi on p.id = pi.id_product join category c on p.category_id = c.id and c.id_registred_company='$this->id_registred_company' ".$add);
         return $query->result_array();
     }
     function getPictureByProduct($id_product)
@@ -149,11 +149,13 @@ class Nice extends CI_Model {
           array_push($wheres, 'pp'.$key.'.id_property ='.$value);
         }
       }
-      return $this->db->query("select p.id, p.product, p.cost, pi.path, c.name as type 
+      return $this->db->query("select p.id, p.product, p.cost, pi.path, c.name as type, group_concat(ppeg.id_property SEPARATOR ',') as pps
         from products p ".implode(' ', $joins)."
         join product_images pi on pi.id_product=p.id 
-        join category c on c.id = p.category_id 
-        where c.id_registred_company='$this->id_registred_company' and p.category_id = '$categoryId' ".((sizeof($wheres)>0)?'and ':'').implode(' and ', $wheres)."")->result_array();
+        join category c on c.id = p.category_id
+        join product_properties ppeg on ppeg.id_product = p.id 
+        where c.id_registred_company='$this->id_registred_company' and p.category_id = '$categoryId' ".((sizeof($wheres)>0)?'and ':'').implode(' and ', $wheres)." group by p.id")->result_array();
+      
     }
 
     public function getProductData($id_product)

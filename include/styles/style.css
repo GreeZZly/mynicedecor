@@ -830,3 +830,8 @@ a {
 	margin: 15px 90px;
 	display: inline-block;
 }
+
+.hidden {
+	display: none;
+	visibility: hidden;
+}

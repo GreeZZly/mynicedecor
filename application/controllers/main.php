@@ -192,7 +192,10 @@ class Main extends CI_Controller
 
 		$this->allpages('products_view', $data);
 	}
-
+	public function raw_category(){
+		$cat_id= $this->input->post('category_id');
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->nice->products($cat_id)));
+	}
 	public function getProdBySelect() {
 		$id_array= $this->input->post('id_array');
 		$cid= $this->input->post('category_id');

@@ -186,8 +186,8 @@ class Main extends CI_Controller
 
 	public function products($cat_id){
 		$data['prodByCategory'] = $this->nice->products($cat_id);
-		$data['propParent'] =$this->nice->getPropertyParent();
-		$data['propChild'] = $this->nice->getPropertyChild();
+		$data['propParent'] =$this->nice->getPropertyParent($cat_id);
+		$data['propChild'] = $this->nice->getPropertyChild($cat_id);
 		$data['cat_id'] = $cat_id;
 
 		$this->allpages('products_view', $data);

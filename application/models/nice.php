@@ -127,13 +127,24 @@ class Nice extends CI_Model {
       return $this->db->query("select id, name from category where id_registred_company='$this->id_registred_company' and cat_level=3")->result_array();
     }
 
-    function  getPropertyParent() {
-      return $this->db->query("select name, id from property_parent where id_registred_company='$this->id_registred_company'")->result_array();
+    function  getPropertyParent($cat_id) {
+      return $this->db->query("select distinct pp.name, pp.id from property_parent pp 
+                              join property_child pc on pp.id = pc.id_property_name
+                              join product_properties pprop on pprop.id_property = pc.id
+                              join products p on p.id = pprop.id_product
+                              join category c on c.id = p.category_id
+                              where pp.id_registred_company='$this->id_registred_company' and c.id = '$cat_id'")->result_array();
     }
 
-    function getPropertyChild() {
-      return $this->db->query("select pc.name, pc.id, pc.id_property_name from property_child pc 
-                                where pc.id_registred_company='$this->id_registred_company'")->result_array();
+    function getPropertyChild($cat_id) {
+      return $this->db->query("select distinct pc.name as name, pc.id, pc.id_property_name from property_parent pp 
+                              join property_child pc on pp.id = pc.id_property_name
+                              join product_properties pprop on pprop.id_property = pc.id
+                              join products p on p.id = pprop.id_product
+                              join category c on c.id = p.category_id
+                              where pp.id_registred_company='$this->id_registred_company' and c.id = '$cat_id'")->result_array();
+      // return $this->db->query("select pc.name as name, pc.id, pc.id_property_name from property_child pc 
+      //                           where pc.id_registred_company='$this->id_registred_company' order by name")->result_array();
     }
     //ВЫТАСКИВАЕМ ПРОДУКТ ПО СеЛЕКТУ
     function getProductBySelect() {

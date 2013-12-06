@@ -35,7 +35,7 @@ class Main extends CI_Controller
 
 		$data['category'] = $this->nice->getCategory();
 		$data['rev_records'] = $this->nice->reviews();
-		$data['prod_records'] = $this->nice->products();
+		$data['prod_records'] = $this->nice->interesting_products();
 		if (!isset($data['count'])) $data['count'] = $this->count;
 		$this->load->view('main/htmlheader', $data);
 		$this->load->view('main/header');
@@ -43,7 +43,7 @@ class Main extends CI_Controller
 		$this->load->view('main/'.$url);
 		$this->load->view('main/banner');
 		// $this->load->view('main/news_begin');
-		$this->load->view('main/reviews');
+		// $this->load->view('main/reviews');
 		$this->load->view('main/leftbar');
 		$this->load->view('main/soc_likes');
 		$this->load->view('main/social_plugins');
@@ -69,7 +69,7 @@ class Main extends CI_Controller
 		$query = mysql_real_escape_string($query);
 		$query = htmlspecialchars($query);
 		$data = array("query" => $query);
-		// $data['prod_records'] = $this->nice->get_smth($query);
+		$data['prod_records'] = $this->nice->get_smth($query);
 		$this->common('search_result', $data);
 		// print_r($data['prod_records']);
 		// $row = $data['prod_records']->row_array();

@@ -314,7 +314,7 @@ a {
 #leftbar {
 	background-color: #F7F7F8;
 	margin: 10px auto;
-	padding: 10px;
+	padding: 20px;
 	color: #FF6701;
 	font-size: 18px;
 	height: 470px;
@@ -325,7 +325,7 @@ a {
 	margin-top: 10px;
 	margin-bottom: 30px;
 	height: 270px;
-	width: 330px;
+	width: 320px;
 	display: inline-block;
 }
 
@@ -415,7 +415,7 @@ a {
 #content {
 	/*display: table;*/
 	margin: 10px auto;
-	padding: 10px;
+	padding: 20px;
 }
 #products_area {
 	margin: 10px;

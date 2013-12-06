@@ -47,10 +47,3 @@
 		</div>	
 	</form>
 </div>
-<!-- <div class="login-links">
-	<ul class="login-links">
-		<li><a href="/megaplan/register/">Регистрация</a></li>
-		<li><a href="/private/remember/">Забыли пароль?</a></li>
-		<li><a href="/">Вернуться на сайт</a></li>
-	</ul>
-</div> -->

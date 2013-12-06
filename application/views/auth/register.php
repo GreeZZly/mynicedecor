@@ -1,4 +1,4 @@
-﻿<link rel="stylesheet" href="/include/styles/welcome.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/include/styles/welcome.css" type="text/css" media="screen"/>
 <div id='register_form' class='hidd4en'>
 	<form method='post' action=''>
 		<div class='block logoplace'>

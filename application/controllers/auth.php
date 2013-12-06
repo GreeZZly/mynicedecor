@@ -60,9 +60,9 @@ class Auth extends CI_Controller {
 		{
                    
                    echo $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
-                   $this->load->view('main/htmlheader');
+                   $this->load->view('auth/htmlheader.html');
                    $this->load->view('auth/register');
-                   $this->load->view('main/htmlfooter');
+                   $this->load->view('auth/htmlfooter.html');
                     
                 }
 

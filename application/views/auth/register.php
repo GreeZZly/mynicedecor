@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="/include/styles/welcome.css" type="text/css" media="screen"/>
+<!-- <link rel="stylesheet" href="/include/styles/welcome.css" type="text/css" media="screen"/> -->
 <div id='register_form' class='hidd4en'>
 	<form method='post' action=''>
 		<div class='block logoplace'>
-			<div class='logo'><img src="/include/images/logo_text.png"></div>
+			<div id="logo"><img src="/include/images/logo_img.png"><img src="/include/images/logo_text.png"></div>
 		</div>
 		<div class="errors">
 			<noscript><div class="err">Яваскрипт должен быть включён, чтобы зарегистрироваться.</div></noscript>

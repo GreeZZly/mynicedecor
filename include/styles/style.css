@@ -195,6 +195,10 @@ a {
 	margin-top: 90px;
 	text-align: center;
 }
+
+#basket_href a {
+	color: white;
+}
 #shop_menu_title {
 	display: inline-block;
 	color: white;
@@ -313,7 +317,7 @@ a {
 	padding: 10px;
 	color: #FF6701;
 	font-size: 18px;
-	height: 430px;
+	height: 470px;
 
 }
 
@@ -345,7 +349,7 @@ a {
 	height: 27px;
 	color: white;
 	text-align: center;
-	margin: 0 auto;
+	margin: 20px auto;
 	width: 115px;
 	line-height: 27px;
 	font-size: 15px;
@@ -834,4 +838,71 @@ a {
 .hidden {
 	display: none;
 	visibility: hidden;
+}
+
+#cart_view {
+	display: inline-block;
+	width: 820px;
+	margin: 0 10px;
+	color: #2B2A29;
+}
+
+#cart_view tr th {
+	border-top:2px solid #9D9F9F;
+	border-bottom:2px solid #9D9F9F;
+	text-align: left;
+
+}
+
+#cart_view table {
+	border-collapse: collapse;
+}
+
+#cart_view tr td:not(.last_tr) {
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	text-align: left;
+
+}
+.update_cart_submit {
+	width: 130px;
+	display: inline-block; 
+}
+.update_cart_submit input{
+	background-image: url(/include/images/nice_icons.png);
+	background-position: 0px -440px;
+	/*background-size: 100%;*/
+	width: 130px;
+	height: 27px;
+	color: white;
+	text-align: center;
+	margin: 0 auto;
+	/*width: 130px;*/
+	line-height: 27px;
+	/*font-size: 13px;*/
+	font-weight: bold;
+	border:none;
+	cursor: pointer;
+}
+
+.destroy_cart_submit {
+	background-image: url(/include/images/nice_icons.png);
+	background-position: 0px -440px;
+	width: 130px;
+	height: 27px;
+	text-align: center;
+	margin: 0 auto;
+	line-height: 27px;
+	font-size: 13px;
+	font-weight: bold;
+	border:none;
+	cursor: pointer;
+	float: right;
+	margin:15px 17px; 
+	
+}
+	
+.destroy_cart_submit a{
+	color: white;
+	display: inline-block;
 }

@@ -15,47 +15,37 @@
 */
 
 // Account Creation
-$lang['account_creation_successful'] 	  	 = 'Account Successfully Created';
-$lang['account_creation_unsuccessful'] 	 	 = 'Unable to Create Account';
-$lang['account_creation_duplicate_email'] 	 = 'Email Already Used or Invalid';
-$lang['account_creation_duplicate_username'] = 'Username Already Used or Invalid';
+$lang['account_creation_successful'] 	  	 = 'Учетная запись успешно создана';
+$lang['account_creation_unsuccessful'] 	 	 = 'Невозможно создать учетную запись';
+$lang['account_creation_duplicate_email'] 	 = 'Электронная почта используется или некорректна';
+$lang['account_creation_duplicate_username'] 	 = 'Имя пользователя существует или некорректно';
 
 // Password
-$lang['password_change_successful'] 	 	 = 'Password Successfully Changed';
-$lang['password_change_unsuccessful'] 	  	 = 'Unable to Change Password';
-$lang['forgot_password_successful'] 	 	 = 'Password Reset Email Sent';
-$lang['forgot_password_unsuccessful'] 	 	 = 'Unable to Reset Password';
+$lang['password_change_successful'] 	 	 = 'Пароль успешно изменен';
+$lang['password_change_unsuccessful'] 	  	 = 'Пароль невозможно изменить';
+$lang['forgot_password_successful'] 	 	 = 'Пароль сброшен. На электронную почту отправлено сообщение';
+$lang['forgot_password_unsuccessful'] 	 	 = 'Невозможен сброс пароля';
 
 // Activation
-$lang['activate_successful'] 		  	     = 'Account Activated';
-$lang['activate_unsuccessful'] 		 	     = 'Unable to Activate Account';
-$lang['deactivate_successful'] 		  	     = 'Account De-Activated';
-$lang['deactivate_unsuccessful'] 	  	     = 'Unable to De-Activate Account';
-$lang['activation_email_successful'] 	  	 = 'Activation Email Sent';
-$lang['activation_email_unsuccessful']   	 = 'Unable to Send Activation Email';
+$lang['activate_successful'] 		  	 = 'Учетная запись активирована';
+$lang['activate_unsuccessful'] 		 	 = 'Не удалось активировать учетную запись';
+$lang['deactivate_successful'] 		  	 = 'Учетная запись деактивирована';
+$lang['deactivate_unsuccessful'] 	  	 = 'Невозможно деактивировать учетную запись';
+$lang['activation_email_successful'] 	  	 = 'Сообщение об активации отправлено';
+$lang['activation_email_unsuccessful']   	 = 'Сообщение об активации невозможно отправить';
 
 // Login / Logout
-$lang['login_successful'] 		  	         = 'Logged In Successfully';
-$lang['login_unsuccessful'] 		  	     = 'Incorrect Login';
-$lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
-$lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
-$lang['logout_successful'] 		 	         = 'Logged Out Successfully';
+$lang['login_successful'] 		  	 = 'Авторизация прошла успешно';
+$lang['login_unsuccessful'] 		  	 = 'Логин/пароль не верен';
+$lang['logout_successful'] 		 	 = 'Выход успешный';
 
 // Account Changes
-$lang['update_successful'] 		 	         = 'Account Information Successfully Updated';
-$lang['update_unsuccessful'] 		 	     = 'Unable to Update Account Information';
-$lang['delete_successful']               = 'User Deleted';
-$lang['delete_unsuccessful']           = 'Unable to Delete User';
+$lang['update_successful'] 		 	 = 'Учетная запись успешно обновлена';
+$lang['update_unsuccessful'] 		 	 = 'Невозможно обновить учетную запись';
+$lang['delete_successful'] 		 	 = 'Учетная запись удалена';
+$lang['delete_unsuccessful'] 		 	 = 'Невозможно удалить учетную запись';
 
-// Groups
-$lang['group_creation_successful']  = 'Group created Successfully';
-$lang['group_already_exists']       = 'Group name already taken';
-$lang['group_update_successful']    = 'Group details updated';
-$lang['group_delete_successful']    = 'Group deleted';
-$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
-$lang['group_name_required'] 		= 'Group name is a required field';
-
-// Email Subjects
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_activation_subject']            = 'Account Activation';
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Проверка забытого пароля';
+$lang['email_new_password_subject']          = 'Новый пароль';
+$lang['email_activation_subject']            = 'Активация учетной записи';

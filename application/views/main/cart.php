@@ -1,4 +1,4 @@
-<div id="news_content">
+<div id="cart_view">
 <?php echo form_open('/main/update_cart'); ?>
 
 <table cellpadding="6" cellspacing="1" border="0" id="cart">
@@ -6,8 +6,8 @@
 <tr>
   <th>Количество</th>
   <th>Описание товара</th>
-  <th style="text-align:right">Цена за 1шт.</th>
-  <th style="text-align:right">Общая сумма</th>
+  <th>Цена за 1шт.</th>
+  <th>Общая сумма</th>
 </tr>
 
 <?php $i = 1; $count = 0;?>
@@ -35,8 +35,8 @@
 			<?php endif; ?>
 
 	  </td>
-	  <td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
-	  <td style="text-align:right"><?php echo $this->cart->format_number($items['subtotal']); ?> руб.</td>
+	  <td><?php echo $this->cart->format_number($items['price']); ?></td>
+	  <td><?php echo $this->cart->format_number($items['subtotal']); ?> руб.</td>
 	</tr>
 
 <?php $i++; ?>
@@ -44,16 +44,17 @@
 <?php endforeach; ?>
 
 <tr>
-  <td colspan="2"> </td>
-  <td class="right"><strong>Всего</strong></td>
-  <td class="right"><?php echo $this->cart->format_number($this->cart->total()); ?> руб.</td>
+  <td class="last_tr" colspan="2"> </td>
+  <td class="last_tr"><strong>Всего</strong></td>
+  <td class="last_tr"><?php echo $this->cart->format_number($this->cart->total()); ?> руб.</td>
 </tr>
 
 </table>
 
-<p><?php echo form_submit('update_cart', 'Обновить карзину'); ?></p>
-<p><a href="/index.php/main/destroy_cart">Очистить карзину</a></p>
+<p class="update_cart_submit"><?php echo form_submit('update_cart', 'Обновить карзину'); ?></p>
+<p class="destroy_cart_submit"><a href="/index.php/main/destroy_cart">Очистить карзину</a></p>
 
 </div>
-<!-- </div> -->
 
+
+</div>

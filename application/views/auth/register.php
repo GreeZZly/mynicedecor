@@ -7,6 +7,10 @@
 		<div class="errors">
 			<noscript><div class="err">Яваскрипт должен быть включён, чтобы зарегистрироваться.</div></noscript>
 		</div>
+		  <?php 
+                if($message)        
+                    echo"<div class='block err'>". $message."</div>";
+          ?>
 		<div class='block'>
 			<div class='caption'>Фамилия<span class='warning hidden surname'></span></div>
 			<input type="text" name="surname" class='field'> 

@@ -89,11 +89,9 @@ body, html {
 
 #login_form .err {
 	width: 310px;
-	height: 50px;
-	line-height: 50px;
 	background-color:#FFE8AA;
 	border-radius: 5px;
-	padding:0 20px; 
+	padding:2px 20px; 
 }
 
 #login_form #submit_line {
@@ -187,11 +185,9 @@ body, html {
 
 #register_form .err {
 	width: 310px;
-	height: 50px;
-	line-height: 50px;
 	background-color:#FFE8AA;
 	border-radius: 5px;
-	padding:0 20px; 
+	padding:2px  20px; 
 }
 
 #register_form #submit_line {
@@ -224,4 +220,9 @@ body, html {
 
 #register_form .submit:hover {
 	background-color: #424242;
+}
+
+.errors {
+	font-size: 40px;
+	color: red;
 }

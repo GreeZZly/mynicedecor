@@ -78,7 +78,7 @@ class Auth extends CI_Controller {
 	{
 		if (!$this->ion_auth->logged_in())
 		{
-			redirect('/crm/hello', 'refresh');
+			redirect('/auth/login', 'refresh');
 		}
 		else{
 			redirect('/', 'refresh');

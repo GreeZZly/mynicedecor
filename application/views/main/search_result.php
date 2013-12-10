@@ -1,4 +1,4 @@
-﻿<div id="news_content">
+<div id="news_content">
 <?if (!empty($query))
 		{
 			$q = 0;
@@ -12,9 +12,10 @@
 			} else {
 				$q = $this->nice->get_smth($query);
 			}
-
+		
 		if ($q != 0) {
-			if (mysql_affected_rows()>0) {
+			
+			if (count($q)>0) {
 
 				echo "<div>По запросу <b>".$query."</b> найдено совпадений: ".count($q)."</div>";
 				foreach ($q as $key => $value) {
@@ -31,4 +32,4 @@
 		}
 ?>
 </div>
-<!-- </div> -->
+</div>

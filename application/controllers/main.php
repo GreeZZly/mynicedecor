@@ -69,8 +69,9 @@ class Main extends CI_Controller
 		$query = mysql_real_escape_string($query);
 		$query = htmlspecialchars($query);
 		$data = array("query" => $query);
-		$data['prod_records'] = $this->nice->get_smth($query);
-		$this->common('search_result', $data);
+		// echo "$data";
+		// $data['prod_records'] = $this->nice->get_smth($query);
+		$this->allpages('search_result', $data);
 		// print_r($data['prod_records']);
 		// $row = $data['prod_records']->row_array();
 		// echo $row['id'];

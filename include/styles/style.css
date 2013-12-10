@@ -67,6 +67,7 @@ a {
 #header_right {
 	display: inline-block;
 	vertical-align: top;
+	width: 281px;
 }
 
 #header_contacts {
@@ -86,7 +87,7 @@ a {
 
 #soc_icons {
 	width: 185px;
-
+	overflow: hidden;
 	margin:0 auto;
 }
 [class*="icon_header"] {
@@ -163,6 +164,7 @@ a {
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 22px;
+	width: 227px;
 	
 }
 #phone_header {
@@ -183,7 +185,7 @@ a {
 
 #welcome_msg {
 	text-align: center;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	clear:both;
 }
 
@@ -240,6 +242,7 @@ a {
 
 #header_right_top {
 	margin-top: 1px;
+	overflow: hidden;
 }
 
 #header_content {
@@ -778,7 +781,7 @@ a {
 
 #log_in {
 	cursor: pointer;
-	width: 40px;
+	/*width: 40px;*/
 }
 
 #products_area {

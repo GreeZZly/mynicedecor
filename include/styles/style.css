@@ -4,6 +4,7 @@ html, body {
 	min-width: 1024px;
 	max-width: 1024px;
 	margin: 0 auto;
+	padding:0; 
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	background-color: #ccc;
 
@@ -19,11 +20,12 @@ a {
 }
 .header_menu_item {
 	display: inline-block;
-	margin: 0 2px;
+	/*margin: 0 2px;*/
 	color: white;
 	float: right;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	font-size: 16px;
+	padding: 10px 20px;
 }
 #logo {
 	clear: right;
@@ -176,8 +178,9 @@ a {
 }
 
 #connect_block {
-	width: 153px;
-	margin: 8px auto 0 auto;
+	padding: 6px 35px;
+	/*width: 153px;*/
+	/*margin: 8px auto 0 auto;*/
 }
 #header_email {
 	font-size: 16px;
@@ -220,7 +223,7 @@ a {
 
 #search_str {
 	display: inline-block;
-	margin-top: 125px;
+	margin-top: 115px;
 	float:right;
 	margin-right: 3px;
 	
@@ -234,14 +237,14 @@ a {
 	background-repeat:no-repeat;
 	width: 227px;
 	height: 141px;
-	margin-top:4px;
+	/*margin-top:4px;*/
 	display: inline-block; 
 	
 
 }
 
 #header_right_top {
-	margin-top: 1px;
+	/*margin-top: 1px;*/
 	overflow: hidden;
 }
 
@@ -262,7 +265,7 @@ a {
 }
 
 #header_right_top .header_menu_item {
-	margin: 10px 20px;
+	/*padding: 10px 20px;*/
 }
 
 #categories {

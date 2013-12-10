@@ -34,8 +34,8 @@
 		</div>
 		<div id="header_right">
 			<div id="header_right_top">
-				<a href="/auth/registr"><div class="header_menu_item" id="registr">Зарегистрируйтесь :-)</div></a>
 				<?if($log_on == 0) { print('<a href="/auth/login"><div class="header_menu_item" id="log_in">Вход</div></a>');} else {print('<a href="/auth/logout"><div class="header_menu_item" id="log_in">Выход</div></a>');}?>
+				<?if($log_on == 0) { print('<a href="/auth/registr"><div class="header_menu_item" id="registr">Зарегистрируйтесь :-)</div></a>');} else {print('<div class="header_menu_item" id="registr"></div>');}?>
 				<!-- <a href="/auth/login"><div class="header_menu_item" id="log_in"></div></a> -->
 			</div>
 			<div id="soc_icons">

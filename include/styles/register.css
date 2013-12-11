@@ -226,3 +226,28 @@ body, html {
 	font-size: 40px;
 	color: red;
 }
+#active_msg {
+	font-size: 22px;
+	width: 310px;
+	background-color: #FFE8AA;
+	border-radius: 5px;
+	padding: 10px 20px;
+
+}
+
+.auth_button {
+	padding: 12px;
+	margin: 15px 24px;
+	border-radius: 5px;
+	background-color: #424242;
+	color:#f9f9f9;
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	cursor: pointer;
+
+}
+
+.auth_button:hover{
+	background-color: #2B2A29;
+}

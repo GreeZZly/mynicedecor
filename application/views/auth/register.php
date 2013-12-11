@@ -8,8 +8,8 @@
 			<noscript><div class="err">Яваскрипт должен быть включён, чтобы зарегистрироваться.</div></noscript>
 		</div>
 		  <?php 
-                if($message)        
-                    echo"<div class='block err'>". $message."</div>";
+                if($message) echo"<div class='block err'>". $message."</div>";
+            // if($reg_bool) echo "";
           ?>
 		<div class='block'>
 			<div class='caption'>Фамилия<span class='warning hidden surname'></span></div>

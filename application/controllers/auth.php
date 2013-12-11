@@ -45,6 +45,7 @@ class Auth extends CI_Controller {
                                 'id_registred_company'=>$this->config->item('id_company')
 			);
 		}
+		$data['reg_bool'] = FALSE;
 		if ($this->form_validation->run() == true && $this->ion_auth->register($login, $password, $email, $additional_data))
 		{
 			//check to see if we are creating the user
@@ -54,8 +55,12 @@ class Auth extends CI_Controller {
                         $this->load->model('cocaine');
                         $this->cocaine->edit_record_from('', 'customer', $additional_data,1);
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("", 'refresh');
+			$data['reg_bool'] = TRUE;
+			redirect("/auth/activate_msg", 'refresh');
+			
 		}
+
+
 		else
 		{
                    
@@ -74,6 +79,12 @@ class Auth extends CI_Controller {
         return mb_strtoupper(substr($text, 0, 2)) . substr($text, 2);
     }
 	//redirect if needed, otherwise display the user list
+	function activate_msg(){
+      		$this->load->view('auth/htmlheader.html');
+           $this->load->view('auth/activate_msg');
+           $this->load->view('auth/htmlfooter.html');
+	}
+	
 	function index()
 	{
 		if (!$this->ion_auth->logged_in())

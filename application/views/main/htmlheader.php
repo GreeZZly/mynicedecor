@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/include/images/logo_img.png" rel="shortcut icon" type="image/png" />
 <link rel="stylesheet" type="text/css" href="/include/styles/style.css">
 <link rel="stylesheet" type="text/css" href="/include/styles/gallery.css">
 <link rel="stylesheet" type="text/css" href="/include/styles/welcome.css">
@@ -22,6 +23,8 @@ rel="stylesheet" type="text/css" />
 <script type="text/javascript">
   VK.init({apiId: 4027665, onlyWidgets: true});
 </script>
+<script type="text/javascript" src="//yandex.st/share/share.js"
+charset="utf-8"></script>
 
 <title>My nice decor! | Школа экстрасенсорного дизайна</title>
 </head>

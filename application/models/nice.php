@@ -137,6 +137,7 @@ class Nice extends CI_Model {
     }
 
     function  getPropertyParent($cat_id) {
+      echo "$cat_id";
       return $this->db->query("select distinct pp.name, pp.id from property_parent pp 
                               join property_child pc on pp.id = pc.id_property_name
                               join product_properties pprop on pprop.id_property = pc.id
@@ -146,6 +147,7 @@ class Nice extends CI_Model {
     }
 
     function getPropertyChild($cat_id) {
+      echo "$cat_id";
       return $this->db->query("select distinct pc.name as name, pc.id, pc.id_property_name from property_parent pp 
                               join property_child pc on pp.id = pc.id_property_name
                               join product_properties pprop on pprop.id_property = pc.id

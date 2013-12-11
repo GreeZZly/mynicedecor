@@ -775,6 +775,9 @@ a {
 #footer_icon_wrap {
 	display: inline-block;
 	margin-left: 20px;
+	/*float: right;*/
+	/*position: absolute;
+	right: 10px;*/
 }
 
 #footer {
@@ -913,4 +916,17 @@ a {
 .destroy_cart_submit a{
 	color: white;
 	display: inline-block;
+}
+
+.b-share-btn__wrap {
+	margin: 10px 30px;
+	/*display: block;*/
+}
+.b-share-icon {
+	margin: 0 auto;
+}
+
+#soc_likes_items {
+	width: auto;
+	margin: 0 auto;
 }

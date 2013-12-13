@@ -950,3 +950,40 @@ a {
 	display: inline-block; 	
 	color: white;
 }
+
+#order_form {
+	overflow: hidden;
+}
+.loginform {
+	margin: 20px 10px;
+}
+.loginform_item p{
+	width: 100px;
+	display: inline-block;
+}
+
+.loginform_item input[type='text'], .loginform_item input[type='password'] {
+	width: 200px;
+	height: 18px;
+	/*background-color: white;*/
+	/*border:none;*/
+	margin: 0; 
+}
+
+.loginform_item input[type='submit'] {
+	background-image: url(/include/images/nice_icons.png);
+	background-position: 0px -440px;
+	width: 130px;
+	height: 27px;
+	/*text-align: center;*/
+	/*margin: 0 auto;*/
+	/*line-height: 27px;*/
+	/*font-size: 13px;*/
+	font-weight: bold;
+	border:none;
+	/*cursor: pointer;*/
+	/*float: right;*/
+	/*margin:15px 17px;*/
+	/*display: inline-block; 	*/
+	color: white;
+}

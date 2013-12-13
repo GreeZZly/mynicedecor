@@ -98,7 +98,15 @@ $(function(){
 	});
 	
 		// $("#prodByCategory").text(option_id);
+
+		
 	// ORDER AUTH
-	$('.order_radio input').attr('checked')
+
+	$(document).on('change', '.order_radio input[type="radio"]', function(){
+		$('.loginform').addClass('hidden');
+		$(this).parent('label').next('.loginform').removeClass('hidden');
+		
+	});
+
 
 });

@@ -4,11 +4,11 @@
 		<div id="prod_img"><?print('<img src="http://goodcrm.ru/'.$prod_data[0]['img'].'"></img>');?></div>
 		<div id="prod_info">
 	
-			<div id="prod_name"><?=$prod_data[0]['product']?></div>
-			<div id="prod_id" class="font16">ID <?=$prod_data[0]['id']?></div>
+			<div id="prod_name">Артикул: <?=$prod_data[0]['product']?></div>
+			<!-- <div id="prod_id" class="font16">ID </div> -->
 			<div id="prod_type"><b><?=$prod_data[0]['type']?></b></div>
 			<!-- <div id="prod_brend">Бренд: <a href="/">Покровские стулья</a></div> -->
-			<div>Дополнительные характеристики</div>
+			<div>Характеристики:</div>
 			<table>
 			<? foreach ($prod_prop as $key => $value) {
 				print('<tr><td>'.$value['property'].'</td><td>'.$value['value'].'</td></tr>');
@@ -23,7 +23,7 @@
 		<div id="prod_review">Оставить отзыв</div>
 	</div>
 	<div id="producer_review">
-		<div><b>От производителя:</b></div><br>
+		<div><b>Описание:</b></div><br>
 		<div><?=$prod_data[0]['description']?></div>
 	</div>
 </div>

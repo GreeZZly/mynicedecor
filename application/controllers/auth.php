@@ -237,7 +237,7 @@ class Auth extends CI_Controller {
                // $company  = 
                                  //$info = $this->ion_auth->get_user_info();
                                 // $redirect_url = $info->registred_company.base_url();
-				redirect('/main/order', 'refresh');
+				redirect('/main/order_pay', 'refresh');
 			}
 			else
 			{
@@ -295,7 +295,60 @@ class Auth extends CI_Controller {
 //			$this->_render_page('auth/login', $this->data);
 		}
 	}
+	function non_registr_login() {
 
+        $this->form_validation->set_rules('name', 'Имя', 'required|xss_clean');
+		$this->form_validation->set_rules('surname','Фамилия' , 'required|xss_clean');
+		$this->form_validation->set_rules('email','email', 'required|valid_email');
+		$this->form_validation->set_rules('phone','phone', 'required|xss_clean|min_length[3]|max_length[15]');
+		//$this->form_validation->set_rules('phone2', $this->lang->line('create_user_validation_phone2_label'), 'required|xss_clean|min_length[3]|max_length[3]');
+		//$this->form_validation->set_rules('phone3', $this->lang->line('create_user_validation_phone3_label'), 'required|xss_clean|min_length[4]|max_length[4]');
+		// $this->form_validation->set_rules('login','login', 'required|xss_clean');
+		// $this->form_validation->set_rules('password','password', 'required|min_length[' .$this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+		// $this->form_validation->set_rules('password_confirm', 'password_confirm', 'required');
+                if ($this->form_validation->run() == true)
+		{
+			// $login    =  $this->input->post('login');
+			$email    = $this->input->post('email');
+			// $password = $this->input->post('password');
+                        
+			$additional_data = array(
+				'phone'  => $this->mb_ucfirst($this->input->post('phone')),
+				'name'  => $this->mb_ucfirst($this->input->post('name')),                            
+				'surname'=> $this->mb_ucfirst($this->input->post('surname')),
+				// 'second_name'=> $this->mb_ucfirst($this->input->post('second_name')),
+                'id_registred_company'=>$this->config->item('id_company')
+			);
+		}
+		$data['reg_bool'] = FALSE;
+		if ($this->form_validation->run() == true)
+		{
+			//check to see if we are creating the user
+			//redirect them back to the admin page
+                        $additional_data['email']=$email;
+                        $this->load->model('cocaine');
+                        $this->cocaine->edit_record_from('', 'customer', $additional_data,1);
+			$this->session->set_flashdata('message', $this->ion_auth->messages());
+			$data['reg_bool'] = TRUE;
+			redirect("/main/order_pay", 'refresh');
+			
+		}
+
+
+		else
+		{
+                   
+                   $data['message'] = $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+                   $this->load->view('auth/htmlheader.html', $data);
+                   $this->load->view('auth/register');
+                   $this->load->view('auth/htmlfooter.html');
+                    
+                }
+
+
+
+                }
+	}
 	//log the user out
 	function logout()
 	{

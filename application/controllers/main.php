@@ -221,7 +221,12 @@ class Main extends CI_Controller
 	}
 	
 	public function order(){
+		
 		$this->allpages('order');
+	}	
+
+	public function order_pay(){
+		$this->allpages('pay');
 	}	
 }
 

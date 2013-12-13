@@ -55,7 +55,7 @@
 <div class="destroy_cart_submit"><a href="/index.php/main/destroy_cart">Очистить карзину</a></div>
 <? if ($this->cart->format_number($this->cart->total()) != 0) {
 		if($log_on == 0) {
-			echo "<a href='/auth/order_login'><div id='order_submit'>Оформить заказ</div></a>";
+			echo "<a href='/main/order'><div id='order_submit'>Оформить заказ</div></a>";
 		}
 		else {
 			echo "<a href='/main/order'><div id='order_submit'>Оформить заказ</div></a>";

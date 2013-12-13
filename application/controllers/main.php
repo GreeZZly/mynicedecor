@@ -220,6 +220,8 @@ class Main extends CI_Controller
 
 	}
 	
-	
+	public function order(){
+		$this->allpages('order');
+	}	
 }
 

@@ -98,5 +98,7 @@ $(function(){
 	});
 	
 		// $("#prodByCategory").text(option_id);
+	// ORDER AUTH
+	$('.order_radio input').attr('checked')
 
 });

@@ -174,7 +174,7 @@ class Nice extends CI_Model {
         join product_images pi on pi.id_product=p.id 
         join category c on c.id = p.category_id
         join product_properties ppeg on ppeg.id_product = p.id 
-        where c.id_registred_company='$this->id_registred_company' and p.category_id = '$categoryId' ".((sizeof($wheres)>0)?'and ':'').implode(' and ', $wheres)." group by p.id")->result_array();
+        where c.id_registred_company='$this->id_registred_company' and p.category_id = '$categoryId' ".((sizeof($wheres)>0)?'and ':'').implode(' and ', $wheres)." group by p.id order by p.product")->result_array();
       
     }
 

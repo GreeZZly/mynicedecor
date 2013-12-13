@@ -22,7 +22,7 @@ class Nice extends CI_Model {
         if ($cid!='all'){
           $add = "and c.id = '$cid' ";
         }
-        $query = $this->db->query("SELECT p.id, p.product as name, p.cost as price, p.currency, pi.path as img, c.name as type FROM products p join product_images pi on p.id = pi.id_product join category c on p.category_id = c.id and c.id_registred_company='$this->id_registred_company' ".$add);
+        $query = $this->db->query("SELECT p.id, p.product as name, p.cost as price, p.currency, pi.path as img, c.name as type FROM products p join product_images pi on p.id = pi.id_product join category c on p.category_id = c.id and c.id_registred_company='$this->id_registred_company' ".$add." order by name");
         return $query->result_array();
     }
      public function interesting_products($cid='all')

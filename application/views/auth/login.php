@@ -4,7 +4,7 @@
 </noscript>
 <body>
 	<div id="login_form">
-		<form method='post' action='/auth/login/'>
+		<form method='post' <?if($this->uri->segment(2) == 'login') {echo "action='/auth/login/'>";} else {echo "action='/auth/order_login'";}?>
 			<div id="head">
 				<div id="logo"><img src="/include/images/logo_img.png"><img src="/include/images/logo_text.png"></div>
                             

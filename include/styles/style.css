@@ -877,6 +877,7 @@ a {
 }
 .update_cart_submit {
 	width: 130px;
+	margin:15px 17px;
 	display: inline-block; 
 }
 .update_cart_submit input{
@@ -889,7 +890,7 @@ a {
 	text-align: center;
 	margin: 0 auto;
 	/*width: 130px;*/
-	line-height: 27px;
+	line-height: 25px;
 	/*font-size: 13px;*/
 	font-weight: bold;
 	border:none;
@@ -908,8 +909,9 @@ a {
 	font-weight: bold;
 	border:none;
 	cursor: pointer;
-	float: right;
-	margin:15px 17px; 
+	/*float: right;*/
+	margin:15px 17px;
+	display: inline-block; 
 	
 }
 	
@@ -929,4 +931,22 @@ a {
 #soc_likes_items {
 	width: auto;
 	margin: 0 auto;
+}
+
+#order_submit {
+	background-image: url(/include/images/nice_icons.png);
+	background-position: 0px -440px;
+	width: 130px;
+	height: 27px;
+	text-align: center;
+	margin: 0 auto;
+	line-height: 27px;
+	font-size: 13px;
+	font-weight: bold;
+	border:none;
+	cursor: pointer;
+	/*float: right;*/
+	margin:15px 17px;
+	display: inline-block; 	
+	color: white;
 }

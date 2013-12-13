@@ -137,7 +137,6 @@ class Nice extends CI_Model {
     }
 
     function  getPropertyParent($cat_id) {
-      echo "$cat_id";
       return $this->db->query("select distinct pp.name, pp.id from property_parent pp 
                               join property_child pc on pp.id = pc.id_property_name
                               join product_properties pprop on pprop.id_property = pc.id
@@ -147,13 +146,12 @@ class Nice extends CI_Model {
     }
 
     function getPropertyChild($cat_id) {
-      echo "$cat_id";
       return $this->db->query("select distinct pc.name as name, pc.id, pc.id_property_name from property_parent pp 
                               join property_child pc on pp.id = pc.id_property_name
                               join product_properties pprop on pprop.id_property = pc.id
                               join products p on p.id = pprop.id_product
                               join category c on c.id = p.category_id
-                              where pp.id_registred_company='$this->id_registred_company' and c.id = '$cat_id'")->result_array();
+                              where pp.id_registred_company='$this->id_registred_company' and c.id = '$cat_id' order by name")->result_array();
       // return $this->db->query("select pc.name as name, pc.id, pc.id_property_name from property_child pc 
       //                           where pc.id_registred_company='$this->id_registred_company' order by name")->result_array();
     }

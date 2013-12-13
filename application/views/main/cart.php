@@ -51,8 +51,16 @@
 
 </table>
 
-<p class="update_cart_submit"><?php echo form_submit('update_cart', 'Обновить карзину'); ?></p>
-<p class="destroy_cart_submit"><a href="/index.php/main/destroy_cart">Очистить карзину</a></p>
+<div class="update_cart_submit"><?php echo form_submit('update_cart', 'Обновить карзину'); ?></div>
+<div class="destroy_cart_submit"><a href="/index.php/main/destroy_cart">Очистить карзину</a></div>
+<? if ($this->cart->format_number($this->cart->total()) != 0) {
+		if($log_on == 0) {
+			echo "<a href='/auth/order_login'><div id='order_submit'>Оформить заказ</div></a>";
+		}
+		else {
+			echo "<a href='/main/order'><div id='order_submit'>Оформить заказ</div></a>";
+		}
+	}?>
 
 </div>
 

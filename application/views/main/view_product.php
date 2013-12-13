@@ -8,7 +8,7 @@
 			<!-- <div id="prod_id" class="font16">ID </div> -->
 			<div id="prod_type"><b><?=$prod_data[0]['type']?></b></div>
 			<!-- <div id="prod_brend">Бренд: <a href="/">Покровские стулья</a></div> -->
-			<div>Характеристики:</div>
+			<div id="prod_character">Характеристики:</div>
 			<table>
 			<? foreach ($prod_prop as $key => $value) {
 				print('<tr><td>'.$value['property'].'</td><td>'.$value['value'].'</td></tr>');

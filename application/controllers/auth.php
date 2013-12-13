@@ -347,7 +347,7 @@ class Auth extends CI_Controller {
 
 
 
-                }
+               
 	}
 	//log the user out
 	function logout()
@@ -482,7 +482,7 @@ class Auth extends CI_Controller {
 	}
 
 	//reset password - final step for forgotten password
-	public function reset_password($code = NULL)
+	public function reset_password($code = NULL)	
 	{
 		if (!$code)
 		{

@@ -598,10 +598,14 @@ a {
 	padding: 8px;
 }
 #prod_info table {
-	margin: 20px 0;
+	margin: 10px 0;
 }
 #prod_info table td{
 	padding-right: 10px;
+}
+
+#prod_character {
+	margin-top:20px; 
 }
 
 .font16 {

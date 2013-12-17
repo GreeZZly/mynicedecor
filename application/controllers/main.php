@@ -16,6 +16,11 @@ class Main extends CI_Controller
 		$id_registred_company = 2;
 
 	}
+	 function mb_ucfirst($text) {
+        $text = mb_strtolower($text);
+        return mb_strtoupper(substr($text, 0, 2)) . substr($text, 2);
+    }
+
 	private function common($url, $data=array()) {
 		if ( $this->ion_auth->logged_in() ) 
 			{
@@ -226,7 +231,36 @@ class Main extends CI_Controller
 	}	
 
 	public function order_pay(){
-		$this->allpages('pay');
+		// $this->load->helper('cookie');
+		// $data['name'] = $this->input->post('name');
+		$this->load->model('cocaine');
+		$this->load->library('form_validation');
+		    $this->form_validation->set_rules('name', 'Имя', 'required|xss_clean');
+			$this->form_validation->set_rules('surname','Фамилия' , 'required|xss_clean');
+			$this->form_validation->set_rules('email','email', 'required|valid_email');
+			$this->form_validation->set_rules('phone','Телефон', 'required|xss_clean|min_length[11]|max_length[15]');
+			if ($this->form_validation->run() == true) {
+				
+				$data['client_data'] = array(
+					'name'  => $this->mb_ucfirst($this->input->post('name')),                            
+					'surname'=> $this->mb_ucfirst($this->input->post('surname')),
+					'email_home'=> $this->input->post('email'),
+					'phone'  => $this->mb_ucfirst($this->input->post('phone')),
+					'type' => 'individual',
+					// 'second_name'=> $this->mb_ucfirst($this->input->post('second_name')),
+	                'id_registred_company'=>$this->config->item('id_company')
+				);
+			
+				$this->cocaine->edit_record_from('', 'customer', $data['client_data'],1);
+			}
+			else
+			{
+				$data['message'] = $this->data['message'] = (validation_errors() ? validation_errors() : $this->session->flashdata('message'));
+				$this->allpages('order', $data);
+			}
+		// set_cookie($client_cookie, $data['client_data']);
+		$this->allpages('pay', $data);
 	}	
+
 }
 

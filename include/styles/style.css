@@ -340,6 +340,7 @@ a {
 .books img {
 	display: block;
 	margin: 0 auto;
+	width: 150px;
 }
 
 .book_info {

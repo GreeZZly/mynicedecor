@@ -109,4 +109,45 @@ $(function(){
 	});
 
 
+	$(document).on('click', '.nonreg_form_item input[type="button"]', function(){
+		var validate_field = function(id){
+			var status = true;
+			var error = '';
+			var value = $('#'+id + ' input').val();
+			if (value == ''){
+				status = false;
+				error = 'Поле не заполнено.';
+			}
+			if (id == 'email' && value.indexOf('@')==-1) {
+				status = false;
+				error = 'Неправильный формат e-mail.';
+			};
+			if (id == 'phone' && value.length < 11){
+				status = false;
+				error = 'Неправильный формат номера (11-значный).';
+			}
+			return {status:status, error:error};
+		};
+
+		var form_status = true;
+		$('.nonreg_form_item:not(.button)').each(function(){
+			var valid =  validate_field($(this).attr('id'));
+			var err = $(this).find('.validation_error');
+			if(!valid.status){
+				form_status = false;
+				err.html(valid.error).removeClass('hidden');
+			} else{
+				err.addClass('hidden');
+			}
+		});
+		if (form_status){
+			$('#nonreg_form').submit();
+		}
+
+	});
+
+	if(!$('#php_valid_error').html() == ''){
+		$('#nonreg_radio').click();
+	}
+
 });

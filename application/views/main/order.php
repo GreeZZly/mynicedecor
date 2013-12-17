@@ -11,14 +11,15 @@
 		</div>
 	</div>
 	<div class="order_radio">
-		<label><input type="radio" name="order_auth">Я не хочу регистрироваться. Хочу купить сразу.</label>
+		<label><input type="radio" name="order_auth" id="nonreg_radio">Я не хочу регистрироваться. Хочу купить сразу.</label>
 		<div id="login_form" class="hidden loginform">
-			<form method='post' action='/'>
-				<div class="loginform_item"><p>*Мое имя</p> <input type="text" name="name"></div>			
-				<div class="loginform_item"><p>*Моя фамилия</p> <input type="text" name="surname"></div>
-				<div class="loginform_item"><p>*Мой e-mail</p> <input type="text" name="email"></div>
-				<div class="loginform_item"><p>*Мой телефон</p> <input type="text" name="phone"></div>
-				<div class="loginform_item"><input type="submit" value="Продолжить"></div>
+			<div id="php_valid_error"><?=(isset($message)?$message:"");?></div>
+			<form method='post' action='/main/order_pay' id="nonreg_form"> <!-- main/order_pay -->
+				<div class="nonreg_form_item" id="name"><p>*Мое имя</p> <p class="validation_error hidden"></p><input type="text" name="name"></div>			
+				<div class="nonreg_form_item" id="surname"><p>*Моя фамилия</p> <p class="validation_error hidden"></p><input type="text" name="surname"></div>
+				<div class="nonreg_form_item" id="email" ><p>*Мой e-mail</p> <p class="validation_error hidden"></p><input type="text" name="email"></div>
+				<div class="nonreg_form_item" id="phone" ><p>*Мой телефон</p> <p class="validation_error hidden"></p><input type="text" name="phone"></div>
+				<div class="nonreg_form_item button"><input type="button" value="Продолжить"></div>
 			</form>
 		</div>
 	</div>

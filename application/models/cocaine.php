@@ -301,7 +301,6 @@ Left join user u on c.responsibility=u.id WHERE c.label = '1' AND c.id_registred
         //            return FALSE;
         //        }
         if($table =='customer'){
-           // print_r($array);
             
             $keys_of_bank  = array('full_name',  'legal_address','head','under','accountant','INN','KPP','bank','BIK','payment_account', 'corr_account','OGRN', 'OKPO','OKVED','OKFS', 'OKOPF', 'OKATO', 'personal_account', 'card_number');
             $bank =  $this->into_arraY($keys_of_bank, $array);

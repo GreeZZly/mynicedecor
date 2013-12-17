@@ -149,5 +149,16 @@ $(function(){
 	if(!$('#php_valid_error').html() == ''){
 		$('#nonreg_radio').click();
 	}
-
+		var soc_width;
+		var soc_margin;
+		var e;
+		e = setInterval(function(){
+			if ($('.b-share').length){
+				soc_width = $('.b-share').innerWidth();
+				soc_margin = 1024/2 - soc_width/2;
+				$('.b-share').css({'margin-left':soc_margin});
+				clearInterval(e);
+			}
+		},100)
+		
 });

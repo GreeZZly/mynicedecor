@@ -262,5 +262,8 @@ class Main extends CI_Controller
 		$this->allpages('pay', $data);
 	}	
 
+	public function design_service(){
+		$this->allpages('design_service');
+	}
 }
 

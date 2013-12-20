@@ -3,9 +3,9 @@
 		<div class="minimap_block">
 		<div class="mm_border"></div>О компании
 
-			<div><a href="/">Вакансии</a></div>
+			<div><a href="/">Сервис</a></div>
 			<div><a href="/">Реквизиты</a></div>
-			<div><a href="/">О компании</a></div>
+			<div><a href="/">Новости</a></div>
 
 		</div>
 		<div class="minimap_block">
@@ -25,11 +25,11 @@
 		</div>
 
 		<div class="minimap_block">Партнеры
+			<div><a href="/">Farrow & Ball</a></div>
+			<div><a href="/">Little Green</a></div>
+			<div><a href="/">Harlequin</a></div>
 			<div><a href="/">Pojanmaan</a></div>
-			<div><a href="/">Piterra</a></div>
-			<div><a href="/">Decaro</a></div>
-			<div><a href="/">Decluxe</a></div>
-			<div><a href="/">Manders</a></div>
+			<div><a href="/">Thibaut</a></div>
 		</div>
 	</div>	
 </div>

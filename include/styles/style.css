@@ -321,7 +321,7 @@ a {
 
 #leftbar {
 	background-color: #F7F7F8;
-	margin: 10px auto;
+	margin: 0 auto;
 	padding: 20px;
 	color: #FF6701;
 	font-size: 18px;
@@ -332,7 +332,7 @@ a {
 .books {
 	margin-top: 10px;
 	margin-bottom: 30px;
-	height: 270px;
+	/*height: 270px;*/
 	width: 485px;
 	display: inline-block;
 }
@@ -346,7 +346,7 @@ a {
 .book_info {
 	font-size: 14px;
 	color: black;
-	width: 280px;
+	width: 420px;
 	margin: 0 auto;
 	line-height: 1.5;
 
@@ -698,6 +698,7 @@ a {
 
 #soc_likes {
 	height: 60px;
+	background-color: #FF6600;
 }
 
 .soc_plug {
@@ -1002,6 +1003,7 @@ a {
 #leftbar ul {
 	text-align: justify;
 	padding-left: 0;
+	height: 400px;
 }
 
 #leftbar ul li {
@@ -1018,5 +1020,6 @@ a {
 
 .b-share {
 	display: block;
-	margin: 0 auto;
+	margin-top:7px;
+
 }

@@ -194,6 +194,14 @@ class Nice extends CI_Model {
     return $data;
     }
 
-
+    public function getLikeProduct($lk){
+      $data= array();
+      foreach ($lk as $key => $value) {
+        // $query = $this->db->query("select * from products where id = '$value'")->row_array();
+        $query = $this->db->query("SELECT p.id, p.product as name, p.cost as price, p.currency, pi.path as img, c.name as type FROM products p join product_images pi on p.id = pi.id_product join category c on p.category_id = c.id and c.id_registred_company='$this->id_registred_company' and p.id = '$value' order by name")->row_array();
+        array_push($data, $query);
+      }
+      return $data;
+    }
     // select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'
 }

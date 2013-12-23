@@ -27,9 +27,14 @@
 				<div id="phone_header"><b>+7(8352)210-801</b></div>
 			</div>
 			<div id="basket">
-				<div id="basket_href">
-					<a href="/index.php/main/view_cart">Вы купили (<span id="cart_total_items"><?=$count?></span>)</a>
-				</div>
+					<div id="cart_shop">
+					<a href="/main/view_cart"><span id="cart_total_items"><?=$count?></span></a>
+					</div>
+					<div id="like_cart">
+					<a href="/main/view_like_cart"><span id="like_total_items"><?=$count?></span></a>
+					</div>
+				
+				
 			</div>
 		</div>
 		<div id="header_right">

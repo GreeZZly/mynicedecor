@@ -233,12 +233,13 @@ a {
 #basket {
 	/*float: right;*/
 	/*line-height: 25px;*/
-	background-image: url(/include/images/nice_icons.png);
+	/*background-image: url(/include/images/nice_icons.png);*/
 	background-position: 0px -156px;
 	background-repeat:no-repeat;
-	width: 227px;
-	height: 141px;
+	width: 163px;
+	height: 81px;
 	/*margin-top:4px;*/
+	padding: 30px 32px;
 	display: inline-block; 
 	
 
@@ -475,10 +476,12 @@ a {
 	background-color: #FF8409;
 	border:1px solid #FF6701;
 	border-radius: 5px;
-	margin: 5px auto;
+	margin: 5px 15px;
 	text-align: center;
 	color: white;
 	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
 }
 
 #content_title {
@@ -683,6 +686,15 @@ a {
 
 #cart_total_items{
 	font-weight: bold;
+	display: block;
+	margin-top: 35px;
+	/*color: white;*/
+}
+
+#like_total_items{
+	font-weight: bold;
+	display: block;
+	margin-top: 35px;
 	/*color: white;*/
 }
 
@@ -1022,4 +1034,46 @@ a {
 	display: block;
 	margin-top:7px;
 
+}
+
+#blog_maneeva {
+	background-color: #CD2823;
+/*	font-size: 22px;
+	line-height: 22px;*/
+	font-weight: bold;
+}
+
+#cart_shop {
+	display: inline-block;
+	width: 78px;
+	height: 79px;
+	background-image: url(/include/images/cart2.png);
+	vertical-align: top;
+}
+
+#cart_shop a {
+	text-align: center;
+}
+
+#like_cart a {
+	text-align: center;
+}
+
+#like_cart {
+	display: inline-block;
+	width: 79px;
+	height: 78px;
+	background-image: url(/include/images/like_cart.png);
+	vertical-align: top;
+}
+
+.like_button {
+	display: inline-block;
+	width: 25px;
+	height: 22px;
+	background-position: -188px -443px;
+	background-image: url("/include/images/nice_icons.png");
+	margin-top: 5px;
+	vertical-align: top;
+	cursor: pointer;
 }

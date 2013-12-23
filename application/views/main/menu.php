@@ -8,6 +8,7 @@
 				echo "<a href='/main/products/".$value['id']."'><div class='ctg_item'".$add." cat_id='".$value['id']."'>".$value['name']."</div></a>";
 			}
 		?>
+		<a href="/main/design_service"><div class="ctg_item" id="blog_maneeva">БЛОГ</div></a>
 			
 		</div>
 		

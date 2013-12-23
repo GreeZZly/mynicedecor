@@ -16,7 +16,8 @@
 			</table>
 			<div class="font16">Ваша цена:</div>
 			<div id="prod_price"><?=$prod_data[0]['cost']?> руб.</div>
-			<div><input type="submit" value="Нравится"></div>
+			<div><input type="submit" value="Купить"></div>
+			<div class="like_button"></div>
 		</div>
 	</div>	
 	<div id="prod_underline">

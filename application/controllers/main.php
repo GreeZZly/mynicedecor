@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Main extends CI_Controller
 {
@@ -12,6 +12,7 @@ class Main extends CI_Controller
 		$this->load->library('cart');
 		$this->load->library('ion_auth');
 		$this->load->library('session');
+		$this->load->helper('cookie');
 		$this->count = $this->cart->total_items();
 		$id_registred_company = 2;
 
@@ -136,6 +137,18 @@ class Main extends CI_Controller
 					 ->set_output($this->cart->total_items());
 	}
 
+
+	public function insert_to_like_cart()
+	{
+		$id = $this->input->post('product_id');
+        if (!$this->ion_auth->logged_in()){
+
+        }
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->nice->getProdBySelect($id_array, $cid)));
+	}
+
+
 	public function destroy_cart()
 	{
 		$this->cart->destroy();
@@ -195,6 +208,7 @@ class Main extends CI_Controller
 		$data['propParent'] =$this->nice->getPropertyParent($cat_id);
 		$data['propChild'] = $this->nice->getPropertyChild($cat_id);
 		$data['cat_id'] = $cat_id;
+
 
 		$this->allpages('products_view', $data);
 	}
@@ -264,6 +278,16 @@ class Main extends CI_Controller
 
 	public function design_service(){
 		$this->allpages('design_service');
+	}
+
+	public function view_like_cart(){
+		$lk = json_decode(get_cookie('like_array'));
+		// print_r($lk);
+		$data['like_products'] = $this->nice->getLikeProduct($lk);
+		// echo "<pre>";
+		// print_r($data['like_products']);
+		// echo "</pre>";
+		$this->allpages('like_cart', $data);
 	}
 }
 

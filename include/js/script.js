@@ -159,6 +159,45 @@ $(function(){
 				$('.b-share').css({'margin-left':soc_margin});
 				clearInterval(e);
 			}
-		},100)
-		
+		},100);
+		var like_array=($.cookie('like_array'))?JSON.parse($.cookie('like_array')):[];
+		$('#like_total_items').html(like_array.length);
+	$(document).on('click', '.like_button', function(){
+		var lb;
+		lb = $(this);
+		var srv_id = lb.attr('srv_id');
+		if (lb.attr('like') == 'dislike') {
+			$(this).css({'background-position':'-149px -443px'});
+			$(this).attr('like','like');
+			like_array.push(srv_id);
+
+		}
+		else {
+			$(this).attr('like','dislike');
+			$(this).css({'background-position':'-188px -443px'});
+			like_array.splice($.inArray(srv_id, like_array), 1);
+		};
+			
+			like_array_json = JSON.stringify(like_array);
+			$.cookie('like_array', like_array_json,{path:'/'});
+			// console.log(like_array_json);
+			$('#like_total_items').html(like_array.length);
+
+
+	});
+	// var like_array_cookie = JSON.parse($.cookie('like_array'));
+	$('.like_button').each(function(){
+		if ($.inArray($(this).attr('srv_id'), like_array)>-1) {
+			$(this).css({'background-position':'-149px -443px'});
+			$(this).attr('like','like');
+		};
+	});
+
+	$(document).on('click', '.incart', function(){
+		var inlb;
+		inlb = $(this);
+		if (inlb.attr('like') == 'dislike') {
+			inlb.parents('.product_wrapper').addClass('hidden');
+		}
+	});
 });

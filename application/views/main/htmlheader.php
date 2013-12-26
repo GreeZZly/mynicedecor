@@ -27,7 +27,7 @@ rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="//yandex.st/share/share.js"
 charset="utf-8"></script>
 
-<title>My nice decor! | Школа экстрасенсорного дизайна</title>
+<title>My nice decor! | Интернет-магазин интерьеров</title>
 </head>
 
 <body>

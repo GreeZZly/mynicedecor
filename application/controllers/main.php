@@ -30,6 +30,7 @@ class Main extends CI_Controller
 		else {
 			$log_on = 0;
 		}
+	
 		//$user_id = $this->ion_auth->get_user_info_is();
 		// $user_id = 7;
 

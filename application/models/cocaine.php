@@ -148,12 +148,12 @@ Left join user u on c.responsibility=u.id WHERE c.label = '1' AND c.id_registred
     function get_last_phase($id_sale){
         return $this->db2->query("select p.id_phase, p.id_sale, p.phase,p.date, s.type_sale as process from phase p join sale s on s.id = '$id_sale' where p.id_sale='$id_sale' order by id_phase desc limit 1 ")->result_array();
     }
-    function next_phase($what){
-        if ($this->get_last_phase($what['id_sale'])[0]['phase']!=$what['phase']) {
-            $this->db->insert('phase', $what);
-        }
-        return $this->db2->affected_rows()>0;
-    }
+    // function next_phase($what){
+    //     if ($this->get_last_phase($what['id_sale'])[0]['phase']!=$what['phase']) {
+    //         $this->db->insert('phase', $what);
+    //     }
+    //     return $this->db2->affected_rows()>0;
+    // }
     function get_segments_array($id_customer){
         //сегменты хранятся в json
          return $this->db2->query("select id, id_customer, segment from segment where id_customer='$id_customer'")->result_array();

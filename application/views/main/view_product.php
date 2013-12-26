@@ -4,7 +4,7 @@
 		<div id="prod_img"><?print('<img src="http://goodcrm.ru/'.$prod_data[0]['img'].'"></img>');?></div>
 		<div id="prod_info">
 	
-			<div id="prod_name">Артикул: <?=$prod_data[0]['product']?></div>
+			<div id="prod_name"><?if ($prod_data[0]['type'] == 'Обои') { echo "Артикул:";}?> <?=$prod_data[0]['product']?></div>
 			<!-- <div id="prod_id" class="font16">ID </div> -->
 			<div id="prod_type"><b><?=$prod_data[0]['type']?></b></div>
 			<!-- <div id="prod_brend">Бренд: <a href="/">Покровские стулья</a></div> -->
@@ -15,7 +15,7 @@
 			}?>
 			</table>
 			<div class="font16">Ваша цена:</div>
-			<div id="prod_price"><?=$prod_data[0]['cost']?> руб.</div>
+			<div id="prod_price"><?if ($prod_data[0]['cost'] == 0) {echo "Уточните цену";} else {echo "".$prod_data[0]['cost']." руб.";}?></div>
 			<div><input type="submit" value="Купить"></div>
 			<div class="like_button"></div>
 		</div>

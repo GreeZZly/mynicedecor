@@ -563,6 +563,7 @@ a {
 	font-weight: bold;
 	color: #663333;
 	margin-bottom: 10px;
+	width: 246px;
 }
 #prod_img {
 	display: inline-block;
@@ -619,6 +620,7 @@ a {
 #prod_price {
 	font-size: 20px;
 	color: #FF8409;
+	margin: 7px 0;
 }
 
 .font16color {

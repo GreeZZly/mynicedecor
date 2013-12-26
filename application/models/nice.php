@@ -68,7 +68,7 @@ class Nice extends CI_Model {
 
     public function get_smth($query)
         {   
-            return $this->db->query("select p.id, p.product, p.description, p.cost, pi.path as img, c.name as type from products p
+            return $this->db->query("select p.id, p.product, p.description, p.cost, p.currency, pi.path as img, c.name as type from products p
                                       join category c on p.category_id = c.id
                                       join product_images pi on pi.id_product = p.id
                                       where p.product like '%$query%' or p.description like '%$query%' or c.name like '%$query%'")->result_array();

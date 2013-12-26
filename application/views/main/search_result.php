@@ -19,9 +19,13 @@
 
 				echo "<div>По запросу <b>".$query."</b> найдено совпадений: ".count($q)."</div>";
 				foreach ($q as $key => $value) {
+					if ($value['cost'] == 0) {
+						$value['cost'] = 'Уточните цену'; 
+						$value['currency'] = '';					
+					}
 					// print('<div class="product_wrapper"><div class="pr_img"><img src="http://goodcrm.ru/'.$value['img'].'"></div><div class="pr_name">'.$value['product'].'</div><div class="pr_type">'.$value['type'].'</div><div class="price">'.$value['cost'].'р.</div><input type="hidden" name="product_id" value="'.$value['id'].'"><div class="buy_button" srv_id="'.$value['id'].'">Нравится</div></form></div>');
 					// print('<div class="product_wrapper"><form name="prod_to_cart" method="post" action="/index.php/main/insert_to_cart"><div class="pr_img"><img src="'.$value['img'].'"></div><div class="pr_name">'.$value['name'].'</div><div class="pr_type">'.$value['type'].'</div><div class="price">'.$value['price'].'р.</div><input type="hidden" name="product_id" value="'.$value['id'].'"><div class="buy_button" srv_id="'.$value['id'].'">Нравится</div></form></div>');
-					print ('<div class="product_wrapper"><form name="prod_to_cart" method="post" action="/main/insert_to_cart"><a href="/index.php/main/viewProduct/'.$value['id'].'"><div class="pr_img" srv_id="'.$value['id'].'"><img src="http://goodcrm.ru/'.$value['img'].'"></div></a><a href="/index.php/main/viewProduct/'.$value['id'].'"><div class="pr_name" srv_id="'.$value['id'].'">'.$value['product'].'</div></a><div class="pr_type">'.$value['type'].'</div><div class="price">'.$value['cost'].' руб.</div><input type="hidden" name="product_id" value="'.$value['id'].'"><div class="buy_button" srv_id="'.$value['id'].'">Купить</div><div class="like_button" srv_id="'.$value['id'].'" like="dislike"></div></form></div>');
+					print ('<div class="product_wrapper"><form name="prod_to_cart" method="post" action="/main/insert_to_cart"><a href="/index.php/main/viewProduct/'.$value['id'].'"><div class="pr_img" srv_id="'.$value['id'].'"><img src="http://goodcrm.ru/'.$value['img'].'"></div></a><a href="/index.php/main/viewProduct/'.$value['id'].'"><div class="pr_name" srv_id="'.$value['id'].'">'.$value['product'].'</div></a><div class="pr_type">'.$value['type'].'</div><div class="price">'.$value['cost'].' '.$value['currency'].'</div><input type="hidden" name="product_id" value="'.$value['id'].'"><div class="buy_button" srv_id="'.$value['id'].'">Купить</div><div class="like_button" srv_id="'.$value['id'].'" like="dislike"></div></form></div>');
 				}
 			}
 			// echo "По вашему запросу найдено совпадений: ".count($q);

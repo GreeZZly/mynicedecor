@@ -13,4 +13,8 @@
 			hidden.fadeIn();
 		}
 	});
+	var cat_h = $('#categories').height();
+	$('.large img').css({'height':cat_h});
+	var gallery_btn_h = cat_h/4-10;
+	$('#thumbnail div:not(.arrows), .tmb_text').css({'height':gallery_btn_h});
 });

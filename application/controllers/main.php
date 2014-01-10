@@ -315,7 +315,7 @@ class Main extends CI_Controller
 	public function invoice_confirmation(){
 		$data = $this->input->post();
 
-		$fp = fopen('invoice', 'w');
+		$fp = fopen('invoice.txt', 'w');
 		fwrite($fp, $data);
 		fclose($fp);
 		echo "YES";

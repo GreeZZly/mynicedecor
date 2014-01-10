@@ -203,5 +203,25 @@ class Nice extends CI_Model {
       }
       return $data;
     }
+
+    public function setLikeToBd($like_array, $user_id){
+        $data = array();
+        $this->db->query("delete from likes where user_is_id = '$user_id'");
+       
+        foreach ($like_array as $key => $value) {
+            $data[$key]['user_is_id'] = $user_id;
+            $data[$key]['product_id'] = $value;
+        }
+        $this->db->insert_batch('likes',$data);
+        return $this->db->affected_rows()>0;
+    }
     // select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'
+    public function getLikeFromBd($user_id){
+       $data = array();
+       $cookie_data =  $this->db->query("select product_id from likes where user_is_id = '$user_id'")->result_array();
+       foreach ($cookie_data as $key => $value) {
+         $data[] = $value['product_id'];
+       }
+       return $data;
+    }
 }

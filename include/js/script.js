@@ -162,6 +162,8 @@ $(function(){
 		},100);
 		var like_array=($.cookie('like_array'))?JSON.parse($.cookie('like_array')):[];
 		$('#like_total_items').html(like_array.length);
+		var login = 1;
+		console.log(login);
 	$(document).on('click', '.like_button', function(){
 		var lb;
 		lb = $(this);
@@ -181,6 +183,20 @@ $(function(){
 			like_array_json = JSON.stringify(like_array);
 			$.cookie('like_array', like_array_json,{path:'/'});
 			// console.log(like_array_json);
+			if(login == 1) {
+			$.ajax({
+				type:'POST',
+				dataType:'json',
+				url: '/index.php/main/setLikeToBd',
+				data:{id_like_array : like_array},
+				success: function(datum){
+					
+						}
+						//prop_id_array.push(pr_id_array);
+
+						
+				});
+			}
 			$('#like_total_items').html(like_array.length);
 
 

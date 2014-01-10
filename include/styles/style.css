@@ -1079,3 +1079,7 @@ a {
 	vertical-align: top;
 	cursor: pointer;
 }
+
+.pmwidget {
+	overflow: hidden;
+}

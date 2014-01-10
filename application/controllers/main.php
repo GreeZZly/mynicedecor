@@ -30,6 +30,7 @@ class Main extends CI_Controller
 		else {
 			$log_on = 0;
 		}
+
 	
 		//$user_id = $this->ion_auth->get_user_info_is();
 		// $user_id = 7;
@@ -171,6 +172,7 @@ class Main extends CI_Controller
 	}
 
 	public function allpages($url, $data=array()){
+			
 			if ( $this->ion_auth->logged_in() ) 
 			{
 				$log_on = 1;
@@ -183,6 +185,16 @@ class Main extends CI_Controller
 
 		//$data['user'] = $this->ion_auth_model->getUserIs($user_id);
 		$user_id = $this->session->userdata('user_id');
+		$cookie_data = $this->nice->getLikeFromBd($user_id);
+		$cookie = array(
+    	'name'   => 'The Cookie Name',
+    	'value'  => 'The Value',
+   		'expire' => '86500',
+    	'domain' => 'nicedecor.loc',
+    	'path'   => '/',
+    	'prefix' => 'myprefix_',
+    	);
+		$this->input->set_cookie($cookie);
 		$data['username'] = $this->ion_auth_model->getUserIs($user_id);
 		
 		$data['log_on'] = $log_on;
@@ -289,6 +301,20 @@ class Main extends CI_Controller
 		// print_r($data['like_products']);
 		// echo "</pre>";
 		$this->allpages('like_cart', $data);
+	}
+
+	function setLikeToBd(){
+		if ($this->ion_auth->logged_in()) {
+			$like_array = $this->input->post('id_like_array');
+			$user_id = $this->session->userdata('user_id');
+			
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->nice->setLikeToBd($like_array, $user_id)));
+		}
+	}
+
+	public function invoice_confirmation(){
+		$data = $this->input->post();
+		echo "YES";
 	}
 }
 

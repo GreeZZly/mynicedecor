@@ -313,12 +313,13 @@ class Main extends CI_Controller
 	}
 
 	public function invoice_confirmation(){
+		$this->load->helper('file');
 		$data = $this->input->post();
-
+		write_file('/include/files/file.txt', $data);
 		// $fp = fopen('invoice.txt', 'w+');
 		// fwrite($fp, $data);
 		// fclose($fp);
-
+		// $this->nice->
 		echo "YES";
 	}
 }

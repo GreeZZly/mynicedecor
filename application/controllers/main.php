@@ -185,16 +185,16 @@ class Main extends CI_Controller
 
 		//$data['user'] = $this->ion_auth_model->getUserIs($user_id);
 		$user_id = $this->session->userdata('user_id');
-		$cookie_data = $this->nice->getLikeFromBd($user_id);
-		$cookie = array(
-    	'name'   => 'The Cookie Name',
-    	'value'  => 'The Value',
-   		'expire' => '86500',
-    	'domain' => 'nicedecor.loc',
-    	'path'   => '/',
-    	'prefix' => 'myprefix_',
-    	);
-		$this->input->set_cookie($cookie);
+		// $cookie_data = $this->nice->getLikeFromBd($user_id);
+		// $cookie = array(
+  //   	'name'   => 'The Cookie Name',
+  //   	'value'  => 'The Value',
+  //  		'expire' => '86500',
+  //   	'domain' => 'nicedecor.loc',
+  //   	'path'   => '/',
+  //   	'prefix' => 'myprefix_',
+  //   	);
+		// $this->input->set_cookie($cookie);
 		$data['username'] = $this->ion_auth_model->getUserIs($user_id);
 		
 		$data['log_on'] = $log_on;
@@ -217,11 +217,14 @@ class Main extends CI_Controller
 	}
 
 	public function products($cat_id){
+		$this->load->helper('file');
 		$data['prodByCategory'] = $this->nice->products($cat_id);
 		$data['propParent'] =$this->nice->getPropertyParent($cat_id);
 		$data['propChild'] = $this->nice->getPropertyChild($cat_id);
 		$data['cat_id'] = $cat_id;
 
+		$d = 'Hello, World!';
+		write_file('/include/files/file.txt', $d);
 
 		$this->allpages('products_view', $data);
 	}
@@ -286,6 +289,7 @@ class Main extends CI_Controller
 				$this->allpages('order', $data);
 			}
 		// set_cookie($client_cookie, $data['client_data']);
+
 		$this->allpages('pay', $data);
 	}	
 

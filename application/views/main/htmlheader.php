@@ -15,6 +15,14 @@ rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/include/js/welcome.js"></script>
 <script type="text/javascript" src="/include/js/counter.js"></script>
 <script type="text/javascript" src="/include/js/cookie/jquery.cookie.js"></script>
+<!-- <script type="text/javascript" scr="/include/scrollup/jquery.scrollUp.js"></script> -->
+
+        <!-- <link id="scrollUpTheme" rel="stylesheet" href="/include/scrollup/css/themes/tab.css"> -->
+        <link id="scrollUpTheme" rel="stylesheet" href="/include/scrollup/css/themes/image.css">
+        <!-- <link id="scrollUpTheme" rel="stylesheet" href="/include/scrollup/css/labs.css?1.1"> -->
+
+        
+        <script src="/include/scrollup/js/jquery.scrollUp.js?1.1"></script>
 
 <script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script>
 <!-- <script type="text/javascript" src="//vk.com/js/api/openapi.js?101"></script> -->

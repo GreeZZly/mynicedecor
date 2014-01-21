@@ -109,6 +109,7 @@ class Main extends CI_Controller
 	{
 		$id = $this->input->post('product_id');
         $has = $this->cart->contents();
+	
         $bool = false;
         foreach ($has as $key => $value) {
         	if ($value['id'] == $id) {
@@ -134,7 +135,16 @@ class Main extends CI_Controller
         else {
         	$this->cart->update(array('rowid'=>$rowid, 'qty' => (int)$qty+1));
         }
-
+	if($this->ion_auth->logged_in()){
+		
+		$order = $this->_prepare();
+		$this->load->model('heroin');
+		$id_order = $this->heroin->start($order['id_order'],$order,'В корзине');
+		
+		if($id_order)
+			$this->session->set_userdata('id_order', $id_order);
+	}	
+	
 		$this->output->set_content_type('apllication/json')
 					 ->set_output($this->cart->total_items());
 	}
@@ -263,7 +273,10 @@ class Main extends CI_Controller
 	public function order_pay(){
 		// $this->load->helper('cookie');
 		// $data['name'] = $this->input->post('name');
-		$this->load->model('cocaine');
+		$this->load->model('heroin');
+		$order = $this->_prepare();
+		$data = array();
+		if(!$this->ion_auth->logged_in()){
 		$this->load->library('form_validation');
 		    $this->form_validation->set_rules('name', 'Имя', 'required|xss_clean');
 			$this->form_validation->set_rules('surname','Фамилия' , 'required|xss_clean');
@@ -271,23 +284,31 @@ class Main extends CI_Controller
 			$this->form_validation->set_rules('phone','Телефон', 'required|xss_clean|min_length[11]|max_length[15]');
 			if ($this->form_validation->run() == true) {
 				
-				$data['client_data'] = array(
+				$data['customer'] = array(
 					'name'  => $this->mb_ucfirst($this->input->post('name')),                            
 					'surname'=> $this->mb_ucfirst($this->input->post('surname')),
-					'email_home'=> $this->input->post('email'),
+					'email'=> $this->input->post('email'),
 					'phone'  => $this->mb_ucfirst($this->input->post('phone')),
 					'type' => 'individual',
 					// 'second_name'=> $this->mb_ucfirst($this->input->post('second_name')),
-	                'id_registred_company'=>$this->config->item('id_company')
+	                                'id_registred_company'=>$this->config->item('id_company')
 				);
-			
-				$this->cocaine->edit_record_from('', 'customer', $data['client_data'],1);
+				$order['customer'] = $data['customer'];
+				//$this->heroin->start(null,$data,'Оформление');
 			}
 			else
 			{
 				$data['message'] = $this->data['message'] = (validation_errors() ? validation_errors() : $this->session->flashdata('message'));
 				$this->allpages('order', $data);
 			}
+			
+		}
+		
+		
+	        if( $this->heroin->start($order['id_order'],$order,'Оформление')){
+			$this->session->unset_userdata('id_order');
+		}
+		
 		// set_cookie($client_cookie, $data['client_data']);
 
 		$this->allpages('pay', $data);
@@ -296,7 +317,28 @@ class Main extends CI_Controller
 	public function design_service(){
 		$this->allpages('design_service');
 	}
-
+	private function _prepare(){
+		$cart = $this->cart->contents();
+		$temp = array();
+		foreach($cart as $value){
+			$temp[] = array('count'=>$value['qty'],
+					'price'=>$value['price'],
+					'product_id'=>$value['id'],
+					'total'=>$value['subtotal'],
+					'name'=>$value['name']);
+		}
+		$order['description'] = json_encode($temp);
+		$order['price'] = $this->cart->total();
+		$order['date']=date('d-m-Y');
+		$order['time']=date('G:i');
+		$order['reg']= $this->ion_auth->logged_in();
+		$order['id_order'] =($order['reg'])? $this->session->userdata('id_order'):null;
+		$order['name'] = 'Заказ_'.$order['date']."_".$order['time'];
+		//$order['id'] = $id_order;
+		$order['customer']['user_id'] = $this->session->userdata('user_id');
+		
+		return $order;
+	}
 	public function view_like_cart(){
 		$lk = json_decode(get_cookie('like_array'));
 		// print_r($lk);

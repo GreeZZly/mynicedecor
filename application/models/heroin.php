@@ -247,20 +247,25 @@ class Heroin extends CI_Model{
    }
    function addToCart($id_order,$order,$reg,$customer=null){
        
-       if(isset($customer['user_id'])){
-             $customer['id']=  $this->getCustomerByUserID($customer['user_id']);
-       }
-       $sale['customer_id'] = (!isset($customer['id']))?$this->setCustomer(NULL, $customer): $customer['id'];
-      
-       $order['id_sale'] = $this->getByOrder($id_order,"sale"); // todo создать функцию
-       $order['customer_id']=$sale['customer_id'];
+        if(isset($customer['user_id'])){
+           $_temp =  $this->getCustomerByUserID($customer['user_id']);
+          
+           if($_temp){  
+              $customer['id'] =  $_temp['id'];
+              $sale['responsibility'] = $_temp['responsibility'];
+            }
+        }
+        $sale['customer_id'] = (!isset($customer['id']))?$this->setCustomer(NULL, $customer): $customer['id'];
+        
+        $order['id_sale'] = $this->getByOrder($id_order,"sale"); // todo создать функцию
+        $order['customer_id']=$sale['customer_id'];
         if(empty($order['id_sale'])){
-            $order['id_sale'] = $this->setSaleCustomer(NULL, $sale,$reg);
-            $id_order = null;
-       }
-       
-       $id = $this->ToCart($id_order, $order,$this->phase['cart'],$reg);
-       return isset($id)?$id:FALSE;
+             $order['id_sale'] = $this->setSaleCustomer(NULL, $sale,$reg);
+             $id_order = null;
+        }
+        
+        $id = $this->ToCart($id_order, $order,$this->phase['cart'],$reg);
+        return isset($id)?$id:FALSE;
    }
    
    function start($id_order, $data, $phase){
@@ -292,8 +297,8 @@ class Heroin extends CI_Model{
         return FALSE;
    }
    function getCustomerByUserID($id){
-        $cus = $this->db->query("select id_customer id from user_is where id_registred_company='$this->id_registred_company' and id = '$id'")->row_array();
-        return !empty($cus['id'])?$cus['id']:FALSE;
+        $cus = $this->db->query("select ui.id_customer id, c.responsibility from user_is ui join customer c on c.id = ui.id_customer where c.id_registred_company='$this->id_registred_company' and ui.id = '$id'")->row_array();
+        return count($cus)>0?$cus:FALSE;
    }
    function getPhaseBySale($id) {
         $phase = $this->db->query("select p.id_phase, p.id_sale, pd.id, pd.phase_db phase, p.date from phase p

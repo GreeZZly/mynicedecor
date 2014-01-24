@@ -53,8 +53,9 @@ class Auth extends CI_Controller {
                         $additional_data['email']=$email;
                         $additional_data['type']='individual';
 			$additional_data['user_id']=$id;
+			$additional_data['captured'] = '1';
                         $this->load->model('heroin');
-                        $customer['id_customer'] =  $this->heroin->setCustomer('',$additional_data,1);
+                        $customer['id_customer'] =  $this->heroin->setCustomer('',$additional_data);
 //			if($customer['id_customer']){
 //				$this->updateUser($id,$customer);
 //			}

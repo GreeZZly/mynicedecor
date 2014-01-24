@@ -305,13 +305,16 @@ class Main extends CI_Controller
 		}
 		
 		
-	        if( $this->heroin->start($order['id_order'],$order,'Оформление')){
-			$this->session->unset_userdata('id_order');
+	        if( $id = $this->heroin->start($order['id_order'],$order,'Оформление')){
+			$this->session->set_userdata('id_order',$id);
 		}
-		
+		else{
+			$data['message']='Возникла ошибка при оформлении покупки';
+			$this->allpages('order', $data);
+		}
 		// set_cookie($client_cookie, $data['client_data']);
-
-		$this->allpages('pay', $data);
+		redirect('/pay/', 'refresh');	
+		//$this->allpages('pay', $data);
 	}	
 
 	public function design_service(){

@@ -29,7 +29,7 @@ class Heroin extends CI_Model{
             $key_contact_info = array('phone', 'phone_work',  'phone_for_sms', 'send_sms',  'send_email',  'IM',  'fax',   'email_home',  'email_work',  'email_reserv',    'site1',   'site2',   'site3');
             $contact_info  = $this->into_arraY($key_contact_info, $array);
             $contact_info['email_home']  =$array['email'];
-            $key_customer = array('type',  'name', 'surname', 'photo',  'second_name', 'gender',  'date_registration',   'status',  'responsibility','work_mode_c','dinner_time_c', 'id_contact_info',  'id_address',  'id_bank_details', 'ownership', 'SNILS','INN_c','description','birthday');
+            $key_customer = array('type',  'name', 'surname', 'photo',  'second_name', 'gender',  'date_registration',   'status',  'responsibility','work_mode_c','dinner_time_c', 'id_contact_info',  'id_address',  'id_bank_details', 'ownership', 'SNILS','INN_c','description','birthday','captured');
             $customer  = $this->into_arraY($key_customer, $array);
             //var_dump($customer);
             $customer['id_contact_info']    = $this->returnInsertedId('id_contact_info' ,'contact_info'     , $contact_info     , $customer);
@@ -272,7 +272,7 @@ class Heroin extends CI_Model{
         
         
         $id =  $this->addToCart($id_order, $data, $data['reg'],$data['customer']);
-        if($phase!=$this->phase['cart']) $this->changePhase($id,$phase);
+        if($phase!=$this->phase['cart'] and $id) $this->changePhase($id,$phase);
         return $id;
    }
    private function getByOrder($id_order,$byWHO){

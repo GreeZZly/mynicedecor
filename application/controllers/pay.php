@@ -33,7 +33,9 @@ class Pay extends CI_Controller{
     function invoice_confirmation(){
         $post = $this->input->post();
         $this->_setLog($post);
-        echo $this->payment->checkInvoice($post)?"YES":"NO";
+        $answer =  $this->payment->checkInvoice($post)?"YES":"NO";
+        $this->_setLog($answer);
+        echo $answer;
 
         //todo проверка данных
 	 

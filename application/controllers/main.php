@@ -324,11 +324,11 @@ class Main extends CI_Controller
 		$cart = $this->cart->contents();
 		$temp = array();
 		foreach($cart as $value){
-			$temp[] = array('count'=>$value['qty'],
-					'price'=>$value['price'],
-					'product_id'=>$value['id'],
-					'total'=>$value['subtotal'],
-					'name'=>$value['name']);
+			$temp[] = array('quantity'=>$value['qty'],
+					'cost'=>$value['price'],
+					'id'=>$value['id'],
+					'total_sum'=>$value['subtotal'],
+					'product'=>$value['name']);
 		}
 		$order['description'] = json_encode($temp);
 		$order['price'] = $this->cart->total();

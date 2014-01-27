@@ -83,7 +83,7 @@ class Payment extends CI_Model{
                             $temp[$key]=$value;
                         }
                     }
-
+                    $payment['LMI_PAYMENT_DESC']=json_decode($payment['LMI_PAYMENT_DESC'],true);
                     $notis['id_order'] = $cart['id_order'];
                     $notis['payment_status'] =0;
                     $notis['id_payment']=0;
@@ -99,10 +99,10 @@ class Payment extends CI_Model{
             $temp = array();
             foreach($data as $key=>$value){
                 if($key=='LMI_PAYMENT_DESC'){
-                    $descr = json_decode($value,true);
+                    $descr = $value;
                     $value ="";
                     foreach ($descr as $val) {
-                        $value.="Товар - {$val['name']}, количество - {$val['count']}, цена за шт - {$val['price']}";
+                        $value.="Товар - {$val['product']}, количество - {$val['quantity']}, цена за шт - {$val['cost']}";
                     }
                 }
                 $temp[]=$key."=".$value;
@@ -122,10 +122,8 @@ class Payment extends CI_Model{
             $notice = $this->formation_payment($cart);
             if($notice){
                 $widget = $this->constructWidget($notice['adata']);
-
                 if($widget){
                     $this->setNotification($notice['id_order'],$notice);
-
                     return $widget;
                 }
             }
@@ -173,15 +171,17 @@ class Payment extends CI_Model{
         
         function checkInvoice($data){
             $notice = array();
+
             if(isset($data['LMI_PAYMENT_NO'])){
                 $notice = $this->getNotification($data['LMI_PAYMENT_NO']);
             }
+            print_r($notice);
             if(count($notice)==0){
                 return FALSE;
             }
             $key_no_allow =array('LMI_PREREQUEST','LMI_PAYMENT_DESC');
             foreach($data as $key=>$value){
-                if(!in_array($key,$key_no_allow) and $value != $notice['adata'][$key]){
+                if(!in_array($key,$key_no_allow) and isset($notice['adata'][$key])  and $value != $notice['adata'][$key]){
                     return FALSE;
                 }
             }

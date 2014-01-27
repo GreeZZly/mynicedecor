@@ -32,7 +32,7 @@ class Pay extends CI_Controller{
     
     function invoice_confirmation(){
         $post = $this->input->post();
-        if(!$this->_setLog($post)) echo "EPic FAIL to write logs";
+        $this->_setLog($post);
         echo $this->payment->checkInvoice($post)?"YES":"NO";
 
         //todo проверка данных
@@ -40,7 +40,7 @@ class Pay extends CI_Controller{
     }
     function payment_notification(){
         $post = $this->input->post();
-        if($this->_setLog($post)) echo "EPic FAIL to write logs<br>";
+        $this->_setLog($post);
         if($this->payment->checkNotification($post)){
             echo "Hoorey!<br>";
         }
@@ -83,7 +83,7 @@ class Pay extends CI_Controller{
     function setSettings(){
 
         $post = $this->input->post();
-        if(!$this->_setLog($post)) echo "EPic FAIL to write logs";
+        $this->_setLog($post);
         $settings = new stdClass();
         $settings->id_payment = 1;
         $settings->settings = $post;
@@ -115,10 +115,13 @@ class Pay extends CI_Controller{
 		$this->load->view('main/htmlfooter');
 	}
     function getLogs(){
-        echo  read_file('application/logs/logs.txt');
+        echo "<pre>";
+       print_r($this->payment->getLog());
+        echo "</pre>";
     }
     private function _setLog($data){
-        return write_file('application/logs/logs.txt',date('d-m-Y H:i:s')." ".json_encode($data)."\n\n\r","a+");
+        $this->payment->setLog($data);
+       // return write_file('application/logs/logs.txt',date('d-m-Y H:i:s')." ".json_encode($data)."\n\n\r","a+");
     }
 //
 

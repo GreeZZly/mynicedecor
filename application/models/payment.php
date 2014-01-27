@@ -222,7 +222,21 @@ class Payment extends CI_Model{
         }
         return false;
     }
-        
+    function setLog($data){
+        $sql = "CREATE TABLE IF NOT EXISTS `payment_log` (
+                `id` int(15) NOT NULL AUTO_INCREMENT,
+                 `date` varchar(30)  NOT NULL,
+                  `data` text NOT NULL,
+                PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+
+        $this->db->query($sql);
+        $this->db->query("insert into payment_log (date,data) values('".date('d-m-Y H:i:s')."','".json_encode($data)."')");
+    }
+
+    function getLog(){
+        return $this->db->get('payment_log')->result_array();
+    }
         
 
         

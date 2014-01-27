@@ -12,6 +12,7 @@ class Pay extends CI_Controller{
         $this->load->helper('url');
         $this->load->helper('language');
         $this->load->helper('file');
+
     }
     
     function index(){
@@ -76,25 +77,33 @@ class Pay extends CI_Controller{
         else show_404();
     }
     function getNotificationCompany(){
-	    print_r($this->payment->getNotificationCompany());
+        if($this->ion_auth->is_admin()){
+	        print_r($this->payment->getNotificationCompany());
+        }
+        else show_404();
     }
     function paymentSetting(){
-        $setting = $this->payment->getSettings();
-        if(isset($setting) and !$setting->settings){
-            $data['settings']  = array('LMI_MERCHANT_ID'=>'','LMI_CURRENCY'=>'','LMI_SIM_MODE'=>'','SECRET_KEY'=>'');
+        if($this->ion_auth->is_admin()){
+            $setting = $this->payment->getSettings();
+            if(isset($setting) and !$setting->settings){
+                $data['settings']  = array('LMI_MERCHANT_ID'=>'','LMI_CURRENCY'=>'','LMI_SIM_MODE'=>'','SECRET_KEY'=>'');
+            }
+            else  $data['settings'] =$setting->settings;
+            $this->allpages('setting_payment',$data);
+
         }
-        else  $data['settings'] =$setting->settings;
-        $this->allpages('setting_payment',$data);
+        else{ show_404();}
     }
     function setSettings(){
-
-        $post = $this->input->post();
-        $this->_setLog($post);
-        $settings = new stdClass();
-        $settings->id_payment = 1;
-        $settings->settings = $post;
-        $this->payment->createPaymentSettings();
-        $this->payment->setSettings($settings);
+        if($this->ion_auth->is_admin()){
+            $post = $this->input->post();
+            $this->_setLog($post);
+            $settings = new stdClass();
+            $settings->id_payment = 1;
+            $settings->settings = $post;
+            $this->payment->createPaymentSettings();
+            $this->payment->setSettings($settings);
+        }
 
     }
     public function allpages($url, $data=array()){
@@ -121,9 +130,14 @@ class Pay extends CI_Controller{
 		$this->load->view('main/htmlfooter');
 	}
     function getLogs(){
-        echo "<pre>";
-       print_r($this->payment->getLog());
-        echo "</pre>";
+        if($this->ion_auth->is_admin()){
+            echo "<pre>";
+           print_r($this->payment->getLog());
+            echo "</pre>";
+        }
+        else{
+            show_404();
+        }
     }
     private function _setLog($data){
         $this->payment->setLog($data);

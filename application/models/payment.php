@@ -180,8 +180,8 @@ class Payment extends CI_Model{
                 return FALSE;
             }
             $key_no_allow =array('LMI_PREREQUEST','LMI_PAYMENT_DESC');
-            foreach($data as $key=>$value){
-                if(!in_array($key,$key_no_allow) and isset($notice['adata'][$key])  and $value != $notice['adata'][$key]){
+            foreach($notice['adata'] as $key=>$value){
+                if(!in_array($key,$key_no_allow)   and $value != $data[$key]){
                     return FALSE;
                 }
             }

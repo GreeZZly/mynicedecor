@@ -32,14 +32,17 @@ class Pay extends CI_Controller{
     
     
     function invoice_confirmation(){
-        $post = json_decode('{"LMI_MERCHANT_ID":"7e8a97c5-6b34-4ae2-9d14-29c7c7112748","LMI_PAYMENT_SYSTEM":"3","LMI_CURRENCY":"RUB","LMI_PAYMENT_AMOUNT":"2532.00","LMI_PAYMENT_NO":"7","LMI_PAYMENT_DESC":"u0422u043eu0432u0430u0440 - 10401, u043au043eu043bu0438u0447u0435u0441u0442u0432u043e - 1, u0446u0435u043du0430 u0437u0430 u0448u0442 - 2532","LMI_PAID_AMOUNT":"2532.00","LMI_PAID_CURRENCY":"RUB","LMI_PREREQUEST":"1","LMI_PAYMENT_METHOD":"Test"}',true);
-
-        //
+        $post = $this->input->post();
+        if($post){
         $this->_setLog(array('invoice'=>$post));
 
         $answer =($this->payment->checkInvoice($post))?"YES":"NO";
         $this->_setLog(array('invoice_answer'=>$answer));
         echo $answer;
+        }
+        else{
+            show_404();
+        }
 
         //todo проверка данных
 	 
@@ -48,11 +51,13 @@ class Pay extends CI_Controller{
         $post  = $this->input->post();//json_decode('{"LMI_MERCHANT_ID":"7e8a97c5-6b34-4ae2-9d14-29c7c7112748","LMI_PAYMENT_SYSTEM":"3","LMI_CURRENCY":"RUB","LMI_PAYMENT_AMOUNT":"2532.00","LMI_PAYMENT_NO":"3","LMI_PAYMENT_DESC":"u0422u043eu0432u0430u0440 - 10401, u043au043eu043bu0438u0447u0435u0441u0442u0432u043e - 1, u0446u0435u043du0430 u0437u0430 u0448u0442 - 2532","LMI_SYS_PAYMENT_DATE":"2014-01-27T10:53:17","LMI_SYS_PAYMENT_ID":"13164486","LMI_PAID_AMOUNT":"2532.00","LMI_PAID_CURRENCY":"RUB","LMI_SIM_MODE":"3","LMI_PAYER_IDENTIFIER":"394738333193","LMI_PAYMENT_METHOD":"Test","LMI_HASH":"bBIspCkqKNcPVztwUpEgVQ=="}',true);
 
         //
+        if($post){
         $this->_setLog(array('notice'=>$post));
         if($this->payment->checkNotification($post)){
             echo "Hoorey!<br>";
         }
         else echo "Shits happens";
+        }else show_404();
         //todo
         //2. проверка хеша и запись в таблицу
         //3.

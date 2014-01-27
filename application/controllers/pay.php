@@ -8,71 +8,88 @@ class Pay extends CI_Controller{
         $this->load->library('session');
         $this->load->library('cart');
         $this->load->library('ion_auth');
-	$this->load->model('payment');
-	$this->load->helper('url');
+        $this->load->model('payment');
+        $this->load->helper('url');
         $this->load->helper('language');
+        $this->load->helper('file');
     }
     
     function index(){
         ///$this->allpages('pay');
         $id_order = $this->session->userdata('id_order');
-	if($id_order){
-	    echo $this->model->startPayment($id_order);
-	    
-	}else{
-	    show_404();
-	}
+        if($id_order){
+            $this->payment->createPaymentNotification();
+            echo "<script type='text/javascript' src='https://paymaster.ru/widget/Basic/1?".$this->payment->startPayment($id_order)."'>
+//                </script>";
+
+        }else{
+            show_404();
+        }
     }
     
     
     
     
     function invoice_confirmation(){
-	$post = $this->input->post();
-	echo $this->payment->checkInvoice($post)?"YES":"NO";
-	//todo проверка данных
+        $post = $this->input->post();
+        if($this->_setLog($post)) echo "EPic FAIL to write logs";
+        echo $this->payment->checkInvoice($post)?"YES":"NO";
+
+        //todo проверка данных
 	 
     }
     function payment_notification(){
-	$post = $this->input->post();
-	if($this->payment->checkNotification($notice)){
-	    echo "Hoorey!";
-	}
-	else echo "Shits happens";
-	//todo 1. Создать таблицу paymant_notification, куда складировать данные об успешной оплате
-	//2. проверка хеша и запись в таблицу
-	//3. 
+        $post = $this->input->post();
+        if($this->_setLog($post)) echo "EPic FAIL to write logs<br>";
+        if($this->payment->checkNotification($post)){
+            echo "Hoorey!<br>";
+        }
+        else echo "Shits happens";
+        //todo 1. Создать таблицу paymant_notification, куда складировать данные об успешной оплате
+        //2. проверка хеша и запись в таблицу
+        //3.
     }
     function success(){
-	$post = $this->input->post();
-	if(count($post)>0){
-	    $notice  = $this->getNotification($post['LMI_PAYMENT_NO']);
-	    var_dump($notice);
-	    //echo "Если вы это читаете то платеж успешно прошел. Или нет";
-	}
-	else{
-	    show_404();
-	}
-	
-	 
+        $post = $this->input->post();
+        if(count($post)>0){
+            $notice  = $this->getNotification($post['LMI_PAYMENT_NO']);
+            var_dump($notice);
+            //echo "Если вы это читаете то платеж успешно прошел. Или нет";
+        }
+        else{
+            show_404();
+        }
+
+
     }
     function failure(){
-	$post = $this->input->post();
-	if(count($post)>0){
-	    echo "Если вы это читаете то платеж успешно провалился.";
-	}
-	else show_404();
+        $post = $this->input->post();
+        if(count($post)>0){
+            echo "Если вы это читаете то платеж успешно провалился.";
+        }
+        else show_404();
     }
     function getNotificationCompany(){
-	print_r($this->payment->getNotificationCompany());
+	    print_r($this->payment->getNotificationCompany());
     }
-    function payment_setting(){
-	$setting = $this->payment->getSettings();
-	if(!$setting){
-	    $setting  = array('LMI_MERCHANT_ID'=>'','LMI_CURRENCY'=>'','LMI_SIM_MODE'=>'');
-	}
-	$data['setting'] =$setting;
-	$this->allpages('setting_payment',$data);
+    function paymentSetting(){
+        $setting = $this->payment->getSettings();
+        if(isset($setting) and !$setting->settings){
+            $data['settings']  = array('LMI_MERCHANT_ID'=>'','LMI_CURRENCY'=>'','LMI_SIM_MODE'=>'','SECRET_KEY'=>'');
+        }
+        else  $data['settings'] =$setting->settings;
+        $this->allpages('setting_payment',$data);
+    }
+    function setSettings(){
+
+        $post = $this->input->post();
+        if($this->_setLog($post)) echo "EPic FAIL to write logs";
+        $settings = new stdClass();
+        $settings->id_payment = 1;
+        $settings->settings = $post;
+        $this->payment->createPaymentSettings();
+        $this->payment->setSettings($settings);
+
     }
     public function allpages($url, $data=array()){
 			
@@ -97,36 +114,12 @@ class Pay extends CI_Controller{
 		$this->load->view('main/footer');
 		$this->load->view('main/htmlfooter');
 	}
-//   LMI_PREREQUEST
-//Значение всегда 1.
-//Идентификатор продавца
-//LMI_MERCHANT_ID
-//Идентификатор сайта в системе PayMaster
-//Внутренний номер счета продавца
-//LMI_PAYMENT_NO
-//Номер счета, заданный в запросе платежа
-//Сумма платежа, заказанная продавцом
-//LMI_PAYMENT_AMOUNT
-//Дробное число с разделителем ".", не более 2 знаков после точки.
-//Валюта платежа, заказанная продавцом
-//LMI_CURRENCY
-//Это всегда 3-буквенный код валюты (http://www.currency-iso.org/iso_index/iso_tables/iso_tables_a1.htm)
-//Сумма платежа в валюте, в которой покупатель производит платеж
-//LMI_PAID_AMOUNT
-//Дробное число с разделителем ".", не более 2 знаков после точки.
-//Валюта, в которой производится платеж
-//LMI_PAID_CURRENCY
-//Строковый код валюты (не обязательно ISO).
-//Идентификатор платежной системы, выбранной покупателем
-//LMI_PAYMENT_SYSTEM
-//Список платежных систем и их идентификаторы доступны на сайте PayMaster в разделе "Учетная запись" личного кабинета.
-//Флаг тестового режима
-//LMI_SIM_MODE
-//Это поле присутствует только если платеж производится в тестовом режиме. Значения - те же, что и в форме заказа платежа.
-//Назначение платежа
-//LMI_PAYMENT_DESC
-//Описание платежа, как оно показывается пользователю. То есть, если в форме заказа платежа было указано LMI_PAYMENT_DESC64, то в этом запросе придет уже раскодированное из Base64 описание.
-//Внешний идентификатор магазина в платежной системе
-//LMI_SHOP_ID
+    function getLogs(){
+        echo  read_file('application/logs/logs.txt');
+    }
+    private function _setLog($data){
+        return write_file('application/logs/logs.txt',date('d-m-Y H:i:s')." ".json_encode($data),"a+");
+    }
+//
 
 }

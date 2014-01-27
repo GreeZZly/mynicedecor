@@ -123,14 +123,14 @@ class Heroin extends CI_Model{
             
                 }
     function getProcess(){
-      $procces =  $this->db->where('id_registred_company',$this->id_registred_company)->where('type_sale','Интернет-магазин')->get('type_sale')->row_array();
-      if(count($procces)<1){
+      $process =  $this->db->where('id_registred_company',$this->id_registred_company)->where('type_sale','Интернет-магазин')->get('type_sale')->row_array();
+      if(count($process)<1){
           $process = array('type_sale'=>$this->proccess,
                            'id_registred_company'=>$this->id_registred_company);
           $this->db->insert('type_sale',$process);
           $process['id'] = $this->db->insert_id();
       }
-      return $procces;
+      return $process;
     }
     
     function getPhaseDB($id_type_sale){

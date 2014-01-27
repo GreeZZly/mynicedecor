@@ -175,7 +175,7 @@ class Payment extends CI_Model{
             if(isset($data['LMI_PAYMENT_NO'])){
                 $notice = $this->getNotification($data['LMI_PAYMENT_NO']);
             }
-            print_r($notice);
+
             if(count($notice)==0){
                 return FALSE;
             }

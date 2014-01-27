@@ -34,7 +34,7 @@ class Payment extends CI_Model{
         function getSettings(){
             $settings = $this->db->query("Select id_payment,settings from payment_settings where id_registred_company = '$this->id_company'")->row();
             if(isset($settings) and !empty($settings)){
-                $settings->settings  = json_decode($settings->settings);
+                $settings->settings  = json_decode($settings->settings,true);
                 return $settings;
             }
             return false;
@@ -49,9 +49,9 @@ class Payment extends CI_Model{
         }
         
         function getNotification($id_order){
-            $notis = $this->db->query("select id_order,payment_status,id_payment,adata where id_order='$id_order'")->row_array();
+            $notis = $this->db->query("select id_order,payment_status,id_payment,adata from payment_notification where id_order='$id_order'")->row_array();
             if(count($notis)>0){
-                $notis['adata']  = json_decode($notis->adata);
+                $notis['adata']  = json_decode($notis['adata'],true);
                 return $notis;
             }
             return false;
@@ -64,13 +64,7 @@ class Payment extends CI_Model{
                                         values (".implode(', ',array_map(function($v){return "'$v'";},$notis)).")
                                         on duplicate key update ".implode(', ',array_map(function($key){return "$key =values($key)";},$key_notis)) ;
             $this->db->query($sql);
-//            if(!empty($id_order)){
-//                $this->db->where('id_order',$id_order)->update('payment_notification',$notis);
-//            }
-//            else{
-//                $this->db->insert('payment_notification',$notis);
-//            }
-//            echo $this->db->last_query();
+
             return $this->db->affected_rows()>0;
         }
         //$data массив настроек по плтаежной системе и по корзине
@@ -144,9 +138,17 @@ class Payment extends CI_Model{
             $allow_key = array('LMI_MERCHANT_ID', 'LMI_PAYMENT_NO', 'LMI_SYS_PAYMENT_ID', 'LMI_SYS_PAYMENT_DATE',
                                'LMI_PAYMENT_AMOUNT', 'LMI_CURRENCY', 'LMI_PAID_AMOUNT', 'LMI_PAID_CURRENCY', 'LMI_PAYMENT_SYSTEM',
                                'LMI_SIM_MODE','SECRET_KEY');
-            $check = $this->into_arraY($allow_key,$data);
+            $check = array();
+            foreach ($allow_key as $value) {
+                if(isset($data[$value]))
+                    $check[$value] = $data[$value];
+                else
+                    return false;
+            }
+
             //надо бы учесть в будущем какая хеш функция задана в настройках на paymaster.ru
-            $string_hash = base64_encode(md5(implode(';',$check), true));
+            $str = implode(';',$check);
+            $string_hash = base64_encode(md5($str, true) );
             return $hash==$string_hash;
         }
         //функция для фильтрации массива по заданным ключам . Для ассоциативных массивов $key_array = array('текущий ключ'=>'новый ключ');
@@ -191,13 +193,13 @@ class Payment extends CI_Model{
             else return FALSE;
             if(isset($data['LMI_PAYMENT_NO']) and isset($data['LMI_SYS_PAYMENT_ID']) and $this->compareHash($data['LMI_HASH'],$data)){
 
-                $notice = new stdClass;
+
                 $notice['id_order'] = $data['LMI_PAYMENT_NO'];
                 $notice['id_payment'] = $data['LMI_SYS_PAYMENT_ID'];
                 $notice['payment_status'] = 1;
                 $notice['adata'] = $data;
                 //может обьеденить данные приходящие с payment.ru и данные в таблице?
-                return  $this->setNotification($notice->id_order,$notice);
+                return  $this->setNotification($notice['id_order'],$notice);
             }
             else return FALSE;
         }
@@ -219,7 +221,9 @@ class Payment extends CI_Model{
     function getSecretKey(){
         $settings = $this->getSettings();
         if($settings){
-            return isset($settings->settings['SECRET_KEY'])?$settings->settings['SECRET_KEY']:false;
+            $secret = $settings->settings;
+
+            return isset($secret['SECRET_KEY'])?$secret['SECRET_KEY']:false;
         }
         return false;
     }

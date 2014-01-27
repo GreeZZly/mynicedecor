@@ -108,7 +108,7 @@ class Payment extends CI_Model{
                     $descr = json_decode($value,true);
                     $value ="";
                     foreach ($descr as $val) {
-                        $value.="'Товар - {$val['name']}, количество - {$val['count']}, цена за шт - {$val['price']}\n'";
+                        $value.="Товар - {$val['name']}, количество - {$val['count']}, цена за шт - {$val['price']}";
                     }
                 }
                 $temp[]=$key."=".$value;

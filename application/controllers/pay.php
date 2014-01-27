@@ -83,7 +83,7 @@ class Pay extends CI_Controller{
     function setSettings(){
 
         $post = $this->input->post();
-        if($this->_setLog($post)) echo "EPic FAIL to write logs";
+        if(!$this->_setLog($post)) echo "EPic FAIL to write logs";
         $settings = new stdClass();
         $settings->id_payment = 1;
         $settings->settings = $post;

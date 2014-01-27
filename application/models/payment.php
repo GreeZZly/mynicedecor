@@ -179,9 +179,9 @@ class Payment extends CI_Model{
             if(count($notice)==0){
                 return FALSE;
             }
-           // $key_no_allow =array('LMI_PREREQUEST','LMI_PAYMENT_DESC');
+            $key_no_allow =array('LMI_PREREQUEST','LMI_PAYMENT_DESC','LMI_SIM_MODE');
             foreach($notice['adata'] as $key=>$value){
-                if($key!='LMI_PAYMENT_DESC'   and $value != $data[$key]){
+                if(!in_array($key,$key_no_allow)  and $value != $data[$key]){
                     return FALSE;
                 }
             }

@@ -67,10 +67,11 @@ class Pay extends CI_Controller{
         if(count($post)>0){
             $notice  = $this->payment->getNotification($post['LMI_PAYMENT_NO']);
             $id_order = $this->session->userdata('id_order');
-//            if($notice and $id_order==$notice['id_order']){
-//
-//            }
-            //echo "Если вы это читаете то платеж успешно прошел. Или нет";
+            if($notice and $id_order==$notice['id_order']){
+                echo "Если вы это читаете то платеж успешно прошел. Или нет";
+                $this->session->unset_userdata('id_order');
+            }
+            //;
         }
         else{
             show_404();
@@ -87,9 +88,9 @@ class Pay extends CI_Controller{
     }
     function getNotificationCompany(){
         if($this->ion_auth->is_admin()){
-
-	     echo  json_encode($this->payment->getNotificationCompany());
-
+             echo "<pre>";
+             print_r($this->payment->getNotificationCompany());
+             echo "</pre>";
         }
         else show_404();
     }

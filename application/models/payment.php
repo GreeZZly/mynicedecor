@@ -205,7 +205,7 @@ class Payment extends CI_Model{
             else return FALSE;
         }
         function getNotificationCompany(){
-            return $this->db->query("select c.name, c.surname, s.name_sale pn.id_order, pn.payment_status, pn.adata from payment_notification pn
+            return $this->db->query("select c.name, c.surname, s.name_sale, pn.id_order, pn.payment_status, pn.adata from payment_notification pn
                              join orders o on pn.id_order = o.id
                              join sale s on s.id=o.id_sale
                              join customer c on c.id = s.customer_id

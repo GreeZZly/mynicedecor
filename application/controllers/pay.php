@@ -34,14 +34,14 @@ class Pay extends CI_Controller{
     function invoice_confirmation(){
         $post = $this->input->post();
         if($post){
-        $this->_setLog(array('invoice'=>$post));
+            $this->_setLog(array('invoice'=>$post));
 
-        $answer =($this->payment->checkInvoice($post))?"YES":"NO";
-        $this->_setLog(array('invoice_answer'=>$answer));
-        echo $answer;
-        }
+            $answer =($this->payment->checkInvoice($post))?"YES":"NO";
+            $this->_setLog(array('invoice_answer'=>$answer));
+            echo $answer;
+            }
         else{
-            show_404();
+                show_404();
         }
 
         //todo проверка данных
@@ -52,11 +52,11 @@ class Pay extends CI_Controller{
 
         //
         if($post){
-        $this->_setLog(array('notice'=>$post));
-        if($this->payment->checkNotification($post)){
-            echo "Hoorey!<br>";
-        }
-        else echo "Shits happens";
+            $this->_setLog(array('notice'=>$post));
+            if($this->payment->checkNotification($post)){
+                echo "Hoorey!<br>";
+            }
+            else echo "Shits happens";
         }else show_404();
         //todo
         //2. проверка хеша и запись в таблицу
@@ -66,7 +66,10 @@ class Pay extends CI_Controller{
         $post = $this->input->post();
         if(count($post)>0){
             $notice  = $this->payment->getNotification($post['LMI_PAYMENT_NO']);
-            var_dump($notice);
+            $id_order = $this->session->userdata('id_order');
+//            if($notice and $id_order==$notice['id_order']){
+//
+//            }
             //echo "Если вы это читаете то платеж успешно прошел. Или нет";
         }
         else{
@@ -84,7 +87,9 @@ class Pay extends CI_Controller{
     }
     function getNotificationCompany(){
         if($this->ion_auth->is_admin()){
-	        print_r($this->payment->getNotificationCompany());
+
+	     echo  json_encode($this->payment->getNotificationCompany());
+
         }
         else show_404();
     }
@@ -148,6 +153,16 @@ class Pay extends CI_Controller{
     private function _setLog($data){
         $this->payment->setLog($data);
        // return write_file('application/logs/logs.txt',date('d-m-Y H:i:s')." ".json_encode($data)."\n\n\r","a+");
+    }
+    function checkPayment(){
+       $data =  $this->payment->checkPayment('13179016');
+        $string = array();
+        foreach ($data as $key=>$value) {
+            $string[]=$key."=".$value;
+        }
+
+
+        echo "<a href='https://paymaster.ru/partners/rest/getpayment?".implode('&',$string)."'>Проверка</a>";
     }
 
 //

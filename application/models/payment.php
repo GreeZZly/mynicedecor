@@ -205,7 +205,7 @@ class Payment extends CI_Model{
             else return FALSE;
         }
         function getNotificationCompany(){
-            return $this->db->query("select pn.id_order, pn.payment_status, pn.adata from payment_notification pn
+            return $this->db->query("select c.name, c.surname, s.name_sale pn.id_order, pn.payment_status, pn.adata from payment_notification pn
                              join orders o on pn.id_order = o.id
                              join sale s on s.id=o.id_sale
                              join customer c on c.id = s.customer_id
@@ -213,7 +213,8 @@ class Payment extends CI_Model{
         }
         //брать содержимое корзины из базы или вытаскивать из сессии?
         function getOrder($id_order){
-           $order = $this->db->query("select id id_order,price total, description descr from orders where id = '$id_order'")->row_array();
+           $order = $this->db->query("select o.id id_order,o.price total, o.description descr from orders o
+                                      join payment_notification pn on pn.id_order=o.id where id = '$id_order' and pn.payment_status='0'")->row_array();
            if(count($order)>0){
                return $order;
            }
@@ -223,7 +224,6 @@ class Payment extends CI_Model{
         $settings = $this->getSettings();
         if($settings){
             $secret = $settings->settings;
-
             return isset($secret['SECRET_KEY'])?$secret['SECRET_KEY']:false;
         }
         return false;
@@ -234,6 +234,20 @@ class Payment extends CI_Model{
 
     function getLog(){
         return $this->db->get('payment_log')->result_array();
+    }
+
+    function checkPayment($id_sys_order){
+        $settings = $this->getSettings();
+        $data['login'] ='';
+        $data['pass'] ='';
+        $data['nonce'] = md5(time());
+        $data['paymentid'] = $id_sys_order;
+        $string_to_hash = implode(';',$data);
+        echo $string_to_hash;
+        $data['hash'] = base64_encode(md5($string_to_hash,true));
+        unset($data['pass']);
+        return $data;
+
     }
         
 

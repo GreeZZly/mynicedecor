@@ -118,7 +118,7 @@ class Payment extends CI_Model{
         
         function startPayment($id_order){
             $cart = $this->getOrder($id_order);
-            if(!$cart) return FALSE;
+            if(!$cart or $cart['payment_status']=='1') return FALSE;
             $notice = $this->formation_payment($cart);
             if($notice){
                 $widget = $this->constructWidget($notice['adata']);
@@ -213,8 +213,8 @@ class Payment extends CI_Model{
         }
         //брать содержимое корзины из базы или вытаскивать из сессии?
         function getOrder($id_order){
-           $order = $this->db->query("select o.id id_order,o.price total, o.description descr from orders o
-                                      left join payment_notification pn on pn.id_order=o.id where id = '$id_order' and pn.payment_status in ('0',null)")->row_array();
+           $order = $this->db->query("select o.id id_order,o.price total, o.description descrб pn.payment_status from orders o
+                                      left join payment_notification pn on pn.id_order=o.id where id = '$id_order'")->row_array();
            if(count($order)>0){
                return $order;
            }

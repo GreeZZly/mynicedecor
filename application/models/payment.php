@@ -213,7 +213,7 @@ class Payment extends CI_Model{
         }
         //брать содержимое корзины из базы или вытаскивать из сессии?
         function getOrder($id_order){
-           $order = $this->db->query("select o.id id_order,o.price total, o.description descrб pn.payment_status from orders o
+           $order = $this->db->query("select o.id id_order,o.price total, o.description descr, pn.payment_status from orders o
                                       left join payment_notification pn on pn.id_order=o.id where id = '$id_order'")->row_array();
            if(count($order)>0){
                return $order;

@@ -332,6 +332,7 @@ class Main extends CI_Controller
 		}
 		$order['description'] = json_encode($temp);
 		$order['price'] = $this->cart->total();
+		$order['discount']=''; // скидка
 		$order['date']=date('d-m-Y');
 		$order['time']=date('G:i');
 		$order['reg']= $this->ion_auth->logged_in();

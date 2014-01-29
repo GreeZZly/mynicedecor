@@ -12,6 +12,7 @@ class Pay extends CI_Controller{
         $this->load->helper('url');
         $this->load->helper('language');
         $this->load->helper('file');
+	$this->load->model('heroin');
 
     }
     
@@ -60,6 +61,8 @@ class Pay extends CI_Controller{
         if($post){
             $this->_setLog(array('notice'=>$post));
             if($this->payment->checkNotification($post)){
+		$this->load->model('heroin');
+		$this->heroin->changePhase('payment');
                 echo "Hoorey!<br>";
             }
             else echo "Shits happens";

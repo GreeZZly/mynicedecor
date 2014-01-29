@@ -5,8 +5,9 @@ class Heroin extends CI_Model{
     private $db;
     private $phase = array('cart'=>'В корзине',
                            'registration'=>'Оформление',
-                            'delivery'=>'Доставка',
-                            'paymant'=>'Оплата' );
+                           'payment'=>'Оплата',
+                            'delivery'=>'Доставка'
+                             );
     private $proccess = "Интернет-магазин";
     function __construct() {
         parent::__construct();
@@ -269,10 +270,8 @@ class Heroin extends CI_Model{
    }
    
    function start($id_order, $data, $phase){
-        
-        
         $id =  $this->addToCart($id_order, $data, $data['reg'],$data['customer']);
-        if($phase!=$this->phase['cart'] and $id) $this->changePhase($id,$phase);
+        if($this->phase[$phase]!=$this->phase['cart'] and $id) $this->changePhase($id,$this->phase[$phase]);
         return $id;
    }
    private function getByOrder($id_order,$byWHO){

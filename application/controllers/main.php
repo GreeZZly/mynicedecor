@@ -139,7 +139,7 @@ class Main extends CI_Controller
 		
 		$order = $this->_prepare();
 		$this->load->model('heroin');
-		$id_order = $this->heroin->start($order['id_order'],$order,'В корзине');
+		$id_order = $this->heroin->start($order['id_order'],$order,'cart');
 		
 		if($id_order)
 			$this->session->set_userdata('id_order', $id_order);
@@ -305,7 +305,7 @@ class Main extends CI_Controller
 		}
 		
 		
-	        if( $id = $this->heroin->start($order['id_order'],$order,'Оформление')){
+	        if( $id = $this->heroin->start($order['id_order'],$order,'registration')){
 			$this->session->set_userdata('id_order',$id);
 		}
 		else{

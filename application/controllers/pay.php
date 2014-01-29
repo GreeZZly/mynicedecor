@@ -18,10 +18,16 @@ class Pay extends CI_Controller{
     function index(){
         ///$this->allpages('pay');
         $id_order = $this->session->userdata('id_order');
+	
         if($id_order){
+	    
             $this->payment->createPaymentNotification();
-            echo "<script type='text/javascript' src='https://paymaster.ru/widget/Basic/1?".$this->payment->startPayment($id_order)."'>
-//                </script>";
+	    if($str = $this->payment->startPayment($id_order))
+		echo "<script type='text/javascript' src='https://paymaster.ru/widget/Basic/1?".$str."'>
+//                	</script>";
+	    else {
+		echo "Произошла чудовищная, непоправимая, немыслимая ошибка";
+	    }
 
         }else{
             show_404();

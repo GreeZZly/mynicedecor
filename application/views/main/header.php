@@ -44,12 +44,12 @@
 				<!-- <a href="/auth/login"><div class="header_menu_item" id="log_in"></div></a> -->
 			</div>
 			<div id="soc_icons">
-				<div class="icon_header_vk"></div>
-				<div class="icon_header_tweet"></div>
-				<div class="icon_header_fb"></div>
-				<div class="icon_header_odn"></div>
-				<div class="icon_header_lj"></div>
-				<div class="icon_header_yt"></div>
+				<a href="http://vk.com/club58613599" target="_blank"><div class="icon_header_vk"></div></a>
+				<a href="" target="_blank"><div class="icon_header_tweet"></div></a>
+				<a href="" target="_blank"><div class="icon_header_fb"></div></a>
+				<a href="" target="_blank"><div class="icon_header_odn"></div></a>
+				<a href="" target="_blank"><div class="icon_header_lj"></div></a>
+				<a href="" target="_blank"><div class="icon_header_yt"></div></a>
 			</div>
 			<div id="welcome_msg">Добро пожаловать<?if($log_on == 0) {print('<span>!</span>');} else {print('<span>, <b>'.$username->name.'</b>!</span>');}?></div>
 		</div>

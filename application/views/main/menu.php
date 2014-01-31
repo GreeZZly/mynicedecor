@@ -1,6 +1,6 @@
 	<div id="menu">
 		<div id="categories">
-		<a href="/main/design_service"><div class="ctg_item">Услуги дизайнера</div></a>
+		<!-- <a href="/main/design_service"><div class="ctg_item">Услуги дизайнера</div></a> -->
 		<?
 			foreach ($category as $key => $value) {
 				if (isset($cat_id) && $cat_id==$value['id']) $add = " current='1'";
@@ -8,7 +8,7 @@
 				echo "<a href='/main/products/".$value['id']."'><div class='ctg_item'".$add." cat_id='".$value['id']."'>".$value['name']."</div></a>";
 			}
 		?>
-		<a href="/main/design_service"><div class="ctg_item" id="blog_maneeva">БЛОГ</div></a>
+		<a href="http://www.tatianamaneeva.ru" target="_blank"><div class="ctg_item" id="blog_maneeva">БЛОГ</div></a>
 			
 		</div>
 		

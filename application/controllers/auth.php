@@ -46,14 +46,19 @@ class Auth extends CI_Controller {
 			);
 		}
 		$data['reg_bool'] = FALSE;
-		if ($this->form_validation->run() == true && $this->ion_auth->register($login, $password, $email, $additional_data))
+		if ($this->form_validation->run() == true && $id = $this->ion_auth->register($login, $password, $email, $additional_data))
 		{
 			//check to see if we are creating the user
 			//redirect them back to the admin page
                         $additional_data['email']=$email;
                         $additional_data['type']='individual';
-                        $this->load->model('cocaine');
-                        $this->cocaine->edit_record_from('', 'customer', $additional_data,1);
+			$additional_data['user_id']=$id;
+			$additional_data['captured'] = '1';
+                        $this->load->model('heroin');
+                        $customer['id_customer'] =  $this->heroin->setCustomer('',$additional_data);
+//			if($customer['id_customer']){
+//				$this->updateUser($id,$customer);
+//			}
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
 			$data['reg_bool'] = TRUE;
 			redirect("/auth/activate_msg", 'refresh');

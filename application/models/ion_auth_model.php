@@ -2137,7 +2137,7 @@ class Ion_auth_model extends CI_Model
     }
     function updateUser($id, $array){
 
-    	    $key_contact =array("surname", "name", "second_name" ,"email","login","gender", "birthday" , "address_id","id_passport" , "id_bank_details" ,  "id_contact_info" , "id_work_place" , "image_path","id_registred_company");
+    	    $key_contact =array("surname", "name", "second_name" ,"email","login","gender", "birthday" , "address_id","id_passport" , "id_bank_details" ,  "id_contact_info" , "id_work_place" , "image_path","id_registred_company","id_customer");
             $contact = $this->into_arraY($key_contact,$array);
 
 
@@ -2237,7 +2237,7 @@ class Ion_auth_model extends CI_Model
         return $temp;
     }
     function returnInsertedId($id, $table, $data, $target){
-        if($data){
+        if(!empty($data)){
             if(!empty($target[$id])){
                 $this->db1->where('id', $target[$id])->set($data)->update($table);
                 return $target[$id];

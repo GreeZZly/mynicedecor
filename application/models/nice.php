@@ -2,11 +2,12 @@
 
 
 class Nice extends CI_Model {
-    private $id_registred_company = 2;
+    private $id_registred_company;
 	    function __construct()
     {
         // Call the Model constructor
         parent::__construct();
+	$this->id_registred_company = $this->config->item('id_company');
         $this->db = $this->load->database('default', TRUE);
     }
 

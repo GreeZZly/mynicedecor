@@ -240,7 +240,12 @@ class Main extends CI_Controller
 	}
 	public function raw_category(){
 		$cat_id= $this->input->post('category_id');
-		$this->output->set_content_type('application/json')->set_output(json_encode($this->nice->products($cat_id)));
+                $products = $this->nice->products($cat_id);
+                 foreach ($products as $key=>$value){
+                    if((int)$products[$key]['price']==0)$products[$key]['cost']='Уточните цену';
+                    else $products[$key]['price'].= $products[$key]['currency'];
+                }
+		$this->output->set_content_type('application/json')->set_output(json_encode($products));
 	}
 	public function getProdBySelect() {
 		$id_array= $this->input->post('id_array');

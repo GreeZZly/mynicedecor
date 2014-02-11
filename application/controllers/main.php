@@ -233,19 +233,30 @@ class Main extends CI_Controller
 		$data['propChild'] = $this->nice->getPropertyChild($cat_id);
 		$data['cat_id'] = $cat_id;
 
-		$d = 'Hello, World!';
-		write_file('/include/files/file.txt', $d);
+//		$d = 'Hello, World!';
+//		write_file('/include/files/file.txt', $d);
 
 		$this->allpages('products_view', $data);
 	}
 	public function raw_category(){
 		$cat_id= $this->input->post('category_id');
-		$this->output->set_content_type('application/json')->set_output(json_encode($this->nice->products($cat_id)));
+                $products = $this->nice->products($cat_id);
+                 foreach ($products as $key=>$value){
+                    if((int)$products[$key]['price']==0)$products[$key]['cost']='Уточните цену';
+                    else $products[$key]['price'].= $products[$key]['currency'];
+                }
+		$this->output->set_content_type('application/json')->set_output(json_encode($products));
 	}
 	public function getProdBySelect() {
 		$id_array= $this->input->post('id_array');
 		$cid= $this->input->post('category_id');
-		$this->output->set_content_type('application/json')->set_output(json_encode($this->nice->getProdBySelect($id_array, $cid)));
+                $products = $this->nice->getProdBySelect($id_array, $cid);
+                foreach ($products as $key=>$value){
+                    if((int)$products[$key]['cost']==0)$products[$key]['cost']='Уточните цену';
+                    else $products[$key]['cost'].=' руб.';
+                }
+                
+                $this->output->set_content_type('application/json')->set_output(json_encode($products));
 
 	}
 

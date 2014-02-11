@@ -32,6 +32,7 @@ class Heroin extends CI_Model{
             $contact_info['email_home']  =$array['email'];
             $key_customer = array('type',  'name', 'surname', 'photo',  'second_name', 'gender',  'date_registration',   'status',  'responsibility','work_mode_c','dinner_time_c', 'id_contact_info',  'id_address',  'id_bank_details', 'ownership', 'SNILS','INN_c','description','birthday','captured');
             $customer  = $this->into_arraY($key_customer, $array);
+            if(!isset($customer['date_registration'])) $customer['date_registration'] = date('d-m-Y');
             //var_dump($customer);
             $customer['id_contact_info']    = $this->returnInsertedId('id_contact_info' ,'contact_info'     , $contact_info     , $customer);
             $customer['id_address']         = $this->returnInsertedId('id_address'      ,'address'          , $address          , $customer);    

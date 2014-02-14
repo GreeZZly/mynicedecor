@@ -1,8 +1,8 @@
 function startCounter(interval, value, increment){
     window.setTimeout(function() {
-        interval = Math.floor((Math.random()*20)+1);
+        interval = Math.floor((Math.random()*40)+1);
         value = value + increment;
-        increment = Math.floor((Math.random()*2)+1);
+        increment = Math.floor((Math.random()*1)+1);
         prepForAnim(value, 5,500) //можно положить interval*500 чтобы было smooth
         startCounter(interval*500, value, increment);
     }, interval);

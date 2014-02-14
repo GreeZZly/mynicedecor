@@ -3,8 +3,9 @@
 		<div class="minimap_block">
 		<div class="mm_border"></div>О компании
 
+			<div><a href="/main/about_us">О нас</a></div>
 			<div><a href="/">Сервис</a></div>
-			<div><a href="/">Реквизиты</a></div>
+			<div><a href="/">Адрес салонаы</a></div>
 			<div><a href="/">Новости</a></div>
 
 		</div>

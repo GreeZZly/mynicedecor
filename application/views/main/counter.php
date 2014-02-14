@@ -15,7 +15,7 @@
         <span class="invisible">0</span>
     </div>
     <div class="counter_element" id="counter_el_3">
-        <span class="visible">0</span>
+        <span class="visible">2</span>
         <span class="invisible">0</span>
     </div>
     <div class="counter_element" id="counter_el_4">
@@ -23,7 +23,7 @@
         <span class="invisible">0</span>
     </div>
     <div class="counter_element" id="counter_el_5">
-        <span class="visible">0</span>
+        <span class="visible">6</span>
         <span class="invisible">0</span>
     </div>
     </div>

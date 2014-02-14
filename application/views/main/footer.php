@@ -6,7 +6,7 @@
 	</div>
 	<div id="footer_logo" class="footer_block">
 		<div id="copyright" >
-		Copyright © 2013 mynicedecor.com
+		Copyright © 2014 mynicedecor.com
 		</div>
 	</div>
 	<div class="footer_block">

@@ -383,5 +383,9 @@ class Main extends CI_Controller
 		// $this->nice->
 		echo "YES";
 	}
+
+	public function about_us(){
+		$this->allpages('about');
+	}
 }
 

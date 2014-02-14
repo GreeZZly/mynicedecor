@@ -1,6 +1,6 @@
 <div id="gallery">
 			<div class="large">
-				<img src="/include/images/big/bg-sherlock.jpg" title="" alt="bg-sherlock.jpg" />
+				<img src="/include/images/big/image01.jpg" title="" alt="image01.jpg" />
 				<img style="display:none;" src="/include/images/big/image02.jpg" title="" alt="image01.jpg" />
 				
 			</div>

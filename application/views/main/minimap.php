@@ -5,7 +5,7 @@
 
 			<div><a href="/main/about_us">О нас</a></div>
 			<div><a href="/">Сервис</a></div>
-			<div><a href="/">Адрес салонаы</a></div>
+			<div><a href="/">Адрес салона</a></div>
 			<div><a href="/">Новости</a></div>
 
 		</div>
@@ -29,7 +29,7 @@
 			<div><a href="/">Farrow & Ball</a></div>
 			<div><a href="/">Little Green</a></div>
 			<div><a href="/">Harlequin</a></div>
-			<div><a href="/">Pojanmaan</a></div>
+			<div><a href="/">Pohjanmaan</a></div>
 			<div><a href="/">Thibaut</a></div>
 		</div>
 	</div>	

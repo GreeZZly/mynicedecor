@@ -53,3 +53,9 @@
 </script>
 <noscript><div><img src="//mc.yandex.ru/watch/23948872" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+
+<!-- RedHelper -->
+<script id="rhlpscrtg" type="text/javascript" charset="utf-8" async="async" 
+	src="https://web.redhelper.ru/service/main.js?c=maneeva">
+</script> 
+<!--/Redhelper -->

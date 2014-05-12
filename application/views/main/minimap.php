@@ -26,11 +26,11 @@
 		</div>
 
 		<div class="minimap_block">Партнеры
-			<div><a href="/">Farrow & Ball</a></div>
-			<div><a href="/">Little Green</a></div>
-			<div><a href="/">Harlequin</a></div>
-			<div><a href="/">Pohjanmaan</a></div>
-			<div><a href="/">Thibaut</a></div>
+			<div><a href="http://www.farrow-ball.com/" target="_blank">Farrow & Ball</a></div>
+			<div><a href="http://www.littlegreene.eu/" target="_blank">Little Green</a></div>
+			<div><a href="http://www.harlequin.uk.com/" target="_blank">Harlequin</a></div>
+			<div><a href="http://www.pohjanmaan.ru/" target="_blank">Pohjanmaan</a></div>
+			<div><a href="http://www.thibautdesign.com/" target="_blank">Thibaut</a></div>
 		</div>
 	</div>	
 </div>

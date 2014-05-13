@@ -1094,3 +1094,16 @@ a {
 .added {
 	background-color: #FFC156;
 }
+
+.pagi {
+	font-size: 16px;
+	padding: 10px;
+}
+
+.pagi a {
+	padding: 5px;
+	/*color: #1494D1;*/
+}
+.pagi span{
+	padding: 5px;
+}

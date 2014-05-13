@@ -226,26 +226,73 @@ class Main extends CI_Controller
 		$this->load->view('main/htmlfooter');
 	}
 
-	public function products($cat_id){
+	public function products($cat_id, $since = 0){
+		$this->load->library('pagination');
+
+
+
+		// echo $this->pagination->create_links();
+
 		$this->load->helper('file');
-		$data['prodByCategory'] = $this->nice->products($cat_id);
+		// $since = 0;
+		$lim = 10;
+		$data['prodByCategory'] = $this->nice->products($cat_id, $since, $lim);
 		$data['propParent'] =$this->nice->getPropertyParent($cat_id);
+		$data['count_prod'] = $this->nice->product_count($cat_id);
 		$data['propChild'] = $this->nice->getPropertyChild($cat_id);
 		$data['cat_id'] = $cat_id;
 
 //		$d = 'Hello, World!';
 //		write_file('/include/files/file.txt', $d);
+		$config['base_url'] = '/main/products/'.$cat_id;
+		$config['total_rows'] = count($data['count_prod']);
+		$config['uri_segment'] = 4;
+		$config['per_page'] = $lim; 
+		$config['full_tag_open'] = '<div class="pagi">';
+		$config['full_tag_close'] = '</div>';
+		$config['first_link'] = 'Первая';
+		$config['last_link'] = 'Последняя';
+		$config['cur_tag_open'] = '<span class="active">';
+		$config['cur_tag_close'] = '</span>';
 
+
+		$this->pagination->initialize($config); 
+
+		$data['pagi'] = $this->pagination->create_links();
 		$this->allpages('products_view', $data);
+		// echo 
 	}
 	public function raw_category(){
 		$cat_id= $this->input->post('category_id');
-                $products = $this->nice->products($cat_id);
+
+		$data['count_prod'] = $this->nice->product_count($cat_id);
+
+		$lim=10;
+		$this->load->library('pagination');
+		$config['base_url'] = '/main/products/'.$cat_id;
+		$config['total_rows'] = count($data['count_prod']);
+		$config['uri_segment'] = 4;
+		$config['per_page'] = $lim; 
+		$config['full_tag_open'] = '<div class="pagi">';
+		$config['full_tag_close'] = '</div>';
+		$config['first_link'] = 'Первая';
+		$config['last_link'] = 'Последняя';
+		$config['cur_tag_open'] = '<span class="active">';
+		$config['cur_tag_close'] = '</span>';
+
+
+		$this->pagination->initialize($config); 
+
+		$data['pagi'] = $this->pagination->create_links();
+
+		$since= ((int)$this->input->post('since'))*$lim-$lim;
+                $products = $this->nice->products($cat_id, $since, $lim);
                  foreach ($products as $key=>$value){
                     if((int)$products[$key]['price']==0)$products[$key]['cost']='Уточните цену';
                     else $products[$key]['price'].= $products[$key]['currency'];
                 }
-		$this->output->set_content_type('application/json')->set_output(json_encode($products));
+        $output = array('products'=>$products, 'pagi'=>$data['pagi']);
+		$this->output->set_content_type('application/json')->set_output(json_encode($output));
 	}
 	public function getProdBySelect() {
 		$id_array= $this->input->post('id_array');

@@ -39,6 +39,8 @@ $(function(){
 		var arr = [];
 		var pr_id_array = [];
 		var nonzero = false;
+		var since = $('.pagi .active').html();
+		// console.log(since);
 		$('[id^="pp_"]').each(function(){
 		arr.push($(this).val());
 		if ($(this).val()!=0) nonzero = true;
@@ -49,11 +51,16 @@ $(function(){
 			type:'POST',
 			dataType:'json',
 			url: '/index.php/main/'+(nonzero?'getProdBySelect':'raw_category'),
-			data:{id_array : arr, category_id: cat_id},
+			data:{id_array : arr, category_id: cat_id, since: since},
 			success: function(datum){
 				var n = datum.length;
 					var text = ''
 					var disable = '';
+				if(!nonzero){
+					pagi = datum.pagi;
+					datum = datum.products;
+					
+				}
 				$.each(datum, function(n,el){
 					// text+=el.id+' - '
 					console.log(el.id);	

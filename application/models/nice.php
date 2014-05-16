@@ -175,7 +175,7 @@ class Nice extends CI_Model {
       return $this->db->query("select p.id, p.product, p.cost, pi.path from product_properties pp join products p on p.id = pp.id_product join product_images pi on pi.id_product=pp.id_product where pp.id_property='15'")->result_array();
     }
 
-    function getProdBySelect($id_array, $categoryId=null){
+    function getProdBySelect($id_array, $categoryId=null, $since=null, $lim=10){
       $joins = array();
       $wheres = array();
       foreach ($id_array as $key => $value) {
@@ -184,14 +184,16 @@ class Nice extends CI_Model {
           array_push($wheres, 'pp'.$key.'.id_property ='.$value);
         }
       }
+      $limit = (isset($since) or $since=='0')?"limit $since, $lim ":"";
       return $this->db->query("select p.id, p.product, p.cost, pi.path, c.name as type, group_concat(ppeg.id_property SEPARATOR ',') as pps
         from products p ".implode(' ', $joins)."
         join product_images pi on pi.id_product=p.id 
         join category c on c.id = p.category_id
         join product_properties ppeg on ppeg.id_product = p.id 
-        where c.id_registred_company='$this->id_registred_company' and p.category_id = '$categoryId' ".((sizeof($wheres)>0)?'and ':'').implode(' and ', $wheres)." group by p.id order by p.product")->result_array();
+        where c.id_registred_company='$this->id_registred_company' and p.category_id = '$categoryId' ".((sizeof($wheres)>0)?'and ':'').implode(' and ', $wheres)." group by p.id order by p.product $limit")->result_array();
       
     }
+
 
     public function getProductData($id_product)
     {

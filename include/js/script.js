@@ -35,6 +35,20 @@ $(function(){
 
 	$(document).on('change', '[id^="pp_"]', function(){
 		var option_id = $(this).val();
+		ajax_pagination(false);
+		// });
+
+	});
+	$(document).on('click', '.pagi a', function(e){
+		e.preventDefault();
+		var url_string = $(this).attr('href');
+		var option_id = $(this).val();
+		ajax_pagination(url_string);
+		// });
+
+	});
+	
+	var ajax_pagination  = function(url_string){
 		var cat_id = $('.ctg_item[current=1]').attr('cat_id');
 		var arr = [];
 		var pr_id_array = [];
@@ -42,7 +56,7 @@ $(function(){
 		var since = $('.pagi .active').html();
 		// console.log(since);
 		$('[id^="pp_"]').each(function(){
-		arr.push($(this).val());
+			arr.push($(this).val());
 		if ($(this).val()!=0) nonzero = true;
 		})
 		console.log(arr);
@@ -50,17 +64,18 @@ $(function(){
 		$.ajax({
 			type:'POST',
 			dataType:'json',
-			url: '/index.php/main/'+(nonzero?'getProdBySelect':'raw_category'),
-			data:{id_array : arr, category_id: cat_id, since: since},
+			url: url_string?url_string:('/index.php/main/'+(nonzero?'getProdBySelect':'raw_category')),
+			data:{id_array : arr, category_id: cat_id},
 			success: function(datum){
 				var n = datum.length;
 					var text = ''
 					var disable = '';
-				if(!nonzero){
-					pagi = datum.pagi;
+				//if(!nonzero){
+					pagi = datum.pagi?datum.pagi:"<div class='pagi'></div>";
 					datum = datum.products;
-					
-				}
+
+					$('.pagi').replaceWith(pagi);
+				//}
 				$.each(datum, function(n,el){
 					// text+=el.id+' - '
 					console.log(el.id);	
@@ -109,10 +124,7 @@ $(function(){
 				}
 			}
 		});
-		// });
-
-	});
-	
+	}
 		// $("#prodByCategory").text(option_id);
 
 		

@@ -246,64 +246,77 @@ class Main extends CI_Controller
 //		write_file('/include/files/file.txt', $d);
 		$config['base_url'] = '/main/products/'.$cat_id;
 		$config['total_rows'] = count($data['count_prod']);
-		$config['uri_segment'] = 4;
 		$config['per_page'] = $lim; 
-		$config['full_tag_open'] = '<div class="pagi">';
-		$config['full_tag_close'] = '</div>';
-		$config['first_link'] = 'Первая';
-		$config['last_link'] = 'Последняя';
-		$config['cur_tag_open'] = '<span class="active">';
-		$config['cur_tag_close'] = '</span>';
 
 
 		$this->pagination->initialize($config); 
-
 		$data['pagi'] = $this->pagination->create_links();
-		$this->allpages('products_view', $data);
+		if($this->input->is_ajax_request()){
+			$output = array('products'=>$data['prodByCategory'], 'pagi'=>$data['pagi']);
+			$this->output->set_content_type('application/json')->set_output(json_encode($output));
+		}
+		else{
+			$this->allpages('products_view', $data);
+		}
 		// echo 
 	}
-	public function raw_category(){
+	public function raw_category($since=0){
 		$cat_id= $this->input->post('category_id');
 
 		$data['count_prod'] = $this->nice->product_count($cat_id);
 
 		$lim=10;
 		$this->load->library('pagination');
-		$config['base_url'] = '/main/products/'.$cat_id;
+		$config['base_url'] = '/main/raw_category/';
 		$config['total_rows'] = count($data['count_prod']);
-		$config['uri_segment'] = 4;
+		$config['uri_segment'] = 3;
 		$config['per_page'] = $lim; 
-		$config['full_tag_open'] = '<div class="pagi">';
-		$config['full_tag_close'] = '</div>';
-		$config['first_link'] = 'Первая';
-		$config['last_link'] = 'Последняя';
-		$config['cur_tag_open'] = '<span class="active">';
-		$config['cur_tag_close'] = '</span>';
+
+
+
+		//$since= ((int)$since)*$lim-$lim;
+                $products = $this->nice->products($cat_id, $since, $lim);
+                 foreach ($products as $key=>$value){
+                    if((int)$products[$key]['price']==0)$products[$key]['cost']='Уточните цену';
+                    else $products[$key]['price'].= $products[$key]['currency'];
+                }
+		$this->pagination->initialize($config); 
+
+		$data['pagi'] = $this->pagination->create_links();
+        $output = array('products'=>$products, 'pagi'=>$data['pagi']);
+		$this->output->set_content_type('application/json')->set_output(json_encode($output));
+	}
+	public function getProdBySelect($since='0') {
+
+		$cat_id= $this->input->post('category_id');
+
+		$data['count_prod'] = $this->nice->product_count($cat_id);
+
+		$lim=10;
+		$this->load->library('pagination');
+		
+
+		$id_array= $this->input->post('id_array');
+		//$since= ((int)$since)*$lim-$lim;
+		// $cid= $this->input->post('category_id');
+                $products = $this->nice->getProdBySelect($id_array, $cat_id, $since, $lim);
+                foreach ($products as $key=>$value){
+                    if((int)$products[$key]['cost']==0)$products[$key]['cost']='Уточните цену';
+                    else $products[$key]['cost'].=' руб.';
+                }
+
+        $config['base_url'] = '/main/getProdBySelect/';
+		$config['total_rows'] = count($this->nice->getProdBySelect($id_array, $cat_id));
+		$config['uri_segment'] = 3;
+		$config['per_page'] = $lim; 
 
 
 		$this->pagination->initialize($config); 
 
 		$data['pagi'] = $this->pagination->create_links();
 
-		$since= ((int)$this->input->post('since'))*$lim-$lim;
-                $products = $this->nice->products($cat_id, $since, $lim);
-                 foreach ($products as $key=>$value){
-                    if((int)$products[$key]['price']==0)$products[$key]['cost']='Уточните цену';
-                    else $products[$key]['price'].= $products[$key]['currency'];
-                }
-        $output = array('products'=>$products, 'pagi'=>$data['pagi']);
-		$this->output->set_content_type('application/json')->set_output(json_encode($output));
-	}
-	public function getProdBySelect() {
-		$id_array= $this->input->post('id_array');
-		$cid= $this->input->post('category_id');
-                $products = $this->nice->getProdBySelect($id_array, $cid);
-                foreach ($products as $key=>$value){
-                    if((int)$products[$key]['cost']==0)$products[$key]['cost']='Уточните цену';
-                    else $products[$key]['cost'].=' руб.';
-                }
-                
-                $this->output->set_content_type('application/json')->set_output(json_encode($products));
+        $output = array('products'=>$products, 'pagi'=>$data['pagi']);        
+                $this->output->set_content_type('application/json')->set_output(json_encode($output));
 
 	}
 

@@ -26,6 +26,7 @@
 		</div>
 
 		<div class="minimap_block">Партнеры
+			<div class="mm_border"></div>
 			<div><a href="http://www.farrow-ball.com/" target="_blank">Farrow & Ball</a></div>
 			<div><a href="http://www.littlegreene.com/" target="_blank">Little Green</a></div>
 			<div><a href="http://www.harlequin.uk.com/" target="_blank">Harlequin</a></div>

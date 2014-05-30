@@ -4,9 +4,9 @@
 		<div class="mm_border"></div>О компании
 
 			<div><a href="/main/about_us">О нас</a></div>
-			<div><a href="/">Сервис</a></div>
-			<div><a href="/">Адрес салона</a></div>
-			<div><a href="/">Новости</a></div>
+			<div><a href="/main/service">Сервис</a></div>
+			<div><a href="/main/address">Адрес салона</a></div>
+			<div><a href="http://tatianamaneeva.ru/">Новости</a></div>
 
 		</div>
 		<div class="minimap_block">

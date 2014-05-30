@@ -87,13 +87,14 @@ $(function(){
 							if ($.inArray(elpps[i], pr_id_array)==-1) pr_id_array.push(elpps[i]);
 						};
 					}
+					
 					//prop_id_array.push(pr_id_array);
-					if (el.cost||el.price == 0) {
+					if (el.cost == '0'||el.price == '0') {
 						el.price = 'Уточните цену'; 
 						el.currency = '';	
 						disable = 'disabled';
 					}
-					text+='<div class="product_wrapper"><form name="prod_to_cart" method="post" action="/main/insert_to_cart"><a href="/index.php/main/viewProduct/'+el.id+'"><div class="pr_img"><img src="http://goodcrm.ru/'+(el.path||el.img)+'"></div></a><a href="/index.php/main/viewProduct/'+el.id+'"><div class="pr_name">'+(el.product||el.name)+'</div></a><div class="pr_type">'+el.type+'</div><div class="price">'+(el.cost||el.price)+' '+el.currency+'</div><input type="hidden" name="product_id" value="'+el.id+'"><div class="buy_button '+disable+'" srv_id="'+el.id+'">В корзину</div><div class="like_button" srv_id="'+el.id+'" like="dislike"></div></form></div>'
+					text+='<div class="product_wrapper"><form name="prod_to_cart" method="post" action="/main/insert_to_cart"><a href="/index.php/main/viewProduct/'+el.id+'"><div class="pr_img"><img src="http://goodcrm.ru/'+(el.path||el.img)+'"></div></a><a href="/index.php/main/viewProduct/'+el.id+'"><div class="pr_name">'+(el.product||el.name)+'</div></a><div class="pr_type">'+el.type+'</div><div class="price">'+(el.cost||el.price)+' </div><input type="hidden" name="product_id" value="'+el.id+'"><div class="buy_button '+disable+'" srv_id="'+el.id+'">В корзину</div><div class="like_button" srv_id="'+el.id+'" like="dislike"></div></form></div>'
 				});
 				$("#prodByCategory").html(text);
 

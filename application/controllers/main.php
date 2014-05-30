@@ -251,6 +251,11 @@ class Main extends CI_Controller
 
 		$this->pagination->initialize($config); 
 		$data['pagi'] = $this->pagination->create_links();
+		//$products =array();
+		 // foreach ($data['prodByCategory'] as $key=>$value){
+   //                  if((int)$data['prodByCategory'][$key]['price']==0){$data['prodByCategory'][$key]['cost']='Уточните цену'; $data['prodByCategory'][$key]['disable'] = 'disabled';}
+   //                  else $data['prodByCategory'][$key]['cost'] =$data['prodByCategory'][$key]['price'] . ' руб.';
+   //              }
 		if($this->input->is_ajax_request()){
 			$output = array('products'=>$data['prodByCategory'], 'pagi'=>$data['pagi']);
 			$this->output->set_content_type('application/json')->set_output(json_encode($output));
@@ -277,7 +282,7 @@ class Main extends CI_Controller
 		//$since= ((int)$since)*$lim-$lim;
                 $products = $this->nice->products($cat_id, $since, $lim);
                  foreach ($products as $key=>$value){
-                    if((int)$products[$key]['price']==0)$products[$key]['cost']='Уточните цену';
+                    if((int)$products[$key]['price']==0){$products[$key]['cost']='Уточните цену'; $products[$key]['disable'] = 'disabled';}
                     else $products[$key]['price'].= $products[$key]['currency'];
                 }
 		$this->pagination->initialize($config); 
@@ -301,7 +306,7 @@ class Main extends CI_Controller
 		// $cid= $this->input->post('category_id');
                 $products = $this->nice->getProdBySelect($id_array, $cat_id, $since, $lim);
                 foreach ($products as $key=>$value){
-                    if((int)$products[$key]['cost']==0)$products[$key]['cost']='Уточните цену';
+                    if((int)$products[$key]['price']==0){$products[$key]['cost']='Уточните цену'; $products[$key]['disable'] = 'disabled';}
                     else $products[$key]['cost'].=' руб.';
                 }
 
@@ -446,6 +451,13 @@ class Main extends CI_Controller
 
 	public function about_us(){
 		$this->allpages('about');
+	}
+
+	public function service(){
+		$this->allpages('service');
+	}
+	public function address(){
+		$this->allpages('address');
 	}
 }
 

@@ -1107,3 +1107,15 @@ a {
 .pagi span{
 	padding: 5px;
 }
+
+.secondary_pages {
+	overflow: hidden;
+}
+
+.page_title {
+	font-size: 20px;
+	font-weight: bold;
+	color:#FF6701;
+	text-decoration: underline;
+	
+}

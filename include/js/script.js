@@ -34,7 +34,7 @@ $(function(){
 	console.log(arr);
 
 	$(document).on('change', '[id^="pp_"]', function(){
-		var option_id = $(this).val();
+		//var option_id = $(this).val();
 		ajax_pagination(false);
 		// });
 
@@ -57,7 +57,9 @@ $(function(){
 		// console.log(since);
 		$('[id^="pp_"]').each(function(){
 			arr.push($(this).val());
-		if ($(this).val()!=0) nonzero = true;
+			if ($(this).val()!=='0')
+			//console.log('$(this).val() ' , $(this).val(), typeof($(this).val()));
+				nonzero = true;
 		})
 		console.log(arr);
 		var prop_id_array = [];
@@ -78,11 +80,11 @@ $(function(){
 				//}
 				$.each(datum, function(n,el){
 					// text+=el.id+' - '
-					console.log(el.id);	
+					//console.log(el.id);	
 					// console.log(el.pps);
 					if (el.pps){
 						var elpps = el.pps.split(",");
-						console.log(elpps);
+						//console.log(elpps);
 						for (var i = 0; i < elpps.length; i++) {
 							if ($.inArray(elpps[i], pr_id_array)==-1) pr_id_array.push(elpps[i]);
 						};
@@ -99,17 +101,15 @@ $(function(){
 				$("#prodByCategory").html(text);
 
 				if (nonzero){
-					console.log(pr_id_array);
-					var bool = false;
-					$('[id^="pp_"]').each(function(){if($(this).val()!=0) bool= true;});
-					if (bool)
-						$('[id^="pp_"]').each(function() {
+					$('[id^="pp_"]').each(function() {
 							var select = $(this);
 							select.find('option').each(function(){
-								if ($.inArray($(this).attr('value'), pr_id_array)==-1 && parseInt($(this).attr('value'))!=0 && select.val()==0) {
+								if ($.inArray($(this).attr('value'), pr_id_array)==-1 && parseInt($(this).attr('value'))!=0/* && select.val()==0*/) {
 									$(this).addClass('hidden');
 								}
-								else {$(this).removeClass('hidden');}
+								else {									
+									 $(this).removeClass('hidden');
+								}
 								if(select.find('option:not(.hidden)').length == 1) {
 									select.addClass('hidden');
 									select.parents('.property_parent').addClass('hidden');
@@ -121,9 +121,8 @@ $(function(){
 								}
 							});
 						});
-					else $('[id^="pp_"], [id^="pp_"] option, .property_parent').removeClass('hidden');
-					// prop_id_array_s = ppss.split(",");
-					// console.log(pr_id_array);
+				} else {
+					$('[id^="pp_"], [id^="pp_"] option, .property_parent').removeClass('hidden');
 				}
 			}
 		});

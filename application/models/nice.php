@@ -185,7 +185,7 @@ class Nice extends CI_Model {
         }
       }
       $limit = (isset($since) or $since=='0')?"limit $since, $lim ":"";
-      return $this->db->query("select p.id, p.product, p.cost, pi.path, c.name as type, group_concat(ppeg.id_property SEPARATOR ',') as pps
+      return $this->db->query("select p.id, p.product, p.cost, p.cost price, pi.path, c.name as type, group_concat(ppeg.id_property SEPARATOR ',') as pps
         from products p ".implode(' ', $joins)."
         join product_images pi on pi.id_product=p.id 
         join category c on c.id = p.category_id

@@ -177,6 +177,13 @@ a {
 	/*line-height: 30px;*/
 
 }
+#phone_header2 {
+	display: inline-block;
+	vertical-align: middle;
+	margin-top:4px;
+	/*line-height: 30px;*/
+
+}
 
 #connect_block {
 	padding: 6px 35px;

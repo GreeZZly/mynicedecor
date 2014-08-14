@@ -12,16 +12,16 @@
 		<div class="minimap_block">
 			<div class="mm_border"></div>
 		<b>Помощь</b>
-			<div><a href="/">Заказ</a></div>
+			<div><a href="/">Как делать заказ?</a></div>
 			<div><a href="/">Доставка</a></div>
-			<div><a href="/">Оплата</a></div>
-			<div><a href="/">Помощь</a></div>
+			<!-- <div><a href="/">Оплата</a></div> -->
+			<!-- <div><a href="/">Помощь</a></div> -->
 			<!-- <div><a href="/">Обратная связь</a></div> -->
 		</div>
 		<div class="minimap_block">
 			<div class="mm_border"></div>
 		<b>Юридическим лицам</b>
-			<div><a href="/">Покупка товаров</a></div>
+			<!-- <div><a href="/">Покупка товаров</a></div> -->
 			<div><a href="/">Подарочные сертификаты</a></div>
 		</div>
 

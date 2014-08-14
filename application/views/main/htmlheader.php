@@ -35,7 +35,7 @@ rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="//yandex.st/share/share.js"
 charset="utf-8"></script>
 
-<title>My nice decor! | Интернет-магазин интерьеров</title>
+<title>mynicedecor.com | Интернет-магазин интерьеров</title>
 </head>
 
 <body>

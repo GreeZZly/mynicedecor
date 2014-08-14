@@ -25,6 +25,8 @@
 			<div id="connect_block">
 				<div class="icon_skype_header"></div>
 				<div id="phone_header"><b>+7(8352)210-801</b></div>
+				<div class="icon_skype_header"></div>
+				<div id="phone_header2"><b>+7(8352)220-804</b></div>
 			</div>
 			<div id="basket">
 					<div id="cart_shop">
@@ -47,9 +49,9 @@
 				<a href="http://vk.com/club58613599" target="_blank"><div class="icon_header_vk"></div></a>
 				<a href="https://twitter.com/Mynicedecor" target="_blank"><div class="icon_header_tweet"></div></a>
 				<a href="https://www.facebook.com/mynicedecor" target="_blank"><div class="icon_header_fb"></div></a>
-				<a href="" target="_blank"><div class="icon_header_odn"></div></a>
-				<a href="http://www.tatianamaneeva.ru/" target="_blank"><div class="icon_header_lj"></div></a>
-				<a href="https://www.youtube.com/channel/UCdXMmUrVor-0VU07J1XgnxA" target="_blank"><div class="icon_header_yt"></div></a>
+				<!-- <a href="" target="_blank"><div class="icon_header_odn"></div></a> -->
+				<!-- <a href="http://www.tatianamaneeva.ru/" target="_blank"><div class="icon_header_lj"></div></a> -->
+				<!-- <a href="https://www.youtube.com/channel/UCdXMmUrVor-0VU07J1XgnxA" target="_blank"><div class="icon_header_yt"></div></a> -->
 			</div>
 			<div id="welcome_msg">Добро пожаловать<?if($log_on == 0) {print('<span>!</span>');} else {print('<span>, <b>'.$username->name.'</b>!</span>');}?></div>
 		</div>

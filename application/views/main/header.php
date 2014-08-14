@@ -23,9 +23,9 @@
 		</div>
 		<div id="header_center">
 			<div id="connect_block">
-				<div class="icon_skype_header"></div>
+				<!-- <div class="icon_skype_header"></div> -->
 				<div id="phone_header"><b>+7(8352)210-801</b></div>
-				<div class="icon_skype_header"></div>
+				<!-- <div class="icon_skype_header"></div> -->
 				<div id="phone_header2"><b>+7(8352)220-804</b></div>
 			</div>
 			<div id="basket">

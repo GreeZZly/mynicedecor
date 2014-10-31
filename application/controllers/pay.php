@@ -22,7 +22,7 @@ class Pay extends CI_Controller{
 	
         if($id_order){
 	    
-            $this->payment->createPaymentNotification();
+       //     $this->payment->createPaymentNotification();
 	    if($str = $this->payment->startPayment($id_order))
 		echo "<script type='text/javascript' src='https://paymaster.ru/widget/Basic/1?".$str."'>
 //                	</script>";

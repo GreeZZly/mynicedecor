@@ -122,7 +122,7 @@ class Pay extends CI_Controller{
             $settings = new stdClass();
             $settings->id_payment = 1;
             $settings->settings = $post;
-            $this->payment->createPaymentSettings();
+           // $this->payment->createPaymentSettings();
             $this->payment->setSettings($settings);
         }
 

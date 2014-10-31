@@ -77,8 +77,9 @@ class Pay extends CI_Controller{
             $notice  = $this->payment->getNotification($post['LMI_PAYMENT_NO']);
             $id_order = $this->session->userdata('id_order');
             if($notice and $id_order==$notice['id_order']){
+            	$this->session->unset_userdata('id_order');
                 echo "Если вы это читаете то платеж успешно прошел. Или нет";
-                $this->session->unset_userdata('id_order');
+                
             }
             //;
         }
